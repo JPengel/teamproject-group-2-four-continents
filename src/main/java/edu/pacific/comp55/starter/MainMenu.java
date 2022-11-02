@@ -36,6 +36,27 @@ public class MainMenu extends GraphicsProgram{
 		//quit the game
 	}
 	
+	public void creatTimer() {
+		//TODO Create Timer Mode and check if it is Gamer Over
+	}
+	
+	public boolean isTimerOver(boolean returned) {
+		return returned;
+	}
+	
+public void creatWaste() {
+		//TODO Create No Waste Mode and check if it is Gamer Over
+	}
+	
+	public boolean isWasteOver(boolean returned) {
+		return returned;
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	
 	public static void main (String[] args) {
 		new MainMenu().start();
 	}
