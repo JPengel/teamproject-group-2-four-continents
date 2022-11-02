@@ -8,6 +8,8 @@ import acm.graphics.*;
 public class MainMenu extends GraphicsProgram{
 	public static final int WINDOW_WIDTH = 1920;
 	public static final int WINDOW_HEIGHT = 1080;
+	private GImage gif, instruction, backArrow, piizaWithTitle, help, quit, noWasteMode, timmerMode;
+	
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
