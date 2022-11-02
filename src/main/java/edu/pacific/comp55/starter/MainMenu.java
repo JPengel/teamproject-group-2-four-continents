@@ -21,19 +21,19 @@ public class MainMenu extends GraphicsProgram{
 	}
 	
 	public void drawMainMenu(){
-		//Set up the menu screen
+		// TODO Set up the menu screen
 	}
 	
 	public void startingAnimation() {
-		//Start the animation
+		// TODO Start the animation
 	}
 	
 	public void help() {
-		//It should show up the help gImage
+		// TODO It should show up the help gImage
 	}
 	
 	public void quit() {
-		//quit the game
+		// TODO quit the game
 	}
 	
 	public void creatTimer() {
