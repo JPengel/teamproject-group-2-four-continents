@@ -15,9 +15,27 @@ public class MainMenu extends GraphicsProgram{
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
+	
 	public void run() {
 		System.out.println("Hello");
 	}
+	
+	public void drawMainMenu(){
+		//Set up the menu screen
+	}
+	
+	public void startingAnimation() {
+		//Start the animation
+	}
+	
+	public void help() {
+		//It should show up the help gImage
+	}
+	
+	public void quit() {
+		//quit the game
+	}
+	
 	public static void main (String[] args) {
 		new MainMenu().start();
 	}
