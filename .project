@@ -51,5 +51,15 @@
 			<type>1</type>
 			<location>C:/Users/linhn/Downloads/Timer.png</location>
 		</link>
+		<link>
+			<name>src/main/java/mainmenu/Background main menu.png</name>
+			<type>1</type>
+			<location>C:/Users/linhn/Downloads/Background main menu.png</location>
+		</link>
+		<link>
+			<name>src/main/java/mainmenu/Pizza.png</name>
+			<type>1</type>
+			<location>C:/Users/linhn/Downloads/Pizza.png</location>
+		</link>
 	</linkedResources>
 </projectDescription>

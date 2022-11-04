@@ -18,10 +18,18 @@ public class MainMenu extends GraphicsProgram{
 	
 	public void run() {
 		System.out.println("Hello");
+		drawMainMenu();
 	}
 	
 	public void drawMainMenu(){
 		// TODO Set up the menu screen
+		GImage backGround = new GImage("mainmenu/background.png");
+		GImage pizza = new GImage("mainmenu/pizza.png",880,100);
+		//pizza.setBounds(960, 100, 880, 880);
+		pizza.sendForward();
+		add(backGround);
+		//add(pizza);
+		
 	}
 	
 	public void startingAnimation() {
