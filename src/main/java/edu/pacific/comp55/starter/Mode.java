@@ -5,23 +5,23 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
 
-public class Mode extends GraphicsProgram{
+class Mode extends GraphicsProgram{
 	public static final int WINDOWS_WIDTH = 1920;
 	public static final int WINDOWS_HEIGHT = 1080;
 	
-	private ArrayList<Topping> objList;
-	private GImage pauseButton;
-	private GLabel bothScores;
-	private PauseMenu PMenu;
-	private GameOver gameOver;
-	private int baconSliced, cheeseSliced, eggSliced;
-	private boolean inPause;
-	private Topping topping;
-	private Timer Timer;
-	private int scoreCounter;
-	private GLine comboLine;
-	private int comboCounter = 1;
-	private boolean timeStop = false;
+	protected ArrayList<Topping> objList;
+	protected GImage pauseButton;
+	protected GLabel bothScores;
+	protected PauseMenu PMenu;
+	protected GameOver gameOver;
+	protected int baconSliced, cheeseSliced, eggSliced;
+	protected boolean inPause;
+	protected Topping topping;
+	protected Timer Timer;
+	protected int scoreCounter;
+	protected GLine comboLine;
+	protected int comboCounter = 1;
+	protected boolean timeStop = false;
 	
 	public void init() {
 		setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
