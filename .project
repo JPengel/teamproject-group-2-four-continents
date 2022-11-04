@@ -22,44 +22,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>media/Background main menu.png</name>
-			<type>1</type>
-			<location>C:/Users/linhn/Downloads/Background main menu.png</location>
-		</link>
-		<link>
-			<name>media/Help.png</name>
-			<type>1</type>
-			<location>C:/Users/linhn/Downloads/Help.png</location>
-		</link>
-		<link>
-			<name>media/No waste.png</name>
-			<type>1</type>
-			<location>C:/Users/linhn/Downloads/No waste.png</location>
-		</link>
-		<link>
-			<name>media/Pizza.png</name>
-			<type>1</type>
-			<location>C:/Users/linhn/Downloads/Pizza.png</location>
-		</link>
-		<link>
-			<name>media/Quit.png</name>
-			<type>1</type>
-			<location>C:/Users/linhn/Downloads/Quit.png</location>
-		</link>
-		<link>
-			<name>media/Timer.png</name>
-			<type>1</type>
-			<location>C:/Users/linhn/Downloads/Timer.png</location>
-		</link>
-		<link>
-			<name>src/main/java/mainmenu/Background main menu.png</name>
-			<type>1</type>
-			<location>C:/Users/linhn/Downloads/Background main menu.png</location>
-		</link>
-		<link>
 			<name>src/main/java/mainmenu/Pizza.png</name>
 			<type>1</type>
 			<location>C:/Users/linhn/Downloads/Pizza.png</location>
+		</link>
+		<link>
+			<name>src/main/java/mainmenu/background.png</name>
+			<type>1</type>
+			<location>C:/Users/linhn/Downloads/background.png</location>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -6,8 +6,8 @@ import java.awt.event.MouseEvent;
 
 import acm.graphics.*;
 public class MainMenu extends GraphicsProgram{
-	public static final int WINDOW_WIDTH = 1920;
-	public static final int WINDOW_HEIGHT = 1080;
+	public static final int WINDOW_WIDTH = 1900;
+	public static final int WINDOW_HEIGHT = 750;
 	private GImage gif, instruction, backArrow, piizaWithTitle, help, quit, noWasteModeButton, timerModeButton;
 	private TimerMode timerMode;
 	private NoWasteMode noWasteMode;
@@ -24,9 +24,11 @@ public class MainMenu extends GraphicsProgram{
 	public void drawMainMenu(){
 		// TODO Set up the menu screen
 		GImage backGround = new GImage("mainmenu/background.png");
-		GImage pizza = new GImage("mainmenu/pizza.png",880,100);
-		//pizza.setBounds(960, 100, 880, 880);
+		GImage pizza = new GImage("mainmenu/pizza.png",0,100);
+		//backGround.setSize(1900,750);
+		backGround.scale(0.68);
 		pizza.sendForward();
+         
 		add(backGround);
 		//add(pizza);
 		
