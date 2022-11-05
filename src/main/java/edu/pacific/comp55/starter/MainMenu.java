@@ -20,7 +20,6 @@ public class MainMenu extends GraphicsProgram{
 	}
 	
 	public void run() {
-		System.out.println("Hello");
 		drawMainMenu();
 		addMouseListeners();
 		}
@@ -28,12 +27,12 @@ public class MainMenu extends GraphicsProgram{
 	public void drawMainMenu(){
 		// TODO Set up the menu screen
 		ArrayList<GImage> pic = new ArrayList<GImage>();
-		gif = new GImage("mainmenu/background.png");
-		pizzaWithTitle = new GImage("mainmenu/pizza.png",700,100);
-		noWasteModeButton = new GImage("mainmenu/Nowaste.png",100,100);
-		timerModeButton = new GImage("mainmenu/Timer.png" , 100, 300);
-		quit = new GImage("mainmenu/Quit.png", 100, 500);
-		help = new GImage ("mainmenu/Help.png", 350, 500);
+		gif = new GImage("src/main/resources/backgroundMainMenu.png");
+		pizzaWithTitle = new GImage("src/main/resources/Pizza.png",700,100);
+		noWasteModeButton = new GImage("src/main/resources/Nowaste.png",100,100);
+		timerModeButton = new GImage("src/main/resources/Timer.png" , 100, 300);
+		quit = new GImage("src/main/resources/Quit.png", 100, 500);
+		help = new GImage ("src/main/resources/Help.png", 350, 500);
 		pic.add(pizzaWithTitle);
 		pic.add(noWasteModeButton);
 		pic.add(timerModeButton);
@@ -54,7 +53,7 @@ public class MainMenu extends GraphicsProgram{
 	
 	public void help() {
 		// TODO It should show up the help gImage
-		instruction = new GImage("mainmenu/Instructions.png");
+		instruction = new GImage("src/main/resources/Instructions.png");
 		add(instruction);
 	}
 	
