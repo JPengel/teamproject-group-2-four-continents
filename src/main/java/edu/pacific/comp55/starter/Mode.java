@@ -21,6 +21,11 @@ class Mode extends GraphicsProgram{
 	protected int scoreCounter;
 	protected GLine comboLine;
 	protected int comboCounter = 1;
+	protected MainMenu MMenu;
+	
+	public Mode(MainMenu m) {
+		MMenu = m;
+	}
 	
 	public void init() {
 		setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
@@ -103,7 +108,7 @@ class Mode extends GraphicsProgram{
 		
 	}
 	
-	public static void main (String[] args) {
-		new Mode().start();
+	public static void main (String[] args, MainMenu m) {
+		new Mode(m).start();
 	}
 }

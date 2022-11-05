@@ -21,11 +21,11 @@ class PauseMenu  extends GraphicsProgram {
 		
 	}
 	public PauseMenu(TimerMode timerMode) {
-		timerModePause = new TimerMode();
+		timerModePause = timerMode;
 		flick = 2;
 	}
 	public PauseMenu(NoWasteMode noWasteMode) {
-		noWasteModePause = new NoWasteMode();
+		noWasteModePause = noWasteMode;
 		flick = 1;
 	}
 	public void drawMenu() {
