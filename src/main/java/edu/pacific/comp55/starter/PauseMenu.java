@@ -50,6 +50,9 @@ class PauseMenu  extends GraphicsProgram {
 			}
 		}
 	}
+	public void continuE() {
+		
+	}
 	public void init() {
 		 setSize(PROGRAM_WIDTH,PROGRAM_HEIGHT);
 	}
