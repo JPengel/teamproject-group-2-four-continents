@@ -3,6 +3,8 @@ import acm.program.*;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import acm.graphics.*;
 public class MainMenu extends GraphicsProgram{
@@ -24,25 +26,25 @@ public class MainMenu extends GraphicsProgram{
 	
 	public void drawMainMenu(){
 		// TODO Set up the menu screen
+		ArrayList<GImage> pic = new ArrayList<GImage>();
 		gif = new GImage("mainmenu/background.png");
 		pizzaWithTitle = new GImage("mainmenu/pizza.png",700,100);
 		noWasteModeButton = new GImage("mainmenu/Nowaste.png",100,100);
 		timerModeButton = new GImage("mainmenu/Timer.png" , 100, 300);
 		quit = new GImage("mainmenu/Quit.png", 100, 500);
 		help = new GImage ("mainmenu/Help.png", 350, 500);
+		pic.add(pizzaWithTitle);
+		pic.add(noWasteModeButton);
+		pic.add(timerModeButton);
+		pic.add(quit);
+		pic.add(help);
 		gif.scale(0.68);
-		pizzaWithTitle.scale(scaleSize);
-		noWasteModeButton.scale(scaleSize);
-		timerModeButton.scale(scaleSize);
-		quit.scale(scaleSize);
-		help.scale(scaleSize);
-		pizzaWithTitle.sendForward();
 		add(gif);
-		add(pizzaWithTitle);
-		add(noWasteModeButton);
-		add(timerModeButton);
-		add(quit);
-		add(help);
+		for(GImage e : pic) {
+			e.scale(scaleSize);
+			e.sendForward();
+			add(e);
+		}
 	}
 	
 	public void startingAnimation() {
