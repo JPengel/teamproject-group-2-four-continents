@@ -22,6 +22,7 @@ public class MainMenu extends GraphicsProgram{
 	public void run() {
 		System.out.println("Hello");
 		drawMainMenu();
+		addMouseListeners();
 		}
 	
 	public void drawMainMenu(){
@@ -53,6 +54,8 @@ public class MainMenu extends GraphicsProgram{
 	
 	public void help() {
 		// TODO It should show up the help gImage
+		instruction = new GImage("mainmenu/Instructions.png");
+		add(instruction);
 	}
 	
 	public void quit() {
@@ -76,8 +79,11 @@ public void creatWaste() {
 	}
 	
 	@Override
-	public void mousePressed(MouseEvent e) {
-		
+	public void mouseClicked(MouseEvent e) {
+		GObject obj = getElementAt(e.getX(),e.getY());
+		if(obj == help) {
+			help();
+		}
 	}
 	
 	public static void main (String[] args) {
