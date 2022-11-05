@@ -45,5 +45,8 @@ public class TimerMode extends Mode{
 		//TODO Reset all parameters to their original forms.
 	}
 	
+	public void returnToMenu() {
+		//TODO Has Main Menu call isTimeOver().
+	}
 	
 }
