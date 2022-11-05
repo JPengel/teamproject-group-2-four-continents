@@ -8,9 +8,10 @@ import acm.graphics.*;
 public class MainMenu extends GraphicsProgram{
 	public static final int WINDOW_WIDTH = 1900;
 	public static final int WINDOW_HEIGHT = 750;
-	private GImage gif, instruction, backArrow, piizaWithTitle, help, quit, noWasteModeButton, timerModeButton;
+	private GImage gif, instruction, backArrow, pizzaWithTitle, help, quit, noWasteModeButton, timerModeButton;
 	private TimerMode timerMode;
 	private NoWasteMode noWasteMode;
+	private static final double scaleSize= 0.6;
 	
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -19,19 +20,29 @@ public class MainMenu extends GraphicsProgram{
 	public void run() {
 		System.out.println("Hello");
 		drawMainMenu();
-	}
+		}
 	
 	public void drawMainMenu(){
 		// TODO Set up the menu screen
-		GImage backGround = new GImage("mainmenu/background.png");
-		GImage pizza = new GImage("mainmenu/pizza.png",0,100);
-		//backGround.setSize(1900,750);
-		backGround.scale(0.68);
-		pizza.sendForward();
-         
-		add(backGround);
-		//add(pizza);
-		
+		gif = new GImage("mainmenu/background.png");
+		pizzaWithTitle = new GImage("mainmenu/pizza.png",700,100);
+		noWasteModeButton = new GImage("mainmenu/Nowaste.png",100,100);
+		timerModeButton = new GImage("mainmenu/Timer.png" , 100, 300);
+		quit = new GImage("mainmenu/Quit.png", 100, 500);
+		help = new GImage ("mainmenu/Help.png", 350, 500);
+		gif.scale(0.68);
+		pizzaWithTitle.scale(scaleSize);
+		noWasteModeButton.scale(scaleSize);
+		timerModeButton.scale(scaleSize);
+		quit.scale(scaleSize);
+		help.scale(scaleSize);
+		pizzaWithTitle.sendForward();
+		add(gif);
+		add(pizzaWithTitle);
+		add(noWasteModeButton);
+		add(timerModeButton);
+		add(quit);
+		add(help);
 	}
 	
 	public void startingAnimation() {

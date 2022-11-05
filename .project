@@ -22,9 +22,29 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/main/java/mainmenu/Help.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Help.png</locationURI>
+		</link>
+		<link>
+			<name>src/main/java/mainmenu/Nowaste.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Nowaste.png</locationURI>
+		</link>
+		<link>
 			<name>src/main/java/mainmenu/Pizza.png</name>
 			<type>1</type>
 			<location>C:/Users/linhn/Downloads/Pizza.png</location>
+		</link>
+		<link>
+			<name>src/main/java/mainmenu/Quit.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Quit.png</locationURI>
+		</link>
+		<link>
+			<name>src/main/java/mainmenu/Timer.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Timer.png</locationURI>
 		</link>
 		<link>
 			<name>src/main/java/mainmenu/background.png</name>
