@@ -10,6 +10,10 @@ public class NoWasteMode extends Mode{
 	GImage counterX;
 	int highScore;
 	
+	public NoWasteMode(MainMenu m) {
+		super(m);
+	}
+	
 	public void init() {
 		setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	}

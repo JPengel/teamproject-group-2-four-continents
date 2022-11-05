@@ -62,19 +62,19 @@ public class MainMenu extends GraphicsProgram{
 	}
 	
 	public void creatTimer() {
-		//TODO Create Timer Mode and check if it is Gamer Over
+		//TODO Create Timer Mode, and MainMenu passes itself as a parameter.
 	}
 	
-	public boolean isTimerOver(boolean returned) {
-		return returned;
+	public void timerOver() {
+		//TODO Sets timerMode to null;
 	}
 	
-public void creatWaste() {
-		//TODO Create No Waste Mode and check if it is Gamer Over
+	public void creatWaste() {
+		//TODO Create No Waste Mode, and MainMenu passes itself as a parameter.
 	}
 	
-	public boolean isWasteOver(boolean returned) {
-		return returned;
+	public void wasteOver() {
+		//TODO Sets NoWasteMode to null.
 	}
 	
 	@Override
