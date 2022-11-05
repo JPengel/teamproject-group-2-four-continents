@@ -28,4 +28,25 @@ public class NoWasteMode extends Mode{
 		//to deleting it from the ArrayList, it also adds to the wasCount.
 	}
 	
+	public void isGamerOver() {
+		//TODO Calls new instance of GameOver
+	}
+	
+	public void importHighScore() {
+		//TODO Copies high score of specific mode from text file.
+	}
+	
+	public void exportHighScore(int score) {
+		//TODO Copies high score of mode to text file.
+	}
+	
+	@Override
+	public void resetAll() {
+		//TODO Reset all parameters to their original forms.
+	}
+	
+	public void returnToMenu() {
+		//TODO Has Main Menu call isTimeOver()
+	}
 }
+
