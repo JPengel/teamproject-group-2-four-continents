@@ -1,5 +1,8 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
+
+import java.awt.event.MouseEvent;
+
 import acm.graphics.*;
 //comment
 class PauseMenu  extends GraphicsProgram {
@@ -10,6 +13,7 @@ class PauseMenu  extends GraphicsProgram {
 	private GImage continuE = new GImage("src/main/resources/Continue.png",580,376);
 	private GImage retry = new GImage("src/main/resources/Retry.png",580,686);
 	private boolean returN;
+	private int flick;
 	TimerMode timerModePause;
 	NoWasteMode noWasteModePause;
 	
@@ -18,9 +22,11 @@ class PauseMenu  extends GraphicsProgram {
 	}
 	public PauseMenu(TimerMode timerMode) {
 		timerModePause = new TimerMode();
+		flick = 2;
 	}
 	public PauseMenu(NoWasteMode noWasteMode) {
 		noWasteModePause = new NoWasteMode();
+		flick = 1;
 	}
 	public void drawMenu() {
 		//System.out.println("javier was here");
@@ -30,11 +36,26 @@ class PauseMenu  extends GraphicsProgram {
 		add(retry);
 		
 	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		GObject obj = getElementAt(e.getX(),e.getY());
+		if(obj == continuE) {
+			clear();
+			if (flick == 1) {
+				noWasteModePause.startTimer();
+			}
+			else if (flick == 2) {
+				timerModePause.startTimer();
+			}
+		}
+	}
 	public void init() {
 		 setSize(PROGRAM_WIDTH,PROGRAM_HEIGHT);
 	}
 	public void run() {
 		drawMenu();
+		addMouseListeners();
 	}
 	public static void main(String[] args) {
 		new PauseMenu().start(); 
