@@ -21,7 +21,6 @@ class Mode extends GraphicsProgram{
 	protected int scoreCounter;
 	protected GLine comboLine;
 	protected int comboCounter = 1;
-	protected boolean timeStop = false;
 	
 	public void init() {
 		setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
@@ -88,8 +87,11 @@ class Mode extends GraphicsProgram{
 		//TODO Retrun true if Topping is in comboLine.
 	}
 	
-	public void stopAll() {
+	public void stopTimer() {
 		//TODO Stops timer.
+	}
+	public void startTimer() {
+		//TODO Starts timer again.
 	}
 	
 	@Override

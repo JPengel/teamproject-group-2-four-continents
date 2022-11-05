@@ -46,7 +46,7 @@ public class TimerMode extends Mode{
 	}
 	
 	public void returnToMenu() {
-		//TODO Has Main Menu call isTimeOver().
+		//TODO Has Main Menu call isTimeOver()
 	}
 	
 }
