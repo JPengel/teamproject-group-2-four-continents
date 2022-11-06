@@ -10,11 +10,10 @@ import acm.graphics.*;
 public class MainMenu extends GraphicsProgram{
 	public static final int WINDOW_WIDTH = 1900;
 	public static final int WINDOW_HEIGHT = 750;
-	private GImage gif, instruction, backArrow, pizzaWithTitle, help, quit, noWasteModeButton, timerModeButton;
+	private GImage gif, instruction, pizzaWithTitle, help, quit, noWasteModeButton, timerModeButton, backArrow;
 	private TimerMode timerMode;
 	private NoWasteMode noWasteMode;
 	private static final double scaleSize= 0.6;
-	
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
@@ -54,7 +53,11 @@ public class MainMenu extends GraphicsProgram{
 	public void help() {
 		// TODO It should show up the help gImage
 		instruction = new GImage("src/main/resources/Instructions.png");
+		backArrow = new GImage("src/main/resources/Xbutton.PNG",50,50);
+		backArrow.setSize(80, 80);
+		backArrow.sendForward();
 		add(instruction);
+		add(backArrow);
 	}
 	
 	public void quit() {
@@ -80,8 +83,19 @@ public void creatWaste() {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		GObject obj = getElementAt(e.getX(),e.getY());
+		System.out.println(obj);
 		if(obj == help) {
 			help();
+		}
+		else if(obj == backArrow) {
+			remove(instruction);
+		}
+		else if(obj == timerModeButton) {
+			removeAll();
+			
+		}
+		else if(obj == noWasteModeButton) {
+			removeAll();
 		}
 	}
 	
