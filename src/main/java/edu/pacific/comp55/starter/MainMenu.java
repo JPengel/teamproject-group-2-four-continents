@@ -92,10 +92,12 @@ public void creatWaste() {
 		}
 		else if(obj == timerModeButton) {
 			removeAll();
+			timerMode.drawBoard();
 			
 		}
 		else if(obj == noWasteModeButton) {
 			removeAll();
+			noWasteMode.drawBoard();
 		}
 	}
 	
