@@ -44,7 +44,7 @@ class PauseMenu  extends GraphicsProgram {
 	public void mouseClicked(MouseEvent e) {
 		GObject obj = getElementAt(e.getX(),e.getY());
 		if (obj == continuE) {
-			continuE();
+			continueGame();
 		}
 		else if (obj == retry) {
 			retry();
@@ -54,7 +54,7 @@ class PauseMenu  extends GraphicsProgram {
 		}
 	}
 	
-	public void continuE() {
+	public void continueGame() {
 		clear();
 		if (flick == 1) {
 			noWasteModePause.startTimer();
