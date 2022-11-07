@@ -89,6 +89,7 @@ public class MainMenu extends GraphicsProgram{
 		}
 		else if(obj == backArrow) {
 			remove(instruction);
+			remove(backArrow);
 		}
 		else if(obj == timerModeButton) {
 			removeAll();
