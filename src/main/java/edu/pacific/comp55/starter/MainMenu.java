@@ -93,7 +93,6 @@ public class MainMenu extends GraphicsProgram{
 		else if(obj == timerModeButton) {
 			removeAll();
 			timerMode.drawBoard();
-			
 		}
 		else if(obj == noWasteModeButton) {
 			removeAll();
