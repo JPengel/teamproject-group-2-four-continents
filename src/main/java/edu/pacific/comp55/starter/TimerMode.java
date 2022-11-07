@@ -10,6 +10,10 @@ public class TimerMode extends Mode{
 	GLabel timerDisplay;
 	int highScore;
 	
+	public TimerMode(MainMenu m) {
+		super(m);
+	}
+	
 	public void init() {
 		setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	}
