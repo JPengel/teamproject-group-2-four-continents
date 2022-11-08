@@ -83,7 +83,6 @@ public class MainMenu extends GraphicsProgram{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		GObject obj = getElementAt(e.getX(),e.getY());
-		System.out.println(obj);
 		if(obj == help) {
 			help();
 		}
@@ -98,6 +97,9 @@ public class MainMenu extends GraphicsProgram{
 		else if(obj == noWasteModeButton) {
 			removeAll();
 			noWasteMode.drawBoard();
+		}
+		else if(obj == quit) {
+			
 		}
 	}
 	

@@ -7,29 +7,50 @@ import acm.graphics.*;
 
 public class NoWasteMode extends Mode{
 	int wasteCount;
+	GPoint counter = new GPoint(850,100);
 	GImage counterX;
 	int highScore;
+	String filePath = "lives";
+	String source = "png";
+	static int count = 0;
 	
 	public NoWasteMode(MainMenu m) {
 		super(m);
 	}
-	
-	public void init() {
-		setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
-	}
-	
-	public void run() {
-		System.out.println("Hello");
-	}
-	
 	public void drawXCounter() {
 		//TODO Inserts the Image of counterX.
+		if (count == 0) {
+			filePath += "1";
+			filePath += source;
+			counterX = new GImage(filePath);
+			counterX.setLocation(counter);
+			add(counterX);
+		}
+		else if(count == 1) {
+			filePath += "2";
+			filePath += source;
+			counterX = new GImage(filePath);
+			add(counterX);
+
+		}
+		else {
+			filePath += "3";
+			filePath += source;
+			counterX = new GImage(filePath);
+			add(counterX);
+		}
+		filePath = "lives";
+//		ArrayList<GImage> XCounter = new ArrayList<GImage>();
+//		XCounter.add("lives0.png");
 	}
 	
 	@Override
 	public void fallenOffScreen(Topping t) {
+		count += 1;
+		drawXCounter();
 		//TODO Overrides fallenOffScreen so that in addition
 		//to deleting it from the ArrayList, it also adds to the wasCount.
+		
 	}
 	
 	public void isGamerOver() {
