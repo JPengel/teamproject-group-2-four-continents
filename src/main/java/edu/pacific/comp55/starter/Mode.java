@@ -112,7 +112,7 @@ public class Mode extends GraphicsProgram{
 		
 	}
 	
-	public static void main (String[] args, MainMenu m) {
-		new Mode(m).start();
+	public static void main (String[] args) {
+		new Mode().start();
 	}
 }
