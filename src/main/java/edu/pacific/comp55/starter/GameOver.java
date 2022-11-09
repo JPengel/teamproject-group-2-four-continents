@@ -20,10 +20,10 @@ class GameOver extends GraphicsProgram{
 	TimerMode timerModePause;
 	NoWasteMode noWasteModePause;
 	
-	public GameOver(int bacon, int cheese,int eggs) {
-		baconCount = bacon;
-		cheeseCount = cheese;
-		eggCount = eggs;
+	public GameOver() {
+		baconCount = 0;
+		cheeseCount = 0;
+		eggCount = 0;
 	}
 	public GameOver(TimerMode t, int bacon, int cheese,int eggs) {
 		timerModePause = t;
@@ -89,7 +89,7 @@ class GameOver extends GraphicsProgram{
 		setSize(PROGRAM_WIDTH,PROGRAM_HEIGHT);
 	}
 	
-	public static void main(String[] args, int bacon, int cheese, int eggs) {
-		new GameOver(bacon, cheese, eggs).start();
+	public static void main(String[] args) {
+		new GameOver().start();
 	}
 }
