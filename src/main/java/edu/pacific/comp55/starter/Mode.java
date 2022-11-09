@@ -23,6 +23,10 @@ public class Mode extends GraphicsProgram{
 	protected int comboCounter = 1;
 	protected MainMenu MMenu;
 	
+	public Mode() {
+		
+	}
+	
 	public Mode(MainMenu m) {
 		MMenu = m;
 	}
