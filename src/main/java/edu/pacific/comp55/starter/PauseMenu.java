@@ -17,16 +17,10 @@ class PauseMenu  extends GraphicsProgram {
 	TimerMode timerModePause;
 	NoWasteMode noWasteModePause;
 	
-	public PauseMenu() {
-		
-	}
-	public PauseMenu(TimerMode timerMode) {
-		timerModePause = timerMode;
-		flick = 2;
-	}
-	public PauseMenu(NoWasteMode noWasteMode) {
-		noWasteModePause = noWasteMode;
-		flick = 1;
+	public PauseMenu() {}
+	
+	public PauseMenu(int mode) {
+		flick = mode;
 	}
 	public void drawMenu() {
 		//System.out.println("javier was here");
@@ -76,12 +70,7 @@ class PauseMenu  extends GraphicsProgram {
 	
 	public void exit() {
 		clear();
-		if (flick == 1) {
-			noWasteModePause.returnToMenu();
-		}
-		else if (flick == 2) {
-			timerModePause.returnToMenu();
-		}
+		noWasteModePause.returnToMenu();
 	}
 	
 	public void init() {

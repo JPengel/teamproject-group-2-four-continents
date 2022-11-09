@@ -9,9 +9,11 @@ class GameOver extends GraphicsProgram{
 	public static final int PROGRAM_WIDTH = 1920/2; 
 	public static final int PROGRAM_HEIGHT =1080/2;
 	
-	GImage blankPizza;
-	GImage quit;
-	GImage retry;
+	Gimage backGround = new GImage("src/main/resources/backgroundMainMenu.png");
+	GImage blankPizza; // = new GImage();
+	GImage cuttingBoard; //= new GImage();
+	GImage quit;// = new GImage();
+	GImage retry;// = newGimage();
 	int baconCount;
 	int cheeseCount;
 	int eggCount; 
@@ -20,22 +22,10 @@ class GameOver extends GraphicsProgram{
 	TimerMode timerModePause;
 	NoWasteMode noWasteModePause;
 	
-	public GameOver() {
-		baconCount = 0;
-		cheeseCount = 0;
-		eggCount = 0;
-	}
-	public GameOver(TimerMode t, int bacon, int cheese,int eggs) {
-		timerModePause = t;
-		flick = 2;
-		baconCount = bacon;
-		cheeseCount = cheese;
-		eggCount = eggs;
-	}
+	public GameOver() {}
 	
-	public GameOver(NoWasteMode w, int bacon, int cheese,int eggs) {
-		noWasteModePause = w;
-		flick = 1;
+	public GameOver(int mode, int bacon, int cheese,int eggs) {
+		flick = mode;
 		baconCount = bacon;
 		cheeseCount = cheese;
 		eggCount = eggs;
@@ -54,9 +44,11 @@ class GameOver extends GraphicsProgram{
 	
 	public void drawGameOver() {
 		//TODO Draws the game over menu, would also call the drawPizza() function.
+		drawPizza();
+		
 	}
 	
-	public void drawPizza(int b, int c, int e) {
+	public void drawPizza() {
 		//TODO Uses the variables to draw a pizza with the toppings.
 	}
 	
@@ -72,14 +64,10 @@ class GameOver extends GraphicsProgram{
 	
 	public void quit() {
 		clear();
-		if (flick == 1) {
-			noWasteModePause.returnToMenu();
-		}
-		else if (flick == 2) {
-			timerModePause.returnToMenu();
-		}
+		noWasteModePause.returnToMenu();
 	}
-	
+
+		
 	public void run() {
 		drawGameOver();
 		addMouseListeners();
@@ -89,7 +77,7 @@ class GameOver extends GraphicsProgram{
 		setSize(PROGRAM_WIDTH,PROGRAM_HEIGHT);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args, int bacon, int cheese, int eggs) {
 		new GameOver().start();
 	}
 }
