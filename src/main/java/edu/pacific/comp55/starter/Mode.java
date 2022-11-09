@@ -15,8 +15,7 @@ public class Mode extends GraphicsProgram{
 	protected PauseMenu PMenu;
 	protected GameOver gameOver;
 	protected int baconSliced, cheeseSliced, eggSliced;
-	protected boolean inPause;
-	protected Topping topping;
+	protected ArrayList <Topping> toppingArray = new ArrayList<Topping>();
 	protected Timer Timer;
 	protected int scoreCounter;
 	protected GLine comboLine;
@@ -47,9 +46,7 @@ public class Mode extends GraphicsProgram{
 		//TODO Draws the current score and highscore.
 	}
 	
-	public void pausePressed() {
-		//TODO Creates new instance of PauseMenu and makes inPause true.
-	}
+	
 	
 	public Topping getObject(int x, int y) {
 		return null;
@@ -66,7 +63,8 @@ public class Mode extends GraphicsProgram{
 	}
 	
 	public void generateObject() {
-		//TODO creates a new object.
+		//TODO creates a new object.			
+		
 	}
 	
 	public void exceedHighScore() {
@@ -107,7 +105,12 @@ public class Mode extends GraphicsProgram{
 	public void mouseDragged(MouseEvent e) {
 		
 	}
-	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(getElementAt(e.getX(), e.getY()) == pauseButton) {
+			PMenu = new PauseMenu();
+		}
+	}
 	public static void main (String[] args, MainMenu m) {
 		new Mode(m).start();
 	}

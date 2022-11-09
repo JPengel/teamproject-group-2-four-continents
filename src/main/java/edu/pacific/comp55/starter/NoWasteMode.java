@@ -13,7 +13,13 @@ public class NoWasteMode extends Mode{
 	String filePath = "lives";
 	String source = "png";
 	static int count = 0;
-	
+	public void init() {
+		setSize(1900,750);
+	}
+	public void run() {
+		drawBoard();
+		drawXCounter();
+	}
 	public NoWasteMode(MainMenu m) {
 		super(m);
 	}
@@ -40,8 +46,6 @@ public class NoWasteMode extends Mode{
 			add(counterX);
 		}
 		filePath = "lives";
-//		ArrayList<GImage> XCounter = new ArrayList<GImage>();
-//		XCounter.add("lives0.png");
 	}
 	
 	@Override
@@ -74,4 +78,3 @@ public class NoWasteMode extends Mode{
 		//TODO Has Main Menu call isTimeOver()
 	}
 }
-
