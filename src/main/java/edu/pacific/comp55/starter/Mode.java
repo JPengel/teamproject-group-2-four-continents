@@ -108,7 +108,7 @@ public class Mode extends GraphicsProgram{
 		return false;
 		//TODO Retrun true if Topping is in comboLine.
 	}
-	
+	//TODO: delete this
 	public void stopTimer() {
 		//TODO Stops timer.
 	}
