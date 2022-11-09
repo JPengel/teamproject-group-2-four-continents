@@ -1,29 +1,31 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
-import java.awt.Color;
+import acm.util.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
 
 public class TimerMode extends Mode{
-	int timer;
+	int timer = 60;
 	GLabel timerDisplay;
 	int highScore;
+	String timer2 = String.valueOf(timer);
 	
 	public TimerMode(MainMenu m) {
 		super(m);
 	}
 	
-	public void init() {
-		setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
-	}
-	
 	public void run() {
-		System.out.println("Hello");
+		drawBoard();
+		drawTimer();
 	}
 	
 	public void drawTimer() {
-		//TODO Create the display of timer.
+		timerDisplay = new GLabel(timer2, 1870, 30);
+		timerDisplay.setColor(Color.ORANGE.brighter().brighter());
+		timerDisplay.setFont("Arial-Bold-24");
+		add(timerDisplay);
 	}
 	
 	@Override 
@@ -53,4 +55,7 @@ public class TimerMode extends Mode{
 		//TODO Has Main Menu call isTimeOver()
 	}
 	
+	public static void main (String[] args, MainMenu m) {
+		new TimerMode(m).start();
+	}
 }

@@ -61,11 +61,11 @@ public class MainMenu extends GraphicsProgram{
 	}
 	
 	public void quit() {
-		// TODO quit the game
+		System.exit(0);
 	}
 	
 	public void creatTimer() {
-		//TODO Create Timer Mode, and MainMenu passes itself as a parameter.
+		timerMode = new TimerMode(this);
 	}
 	
 	public void timerOver() {
@@ -73,7 +73,8 @@ public class MainMenu extends GraphicsProgram{
 	}
 	
 	public void creatWaste() {
-		//TODO Create No Waste Mode, and MainMenu passes itself as a parameter.
+		noWasteMode = new NoWasteMode(this);
+		
 	}
 	
 	public void wasteOver() {
@@ -92,14 +93,14 @@ public class MainMenu extends GraphicsProgram{
 		}
 		else if(obj == timerModeButton) {
 			removeAll();
-			timerMode.drawBoard();
+			creatTimer();
 		}
 		else if(obj == noWasteModeButton) {
 			removeAll();
-			noWasteMode.drawBoard();
+			creatWaste();
 		}
 		else if(obj == quit) {
-			
+			quit();
 		}
 	}
 	

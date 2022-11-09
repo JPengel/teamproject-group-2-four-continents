@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
 
-class Mode extends GraphicsProgram{
+public class Mode extends GraphicsProgram{
 	public static final int WINDOWS_WIDTH = 1920;
 	public static final int WINDOWS_HEIGHT = 1080;
 	
