@@ -24,6 +24,10 @@ public class Mode extends GraphicsProgram{
 	private static boolean isTimerMode;
 	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
 	
+	public Mode() {
+		
+	}
+	
 	public Mode(MainMenu m) {
 		MMenu = m;
 	}
@@ -120,6 +124,7 @@ public class Mode extends GraphicsProgram{
 	public void mouseDragged(MouseEvent e) {
 		
 	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(getElementAt(e.getX(), e.getY()) == pauseButton) {
@@ -128,5 +133,6 @@ public class Mode extends GraphicsProgram{
 	}
 	public static void main (String[] args, MainMenu m) {
 		new Mode(m).start();
-	}
+
+}
 }

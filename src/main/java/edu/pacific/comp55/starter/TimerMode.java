@@ -12,6 +12,10 @@ public class TimerMode extends Mode{
 	int highScore;
 	String timer2 = String.valueOf(timer);
 	
+	public TimerMode() {
+		super();
+	}
+	
 	public TimerMode(MainMenu m) {
 		super(m);
 	}
@@ -22,9 +26,9 @@ public class TimerMode extends Mode{
 	}
 	
 	public void drawTimer() {
-		timerDisplay = new GLabel(timer2, 1870, 30);
-		timerDisplay.setColor(Color.ORANGE.brighter().brighter());
-		timerDisplay.setFont("Arial-Bold-24");
+		timerDisplay = new GLabel(timer2, 1200, 50);
+		timerDisplay.setColor(Color.ORANGE);
+		timerDisplay.setFont("Arial-Bold-50");
 		add(timerDisplay);
 	}
 	
@@ -55,7 +59,7 @@ public class TimerMode extends Mode{
 		//TODO Has Main Menu call isTimeOver()
 	}
 	
-	public static void main (String[] args, MainMenu m) {
-		new TimerMode(m).start();
+	public static void main (String[] args) {
+		new TimerMode().start();
 	}
 }
