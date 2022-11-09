@@ -19,8 +19,14 @@ class PauseMenu  extends GraphicsProgram {
 	
 	public PauseMenu() {}
 	
-	public PauseMenu(int mode) {
-		flick = mode;
+	public PauseMenu(NoWasteMode noWasteMode) {
+		noWasteModePause = noWasteMode;
+		flick = 1;
+	}
+	
+	public PauseMenu( TimerMode timerMode) {
+		timerModePause = timerMode;
+		flick = 2;
 	}
 	public void drawMenu() {
 		//System.out.println("javier was here");

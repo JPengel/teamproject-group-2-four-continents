@@ -15,7 +15,7 @@ public class Topping {
 	private static boolean isCut;
 	private static int flick = 0;
 	private static GImage image;
-	public static final String IMG_FILE_PATH = "images/", IMG_EXTENSION = ".png";
+	public static final String IMG_FILE_PATH = "src/main/resources/", IMG_EXTENSION = ".png";
 	private static double moveSpeed = 1; //Changes the pace of the game
 	
 	//CONSTRUCTORS
