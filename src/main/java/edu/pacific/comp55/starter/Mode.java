@@ -23,6 +23,10 @@ public class Mode extends GraphicsProgram{
 	protected int comboCounter = 1;
 	protected MainMenu MMenu;
 	
+	public Mode() {
+		
+	}
+	
 	public Mode(MainMenu m) {
 		MMenu = m;
 	}
@@ -108,7 +112,7 @@ public class Mode extends GraphicsProgram{
 		
 	}
 	
-	public static void main (String[] args, MainMenu m) {
-		new Mode(m).start();
+	public static void main (String[] args) {
+		new Mode().start();
 	}
 }
