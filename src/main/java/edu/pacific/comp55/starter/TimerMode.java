@@ -18,14 +18,8 @@ public class TimerMode extends Mode{
 		
 	}
 	
-	public TimerMode(MainMenu m) {
-		super(m);
-		drawBoard();
-		drawTimer();
-	}
-	
-	public void run() {
-		drawBoard();
+	public TimerMode(MainMenu m, GraphicsApplication x) {
+		super(m,x);
 		drawTimer();
 	}
 	
@@ -33,7 +27,6 @@ public class TimerMode extends Mode{
 		timerDisplay = new GLabel(timer2, 1200, 50);
 		timerDisplay.setColor(Color.ORANGE);
 		timerDisplay.setFont("Arial-Bold-50");
-		MMenu.add(timerDisplay);
 	}
 	
 	@Override 
@@ -59,21 +52,35 @@ public class TimerMode extends Mode{
 		//TODO Reset all parameters to their original forms.
 	}
 	
-//	@Override
-//	public void mouseClicked(MouseEvent e) {
-//		GObject x = getElementAt(e.getX(), e.getY());
-//		if(x == pauseButton) {
-//			System.out.println("hi");
-//			removeAll();
-//			PMenu = new PauseMenu(MMenu);
-//		}
-//	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("Hi");
+		GObject x = Gapp.getElementAt(e.getX(), e.getY());
+		
+		if(x == temp_Exit) {
+			System.out.println("hi");
+			Gapp.switchToScreen(MMenu);
+		}
+	}	
+	@Override
+	public void showContents() {
+		Gapp.add(wall);
+		Gapp.add(pauseButton);
+		Gapp.add(temp_Exit);
+		Gapp.add(timerDisplay);
+	}
+
+	@Override
+	public void hideContents() {
+		Gapp.remove(wall);
+		Gapp.remove(pauseButton);
+		Gapp.remove(temp_Exit);
+		Gapp.remove(timerDisplay);
+	}
 	
 	public void returnToMenu() {
 		//TODO Has Main Menu call isTimeOver()
 	}
 	
-	public static void main (String[] args) {
-		new TimerMode().start();
-	}
+	
 }

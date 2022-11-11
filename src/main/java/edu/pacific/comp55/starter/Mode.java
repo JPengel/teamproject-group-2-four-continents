@@ -13,6 +13,7 @@ public class Mode extends GraphicsPane{
 	private static RandomGenerator probability, toppingChooser, hazardChooser, upgradeChooser;
 	protected ArrayList<Topping> objList;
 	protected GImage pauseButton;
+	protected GImage temp_Exit;
 	protected GLabel bothScores;
 	protected PauseMenu PMenu;
 	protected GameOver gameOver;
@@ -20,7 +21,9 @@ public class Mode extends GraphicsPane{
 	protected ArrayList <Topping> toppingArray = new ArrayList<Topping>();
 	protected Timer Timer;
 	protected GLine comboLine;
+	protected GImage wall;
 	protected MainMenu MMenu;
+	protected GraphicsApplication Gapp;
 	private static boolean isTimerMode;
 	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
 	
@@ -28,23 +31,22 @@ public class Mode extends GraphicsPane{
 		drawBoard();
 	}
 	
-	public Mode(MainMenu m) {
+	public Mode(MainMenu m, GraphicsApplication x) {
+		super();
 		MMenu = m;
+		Gapp = x;
 		drawBoard();
 	}
 	
-	
-	public void run() {
-		drawBoard();
-	}
 	
 	public void drawBoard() {
 		//TODO Calls all other draw functions.
-		GImage wall = new GImage("wall.jpg");
+		wall = new GImage("wall.jpg");
 		wall.setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
-		MMenu.add(wall);
+		
 		pauseButton = new GImage("pauseButton.png",950,550);
-		MMenu.add(pauseButton);
+		temp_Exit = new GImage("Exit.png");
+		
 	}
 	
 	public MainMenu getMMenu() {
@@ -118,16 +120,29 @@ public class Mode extends GraphicsPane{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("Hi");
-	//	GObject x = getElementAt(e.getX(), e.getY());
+		GObject x = Gapp.getElementAt(e.getX(), e.getY());
 		
-	/*	if(x == pauseButton)*/ {
+		if(x == temp_Exit) {
 			System.out.println("hi");
-			PMenu = new PauseMenu(MMenu);
+			Gapp.switchToScreen(MMenu);
 		}
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		
+	}
+
+	@Override
+	public void showContents() {
+		Gapp.add(wall);
+		Gapp.add(pauseButton);
+		Gapp.add(temp_Exit);
+	}
+
+	@Override
+	public void hideContents() {
+		Gapp.remove(wall);
+		Gapp.remove(pauseButton);
 	}
 
 //	@Override
@@ -138,8 +153,5 @@ public class Mode extends GraphicsPane{
 //			PMenu = new PauseMenu();
 //		}
 //	}
-	public static void main (String[] args) {
-		new Mode().start();
-
-}
+	
 }

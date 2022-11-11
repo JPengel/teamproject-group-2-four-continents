@@ -6,11 +6,25 @@ import java.awt.event.MouseEvent;
 
 import acm.program.GraphicsProgram;
 
-public abstract class GraphicsApplication extends GraphicsProgram {
+public class GraphicsApplication extends GraphicsProgram {
+	public static final int WINDOW_WIDTH = 1900;
+	public static final int WINDOW_HEIGHT = 750;
+	
 	private GraphicsPane curScreen;
+	private MainMenu MMenu;
 	
 	public GraphicsApplication() {
 		super();
+	}
+	
+	public void init() {
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	}
+	
+	public void run() {
+		MMenu = new MainMenu(this);
+		setupInteractions();
+		switchToScreen(MMenu);
 	}
 	
 	/* Method: setupInteractions
@@ -30,13 +44,14 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 	 * will simply switch from making one pane that was currently
 	 * active, to making another one that is the active class.
 	 */
-	protected void switchToTimer(GraphicsPane newScreen) {
+	protected void switchToScreen(GraphicsPane newScreen) {
 		if(curScreen != null) {
 			curScreen.hideContents();
 		}
 		newScreen.showContents();
 		curScreen = newScreen;
 	}
+	
 	
 	/*
 	 * These methods just override the basic
@@ -98,5 +113,9 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 		if(curScreen != null) {
 			curScreen.keyTyped(e);
 		}
+	}
+	
+	public static void main(String[] args) {
+		new GraphicsApplication().start();
 	}
 }

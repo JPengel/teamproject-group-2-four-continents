@@ -7,45 +7,39 @@ import acm.graphics.*;
 
 public class NoWasteMode extends Mode{
 	int wasteCount;
-	GPoint counter = new GPoint(850,100);
+	GPoint counter = new GPoint(1100,50);
 	GImage counterX;
 	int highScore;
 	String filePath = "lives";
-	String source = "png";
+	String source = ".png";
 	static int count = 0;
 	
-	public void init() {
-		setSize(1900,750);
-	}
-	public void run() {
-		drawXCounter();
-	}
-	public NoWasteMode(MainMenu m) {
-		super(m);
-		drawBoard();
+	
+	public NoWasteMode(MainMenu m, GraphicsApplication x) {
+		super(m, x);
 		drawXCounter();
 	}
 	public void drawXCounter() {
 		//TODO Inserts the Image of counterX.
 		if (count == 0) {
-			filePath += "1";
+			filePath += "0";
 			filePath += source;
 			counterX = new GImage(filePath);
 			counterX.setLocation(counter);
-			add(counterX);
+			
 		}
 		else if(count == 1) {
 			filePath += "2";
 			filePath += source;
 			counterX = new GImage(filePath);
-			add(counterX);
+			
 
 		}
 		else {
 			filePath += "3";
 			filePath += source;
 			counterX = new GImage(filePath);
-			add(counterX);
+			
 		}
 		filePath = "lives";
 	}
@@ -77,12 +71,30 @@ public class NoWasteMode extends Mode{
 	}
 	
 	@Override
-	public void mousePressed(MouseEvent e) {
-		GObject x = getElementAt(e.getX(), e.getY());
-		System.out.println(x);
-		if(x == pauseButton) {
-			PMenu = new PauseMenu(this);
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("Hi");
+		GObject x = Gapp.getElementAt(e.getX(), e.getY());
+		
+		if(x == temp_Exit) {
+			System.out.println("hi");
+			Gapp.switchToScreen(MMenu);
 		}
+	}
+	
+	@Override
+	public void showContents() {
+		Gapp.add(wall);
+		Gapp.add(pauseButton);
+		Gapp.add(temp_Exit);
+		Gapp.add(counterX);
+	}
+
+	@Override
+	public void hideContents() {
+		Gapp.remove(wall);
+		Gapp.remove(pauseButton);
+		Gapp.remove(temp_Exit);
+		Gapp.remove(counterX);
 	}
 	
 	public void returnToMenu() {
