@@ -30,7 +30,7 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 	 * will simply switch from making one pane that was currently
 	 * active, to making another one that is the active class.
 	 */
-	protected void switchToScreen(GraphicsPane newScreen) {
+	protected void switchToTimer(GraphicsPane newScreen) {
 		if(curScreen != null) {
 			curScreen.hideContents();
 		}

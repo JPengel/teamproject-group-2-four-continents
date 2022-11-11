@@ -14,10 +14,14 @@ public class TimerMode extends Mode{
 	
 	public TimerMode() {
 		super();
+		drawTimer();
+		
 	}
 	
 	public TimerMode(MainMenu m) {
 		super(m);
+		drawBoard();
+		drawTimer();
 	}
 	
 	public void run() {
@@ -29,7 +33,7 @@ public class TimerMode extends Mode{
 		timerDisplay = new GLabel(timer2, 1200, 50);
 		timerDisplay.setColor(Color.ORANGE);
 		timerDisplay.setFont("Arial-Bold-50");
-		add(timerDisplay);
+		MMenu.add(timerDisplay);
 	}
 	
 	@Override 
@@ -54,6 +58,16 @@ public class TimerMode extends Mode{
 	public void resetAll() {
 		//TODO Reset all parameters to their original forms.
 	}
+	
+//	@Override
+//	public void mouseClicked(MouseEvent e) {
+//		GObject x = getElementAt(e.getX(), e.getY());
+//		if(x == pauseButton) {
+//			System.out.println("hi");
+//			removeAll();
+//			PMenu = new PauseMenu(MMenu);
+//		}
+//	}
 	
 	public void returnToMenu() {
 		//TODO Has Main Menu call isTimeOver()

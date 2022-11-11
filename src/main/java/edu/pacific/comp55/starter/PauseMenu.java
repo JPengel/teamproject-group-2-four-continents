@@ -16,28 +16,38 @@ class PauseMenu  extends GraphicsProgram {
 	private int flick;
 	TimerMode timerModePause;
 	NoWasteMode noWasteModePause;
+	MainMenu mainMenu;
+
+	public PauseMenu() {
+     
+   	}
 	
-	public PauseMenu() {}
-	
-	public PauseMenu(NoWasteMode noWasteMode) {
+	/*public PauseMenu(NoWasteMode noWasteMode) {
 		noWasteModePause = noWasteMode;
 		flick = 1;
+		//drawMenu();
 	}
 	
 	public PauseMenu( TimerMode timerMode) {
 		timerModePause = timerMode;
 		flick = 2;
+		drawTimerMenu();
+	}*/
+	
+	public PauseMenu(MainMenu m) {
+		mainMenu = m;
+		drawTimerMenu();
 	}
-	public void drawMenu() {
+	public void drawTimerMenu() {
 		//System.out.println("javier was here");
 		backGround.scale(.5);
-		add(backGround);
+		timerModePause.getMMenu().add(backGround);
 		exit.scale(.5);
-		add(exit);
+		timerModePause.getMMenu().add(exit);
 		continuE.scale(.5);
-		add(continuE);
+//		timerModePause.getMMenu().add(continuE);
 		retry.scale(.5);
-		add(retry);
+//		timerModePause.getMMenu().add(retry);
 	}
 	
 	@Override
@@ -84,7 +94,6 @@ class PauseMenu  extends GraphicsProgram {
 	}
 	
 	public void run() {
-		drawMenu();
 		addMouseListeners();
 	}
 	

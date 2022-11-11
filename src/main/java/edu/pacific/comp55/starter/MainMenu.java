@@ -7,7 +7,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import acm.graphics.*;
-public class MainMenu extends GraphicsProgram{
+public class MainMenu extends GraphicsApplication{
 	public static final int WINDOW_WIDTH = 1900;
 	public static final int WINDOW_HEIGHT = 750;
 	private GImage gif, instruction, pizzaWithTitle, help, quit, noWasteModeButton, timerModeButton, backArrow;
@@ -20,7 +20,7 @@ public class MainMenu extends GraphicsProgram{
 	
 	public void run() {
 		drawMainMenu();
-		addMouseListeners();
+		setupInteractions();
 		}
 	
 	public void drawMainMenu(){
@@ -92,11 +92,12 @@ public class MainMenu extends GraphicsProgram{
 		}
 		else if(obj == timerModeButton) {
 			removeAll();
-			timerMode.drawBoard();
+			timerMode = new TimerMode(this);
+			
 		}
 		else if(obj == noWasteModeButton) {
 			removeAll();
-			
+			noWasteMode = new NoWasteMode(this);
 		}
 		else if(obj == quit) {
 			

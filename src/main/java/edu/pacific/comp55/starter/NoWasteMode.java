@@ -13,15 +13,17 @@ public class NoWasteMode extends Mode{
 	String filePath = "lives";
 	String source = "png";
 	static int count = 0;
+	
 	public void init() {
 		setSize(1900,750);
 	}
 	public void run() {
-		drawBoard();
 		drawXCounter();
 	}
 	public NoWasteMode(MainMenu m) {
 		super(m);
+		drawBoard();
+		drawXCounter();
 	}
 	public void drawXCounter() {
 		//TODO Inserts the Image of counterX.
@@ -72,6 +74,15 @@ public class NoWasteMode extends Mode{
 	@Override
 	public void resetAll() {
 		//TODO Reset all parameters to their original forms.
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		GObject x = getElementAt(e.getX(), e.getY());
+		System.out.println(x);
+		if(x == pauseButton) {
+			PMenu = new PauseMenu(this);
+		}
 	}
 	
 	public void returnToMenu() {
