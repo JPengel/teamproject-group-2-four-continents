@@ -1,13 +1,15 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.*;
 
-class GameOver extends GraphicsProgram{
+class GameOver extends GraphicsPane{
 	public static final int PROGRAM_WIDTH = 1920/2; 
 	public static final int PROGRAM_HEIGHT =1080/2;
+	public static final String FONT = "Arial-Bold-70";
 	
 	GImage backGround = new GImage("src/main/resources/backgroundMainMenu.png");
 	GImage blankPizza  = new GImage("src/main/resources/Pizzablank.png",960/2,100/2);
@@ -18,31 +20,36 @@ class GameOver extends GraphicsProgram{
 	int cheeseCount;
 	int eggCount; 
 	int scoreCount;
+	GLabel bacon = new GLabel("" + baconCount,172/2, 470/2);
+	GLabel cheese = new GLabel("" + cheeseCount, 407/2,470/2);
+	GLabel egg = new GLabel("" + eggCount, 627/2,470/2);
+	GLabel totalScore = new GLabel("" + scoreCount, 407/2,648/2);
 	private int flick;
-	TimerMode timerModePause;
-	NoWasteMode noWasteModePause;
+	private GraphicsApplication Gapp;
+	TimerMode timerModeGameOver;
+	NoWasteMode noWasteModeGameOver;
 	
 	public GameOver() {}
 	
-	public GameOver(TimerMode t, int bacon, int cheese,int eggs) {
-		timerModePause = t;
-		flick = 2;
+	public GameOver(Mode mode, GraphicsApplication a, int bacon, int cheese,int eggs) {
+		if (mode instanceof NoWasteMode) {
+			noWasteModeGameOver = (NoWasteMode) mode;
+			flick = 1;
+		} 
+		else {
+			timerModeGameOver = (TimerMode) mode;
+			flick = 2;
+		}
+		Gapp = a;
 		baconCount = bacon;
 		cheeseCount = cheese;
 		eggCount = eggs;
-	}
-	
-	public GameOver(NoWasteMode w, int bacon, int cheese,int eggs) {
-		noWasteModePause = w;
-		flick = 1;
-		baconCount = bacon;
-		cheeseCount = cheese;
-		eggCount = eggs;
+		drawGameOver();
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		GObject obj = getElementAt(e.getX(),e.getY());
+		GObject obj = Gapp.getElementAt(e.getX(),e.getY()); // why do we need the gapp before? 
 		if (obj == retry) {
 			retry();
 		}
@@ -57,45 +64,79 @@ class GameOver extends GraphicsProgram{
 		cuttingBoard.scale(.5);
 		quit.scale(.5);
 		retry.scale(.5);
-		add(backGround);
-		add(cuttingBoard);
-		add(quit);
-		add(retry);
-		drawPizza();
+		blankPizza.scale(.5);
+		bacon.setFont(FONT);
+		cheese.setFont(FONT);
+		egg.setFont(FONT);
+		totalScore.setFont("Arial-Bold-100");
+		totalScore.setColor(Color.red);
+		if(scoreCount > 9) {
+		totalScore.setLocation(355/2,648/2);
+		}
+		
 		
 	}
 	
 	public void drawPizza() {
 		//TODO Uses the variables to draw a pizza with the toppings.
-		blankPizza.scale(.5);
-		add(blankPizza);
+		Gapp.add(blankPizza);
+		
+	}
+	
+	@Override
+	public void showContents() {
+		// TODO Auto-generated method stub
+		Gapp.add(backGround);
+		Gapp.add(cuttingBoard);
+		Gapp.add(quit);
+		Gapp.add(retry);
+		Gapp.add(bacon);
+		Gapp.add(cheese);
+		Gapp.add(egg);
+		Gapp.add(totalScore);
+		drawPizza();
+		
+	}
+
+	@Override
+	public void hideContents() {
+		// TODO Auto-generated method stub
+		Gapp.remove(backGround);
+		Gapp.remove(cuttingBoard);
+		Gapp.remove(quit);
+		Gapp.remove(retry);
 	}
 	
 	public void retry() {
-		clear();
 		if (flick == 1) {
-			noWasteModePause.resetAll();
+			noWasteModeGameOver.resetAll();
 		}
 		else if (flick == 2) {
-			timerModePause.resetAll();
+			timerModeGameOver.resetAll();
 		}
 	}
 	
 	public void quit() {
-		clear();
-		noWasteModePause.returnToMenu();
+		if (flick == 1) {
+			noWasteModeGameOver.returnToMenu();
+		}
+		else if (flick == 2) {
+			timerModeGameOver.returnToMenu();
+		}
 	}
 	
-	public void run() {
-		drawGameOver();
-		addMouseListeners();
-	}
+//	public void run() {
+//		drawGameOver();
+//		addMouseListeners();
+//	}
 	
-	public void init() {
-		setSize(PROGRAM_WIDTH,PROGRAM_HEIGHT);
-	}
+//	public void init() {
+//		//setSize(PROGRAM_WIDTH,PROGRAM_HEIGHT);
+//	}
 	
-	public static void main(String[] args) {
-		new GameOver().start();
-	}
+//	public static void main(String[] args) {
+//		new GameOver().start();
+//	}
+
+	
 }
