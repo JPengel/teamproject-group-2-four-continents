@@ -36,6 +36,7 @@ public class Mode extends GraphicsPane{
 		MMenu = m;
 		Gapp = x;
 		drawBoard();
+		System.out.println("hello");
 	}
 	
 	
