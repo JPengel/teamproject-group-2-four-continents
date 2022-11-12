@@ -107,9 +107,4 @@ public class NoWasteMode extends Mode{
 		Gapp.remove(counterX);
 	}
 	
-	public void returnToMenu() {
-		//TODO Has Main Menu call isTimeOver()
-		PMenu = null;
-		Gapp.switchToScreen(MMenu);
-	}
 }

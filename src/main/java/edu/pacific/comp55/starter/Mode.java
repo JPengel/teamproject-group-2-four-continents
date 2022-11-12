@@ -155,7 +155,14 @@ public class Mode extends GraphicsPane{
 		Gapp.remove(wall);
 		Gapp.remove(pauseButton);
 	}
-
+	
+	public void returnToMenu() {
+		//TODO Has Main Menu call isTimeOver()
+		PMenu = null;
+		gameOver = null;
+		Gapp.switchToScreen(MMenu);
+	}
+	
 //	@Override
 //	public void mouseClicked(MouseEvent e) {
 //		GObject x = getElementAt(e.getX(), e.getY());

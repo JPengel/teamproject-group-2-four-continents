@@ -1,6 +1,5 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
