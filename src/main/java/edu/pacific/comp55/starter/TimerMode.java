@@ -86,6 +86,8 @@ public class TimerMode extends Mode{
 	
 	public void returnToMenu() {
 		//TODO Has Main Menu call isTimeOver()
+		PMenu = null;
+		Gapp.switchToScreen(MMenu);
 	}
 	
 	
