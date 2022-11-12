@@ -35,7 +35,8 @@ public class TimerMode extends Mode{
 		//TODO Return true if topping.isCut() returns true, and check for hazards specific to mode.
 	}
 	
-	public void isGamerOver() {
+	
+	public void GameOver() { // not sure where to call gameOver
 		//TODO Calls new instance of GameOver
 		gameOver = new GameOver(this, Gapp, baconSliced, cheeseSliced, eggSliced);
 		Gapp.switchToScreen(gameOver);

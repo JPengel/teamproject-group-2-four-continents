@@ -6,7 +6,7 @@ import java.util.*;
 import acm.graphics.*;
 
 public class NoWasteMode extends Mode{
-	int wasteCount;
+	int wasteCount = 0;
 	GPoint counter = new GPoint(1100,50);
 	GImage counterX;
 	int highScore;
@@ -25,7 +25,7 @@ public class NoWasteMode extends Mode{
 			filePath += "0";
 			filePath += source;
 			counterX = new GImage(filePath);
-			counterX.setLocation(counter);
+			counterX.setLocation(counter);        // missing when there is one miss
 			
 		}
 		else if(count == 1) {
@@ -39,6 +39,7 @@ public class NoWasteMode extends Mode{
 			filePath += "3";
 			filePath += source;
 			counterX = new GImage(filePath);
+			GameOver(); // im calling game over is here instead of creating an isGameOver();
 			
 		}
 		filePath = "lives";
@@ -53,7 +54,7 @@ public class NoWasteMode extends Mode{
 		
 	}
 	
-	public void isGamerOver() {
+	public void GameOver() { 
 		//TODO Calls new instance of GameOver
 		gameOver = new GameOver(this, Gapp, baconSliced, cheeseSliced, eggSliced);
 		Gapp.switchToScreen(gameOver);
