@@ -10,7 +10,7 @@ public class GraphicsApplication extends GraphicsProgram {
 	public static final int WINDOW_WIDTH = 1900;
 	public static final int WINDOW_HEIGHT = 750;
 	
-	private GraphicsPane curScreen;
+	protected GraphicsPane curScreen;
 	private MainMenu MMenu;
 	
 	public GraphicsApplication() {
@@ -50,6 +50,11 @@ public class GraphicsApplication extends GraphicsProgram {
 		}
 		newScreen.showContents();
 		curScreen = newScreen;
+	}
+	
+	protected void switchToPause(GraphicsPane pauseScreen) {
+		pauseScreen.showContents();
+		curScreen = pauseScreen;
 	}
 	
 	

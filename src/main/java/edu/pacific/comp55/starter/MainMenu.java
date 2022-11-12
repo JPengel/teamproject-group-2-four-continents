@@ -113,6 +113,7 @@ public class MainMenu extends GraphicsPane{
 			e.sendForward();
 			Gapp.add(e);
 		}
+		
 		timerMode = null;
 		noWasteMode = null;
 	}

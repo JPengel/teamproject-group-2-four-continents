@@ -68,6 +68,7 @@ public class NoWasteMode extends Mode{
 	@Override
 	public void resetAll() {
 		//TODO Reset all parameters to their original forms.
+		PMenu = null;
 	}
 	
 	@Override
@@ -79,6 +80,11 @@ public class NoWasteMode extends Mode{
 			System.out.println("hi");
 			Gapp.switchToScreen(MMenu);
 		}
+		else if(x == pauseButton) {
+			System.out.println("Open Pause");
+			PMenu = new PauseMenu(this, Gapp);
+			Gapp.switchToPause(PMenu);
+		}
 	}
 	
 	@Override
@@ -87,6 +93,8 @@ public class NoWasteMode extends Mode{
 		Gapp.add(pauseButton);
 		Gapp.add(temp_Exit);
 		Gapp.add(counterX);
+		PMenu = null;
+		startTimer();
 	}
 
 	@Override

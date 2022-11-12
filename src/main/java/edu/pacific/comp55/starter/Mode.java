@@ -114,17 +114,28 @@ public class Mode extends GraphicsPane{
 		//TODO Stops timer.
 	}
 	public void startTimer() {
-		//TODO Starts timer again.
+		//TODO Start TImer and set PMenu to null
+		PMenu = null;
+	}
+	
+	public void setPauseToNull() {
+		PMenu = null;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("Hi");
 		GObject x = Gapp.getElementAt(e.getX(), e.getY());
+		System.out.println(x.toString());
 		
 		if(x == temp_Exit) {
 			System.out.println("hi");
 			Gapp.switchToScreen(MMenu);
+		}
+		else if(x == pauseButton) {
+			System.out.println("Open Pause");
+			PMenu = new PauseMenu(this, Gapp);
+			Gapp.switchToPause(PMenu);
 		}
 	}
 	@Override

@@ -50,6 +50,7 @@ public class TimerMode extends Mode{
 	@Override
 	public void resetAll() {
 		//TODO Reset all parameters to their original forms.
+		PMenu = null;
 	}
 	
 	@Override
@@ -60,6 +61,11 @@ public class TimerMode extends Mode{
 		if(x == temp_Exit) {
 			System.out.println("hi");
 			Gapp.switchToScreen(MMenu);
+		}
+		else if(x == pauseButton) {
+			System.out.println("Open Pause");
+			PMenu = new PauseMenu(this, Gapp);
+			Gapp.switchToPause(PMenu);
 		}
 	}	
 	@Override
