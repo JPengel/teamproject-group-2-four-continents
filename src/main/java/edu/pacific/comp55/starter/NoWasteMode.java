@@ -25,15 +25,20 @@ public class NoWasteMode extends Mode{
 			filePath += "0";
 			filePath += source;
 			counterX = new GImage(filePath);
-			counterX.setLocation(counter);        // missing when there is one miss
+			counterX.setLocation(counter);       
 			
 		}
 		else if(count == 1) {
-			filePath += "2";
+			filePath += "1";
 			filePath += source;
 			counterX = new GImage(filePath);
 			
 
+		}
+		else if(count == 2) {
+			filePath+= "2";
+			filePath += source;
+			counterX = new GImage(filePath);
 		}
 		else {
 			filePath += "3";
@@ -42,6 +47,7 @@ public class NoWasteMode extends Mode{
 			GameOver(); // im calling game over is here instead of creating an isGameOver();
 			
 		}
+		Gapp.add(counterX);
 		filePath = "lives";
 	}
 	
