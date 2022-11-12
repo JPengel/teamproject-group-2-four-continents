@@ -4,7 +4,7 @@ import acm.program.*;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.*;
-//comment
+
 class PauseMenu  extends GraphicsPane {
 	public static final int PROGRAM_WIDTH = 1920/2; 
 	public static final int PROGRAM_HEIGHT = 1080/2;
@@ -81,7 +81,7 @@ class PauseMenu  extends GraphicsPane {
 	
 	public void exit() {
 		if (flick == 1) {
-			noWasteModePause.returnToMenu(); // shouldnt we call return to menu ? 
+			noWasteModePause.returnToMenu(); 
 		}
 		else if (flick == 2 ) {
 			timerModePause.returnToMenu();
@@ -93,7 +93,7 @@ class PauseMenu  extends GraphicsPane {
 	}
 	
 	@Override
-	public void showContents() {     // where is it being called
+	public void showContents() {     
 		// TODO Auto-generated method stub
 		Gapp.add(backGround);
 		Gapp.add(exit);
