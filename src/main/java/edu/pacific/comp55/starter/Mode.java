@@ -3,11 +3,13 @@ import acm.program.*;
 import acm.util.RandomGenerator;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
 
-public class Mode extends GraphicsPane{
+public class Mode extends GraphicsPane implements ActionListener{
 	public static final int WINDOWS_WIDTH = 1920;
 	public static final int WINDOWS_HEIGHT = 1080;
 	private static RandomGenerator probability, toppingChooser, hazardChooser, upgradeChooser;
@@ -36,7 +38,6 @@ public class Mode extends GraphicsPane{
 		MMenu = m;
 		Gapp = x;
 		drawBoard();
-		System.out.println("hello");
 	}
 	
 	
@@ -70,7 +71,7 @@ public class Mode extends GraphicsPane{
 		//TODO returns all variables back to their original forms.
 	}
 	
-	/*public void generateObject() {
+	public void generateObject() {
 		//TODO creates a new object.			
 		int chance = probability.nextInt(1, 100);
 		if(chance < 81) { //Toppings 80% chance
@@ -86,7 +87,7 @@ public class Mode extends GraphicsPane{
 				}
 			}
 		}
-	}*/
+	}
 	
 	public void exceedHighScore() {
 		//TODO if scoreCounter is greater than or equal to highscore then 
@@ -164,13 +165,9 @@ public class Mode extends GraphicsPane{
 		Gapp.switchToScreen(MMenu);
 	}
 	
-//	@Override
-//	public void mouseClicked(MouseEvent e) {
-//		GObject x = getElementAt(e.getX(), e.getY());
-//		System.out.println(x);
-//		if(x == pauseButton) {
-//			PMenu = new PauseMenu();
-//		}
-//	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    	generateObject();
+    }
 	
 }
