@@ -81,10 +81,10 @@ class PauseMenu  extends GraphicsPane {
 	
 	public void exit() {
 		if (flick == 1) {
-			Gapp.switchToScreen(noWasteModePause.getMMenu()); // shouldnt we call return to menu ? 
+			noWasteModePause.returnToMenu(); // shouldnt we call return to menu ? 
 		}
 		else if (flick == 2 ) {
-			Gapp.switchToScreen(timerModePause.getMMenu());
+			timerModePause.returnToMenu();
 		}
 	}
 
