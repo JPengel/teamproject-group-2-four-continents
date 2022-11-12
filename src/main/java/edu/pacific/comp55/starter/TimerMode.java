@@ -37,6 +37,8 @@ public class TimerMode extends Mode{
 	
 	public void isGamerOver() {
 		//TODO Calls new instance of GameOver
+		gameOver = new GameOver(this, Gapp, baconSliced, cheeseSliced, eggSliced);
+		Gapp.switchToScreen(gameOver);
 	}
 	
 	public void importHighScore() {

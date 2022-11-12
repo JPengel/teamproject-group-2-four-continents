@@ -55,6 +55,8 @@ public class NoWasteMode extends Mode{
 	
 	public void isGamerOver() {
 		//TODO Calls new instance of GameOver
+		gameOver = new GameOver(this, Gapp, baconSliced, cheeseSliced, eggSliced);
+		Gapp.switchToScreen(gameOver);
 	}
 	
 	public void importHighScore() {
@@ -75,7 +77,6 @@ public class NoWasteMode extends Mode{
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("Hi");
 		GObject x = Gapp.getElementAt(e.getX(), e.getY());
-		
 		if(x == temp_Exit) {
 			System.out.println("hi");
 			Gapp.switchToScreen(MMenu);
