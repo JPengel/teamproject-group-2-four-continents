@@ -77,6 +77,7 @@ public class TimerMode extends Mode{
 		Gapp.add(pauseButton);
 		Gapp.add(temp_Exit);
 		Gapp.add(timerDisplay);
+		startTimer();
 	}
 
 	@Override
