@@ -14,7 +14,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	public static final int WINDOWS_HEIGHT = 1080;
 	private static RandomGenerator probability, toppingChooser, hazardChooser, upgradeChooser;
 	protected ArrayList<Topping> objList;
-	protected GImage pauseButton;
+	protected GImage pauseButton, button;
 	protected GImage temp_Exit;
 	protected GLabel bothScores;
 	protected PauseMenu PMenu;
@@ -45,9 +45,10 @@ public class Mode extends GraphicsPane implements ActionListener{
 		//TODO Calls all other draw functions.
 		wall = new GImage("wall.jpg");
 		wall.setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
-		
 		pauseButton = new GImage("pauseButton.png",950,550);
 		temp_Exit = new GImage("Exit.png");
+		button = new GImage("lives0.png", 500, 500);
+		
 		
 	}
 	
@@ -118,11 +119,11 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	public void startTimer() {
 		//TODO Start TImer and set PMenu to null
-		PMenu = null;
+//		PMenu = null;
 	}
 	
 	public void setPauseToNull() {
-		PMenu = null;
+//		PMenu = null;
 	}
 	
 	@Override
@@ -132,14 +133,21 @@ public class Mode extends GraphicsPane implements ActionListener{
 		System.out.println(x.toString());
 		
 		if(x == temp_Exit) {
-			System.out.println("hi");
+			
 			Gapp.switchToScreen(MMenu);
 		}
 		else if(x == pauseButton) {
 			System.out.println("Open Pause");
 			PMenu = new PauseMenu(this, Gapp);
 			Gapp.switchToPause(PMenu);
+			
 		}
+		else if(x == button) {
+			System.out.println("hi");
+			gameOver = new GameOver(this, Gapp,10,10,10);
+			Gapp.switchToScreen(gameOver);
+		}
+		
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -148,15 +156,17 @@ public class Mode extends GraphicsPane implements ActionListener{
 
 	@Override
 	public void showContents() {
-		Gapp.add(wall);
-		Gapp.add(pauseButton);
-		Gapp.add(temp_Exit);
+//		Gapp.add(wall);
+//		Gapp.add(pauseButton);
+//		Gapp.add(temp_Exit);
+//		Gapp.add(button);
 	}
 
 	@Override
 	public void hideContents() {
-		Gapp.remove(wall);
-		Gapp.remove(pauseButton);
+//		Gapp.remove(wall);
+//		Gapp.remove(pauseButton);
+//		Gapp.remove(button);
 	}
 	
 	public void returnToMenu() {

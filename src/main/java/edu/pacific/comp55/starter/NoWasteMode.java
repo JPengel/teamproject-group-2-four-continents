@@ -97,10 +97,12 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void showContents() {
+		button.scale(3);
 		Gapp.add(wall);
 		Gapp.add(pauseButton);
 		Gapp.add(temp_Exit);
 		Gapp.add(counterX);
+		Gapp.add(button);
 		PMenu = null;
 		startTimer();
 	}
