@@ -108,6 +108,10 @@ public class Topping {
 		}
 	}
 	
+	public static GImage getImage() {
+		return image;
+	}
+	
 	public static boolean shouldMove() {
 		if(curY > -1080.01) {
 			return true;
