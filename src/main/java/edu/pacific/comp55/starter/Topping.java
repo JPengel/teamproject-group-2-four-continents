@@ -4,7 +4,7 @@ import acm.program.*;
 import acm.graphics.*;
 import java.util.random.RandomGenerator;
 
-public class Topping {
+public class Topping extends GraphicsPane{
 	//VARIABLES
 	private static int startX, vertexX, vertexY;
 	private static final int startY = -1080;
@@ -19,7 +19,7 @@ public class Topping {
 	private static double moveSpeed = 1; //Changes the pace of the game
 	
 	//CONSTRUCTORS
-	Topping(ToppingType type){
+	Topping(ToppingType type,GraphicsApplication a){
 		this.type = type;
 		generateCoordinates();
 		createPath();
@@ -102,7 +102,7 @@ public class Topping {
 			} else {
 				incrementLocation();
 			}
-			//image.setLocation(curX * -1, curY * -1);
+			//image.move(curX * -1, curY * -1);
 		} else {
 			System.out.println("TOPPING SHOULDN'T BE MOVING"); //4TPs
 		}
@@ -169,6 +169,16 @@ public class Topping {
 			moveTopping();
 			System.out.println("|"+ curX + " | " + curY);
 		}
+		
+	}
+	@Override
+	public void showContents() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void hideContents() {
+		// TODO Auto-generated method stub
 		
 	}
 }

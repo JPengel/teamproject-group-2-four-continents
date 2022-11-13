@@ -1,7 +1,7 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
 import acm.util.RandomGenerator;
-
+import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +38,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		MMenu = m;
 		Gapp = x;
 		drawBoard();
+		Timer = new Timer(1000,this);
 	}
 	
 	
@@ -73,31 +74,34 @@ public class Mode extends GraphicsPane implements ActionListener{
 		//TODO returns all variables back to their original forms.
 	}
 	
-	public void generateObject() {
-		//TODO creates a new object.			
-		int chance = probability.nextInt(1, 100);
-		if(chance < 81) { //Toppings 80% chance
-			objList.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)]));
-		} else if (chance > 80 && chance < 91) { //Hazards 10% chance
-			objList.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)]));
-		} else { //Upgrades 10% chance
-			if(isTimerMode) { 
-				objList.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)]));
-			} else {
-				if(chance % 2 == 0) {
-					objList.add(new Topping(ToppingType.ROCK));
-				}
-			}
-		}
-	}
+//	public void generateObject() {
+//		//TODO creates a new object.			
+//		int chance = probability.nextInt(1, 100);
+//		if(chance < 81) { //Toppings 80% chance
+//			objList.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)]));
+//		} else if (chance > 80 && chance < 91) { //Hazards 10% chance
+//			objList.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)]));
+//		} else { //Upgrades 10% chance
+//			if(isTimerMode) { 
+//				objList.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)]));
+//			} else {
+//				if(chance % 2 == 0) {
+//					objList.add(new Topping(ToppingType.ROCK));
+//				}
+//			}
+//		}
+//	}
 	
 	public void exceedHighScore() {
 		//TODO if scoreCounter is greater than or equal to highscore then 
 		// make scoreCounter the new high score.
 	}
 	
-	public void fallenOffScreen(Topping t) {
+	public boolean fallenOffScreen(Topping t) {
 		//TODO If topping fell off, then delete it from Array List
+		
+		return true;
+		
 	}
 	
 	public void deleteTopping(Topping t) {
@@ -116,10 +120,12 @@ public class Mode extends GraphicsPane implements ActionListener{
 	//TODO: delete this
 	public void stopTimer() {
 		//TODO Stops timer.
+		Timer.stop();
 	}
 	public void startTimer() {
 		//TODO Start TImer and set PMenu to null
-//		PMenu = null;
+		PMenu = null;
+		Timer.start();
 	}
 	
 	public void setPauseToNull() {
@@ -143,9 +149,10 @@ public class Mode extends GraphicsPane implements ActionListener{
 			
 		}
 		else if(x == button) {
-			System.out.println("hi");
+			
 			gameOver = new GameOver(this, Gapp,10,10,10);
 			Gapp.switchToScreen(gameOver);
+			System.out.println("hi");
 		}
 		
 	}
@@ -156,17 +163,17 @@ public class Mode extends GraphicsPane implements ActionListener{
 
 	@Override
 	public void showContents() {
-//		Gapp.add(wall);
-//		Gapp.add(pauseButton);
-//		Gapp.add(temp_Exit);
-//		Gapp.add(button);
+		Gapp.add(wall);
+		Gapp.add(pauseButton);
+		Gapp.add(temp_Exit);
+		Gapp.add(button);
 	}
 
 	@Override
 	public void hideContents() {
-//		Gapp.remove(wall);
-//		Gapp.remove(pauseButton);
-//		Gapp.remove(button);
+		Gapp.remove(wall);
+		Gapp.remove(pauseButton);
+		Gapp.remove(button);
 	}
 	
 	public void returnToMenu() {
@@ -178,7 +185,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
     @Override
     public void actionPerformed(ActionEvent e) {
-    	generateObject();
-    }
 	
+}
 }

@@ -1,6 +1,7 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
@@ -44,6 +45,7 @@ public class NoWasteMode extends Mode{
 			filePath += "3";
 			filePath += source;
 			counterX = new GImage(filePath);
+			stopTimer();
 			GameOver(); // im calling game over is here instead of creating an isGameOver();
 			
 		}
@@ -51,10 +53,11 @@ public class NoWasteMode extends Mode{
 		filePath = "lives";
 	}
 	
-	@Override
-	public void fallenOffScreen(Topping t) {
+	public void incrementTheCounter(Topping t) {
+		if(super.fallenOffScreen(t)){
 		count += 1;
 		drawXCounter();
+		}
 		//TODO Overrides fallenOffScreen so that in addition
 		//to deleting it from the ArrayList, it also adds to the wasCount.
 		
@@ -90,6 +93,7 @@ public class NoWasteMode extends Mode{
 		}
 		else if(x == pauseButton) {
 			System.out.println("Open Pause");
+			stopTimer();
 			PMenu = new PauseMenu(this, Gapp);
 			Gapp.switchToPause(PMenu);
 		}
@@ -97,22 +101,35 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void showContents() {
-		button.scale(3);
-		Gapp.add(wall);
-		Gapp.add(pauseButton);
-		Gapp.add(temp_Exit);
+//		button.scale(3);
+//		Gapp.add(wall);
+//		Gapp.add(pauseButton);
+//		Gapp.add(temp_Exit);
+//		Gapp.add(counterX);
+//		Gapp.add(button);
+//		PMenu = null;
+//		startTimer();
+		super.showContents();
 		Gapp.add(counterX);
-		Gapp.add(button);
 		PMenu = null;
-		startTimer();
 	}
 
 	@Override
 	public void hideContents() {
-		Gapp.remove(wall);
-		Gapp.remove(pauseButton);
-		Gapp.remove(temp_Exit);
-		Gapp.remove(counterX);
+//		Gapp.remove(wall);
+//		Gapp.remove(pauseButton);
+//		Gapp.remove(temp_Exit);
+//		Gapp.remove(counterX);
+		super.hideContents();
+		Gapp.add(counterX);
 	}
+	 public void actionPerformed(ActionEvent e) {
+//		 generateObject();
+		 for(Topping t : objList) {
+			 t.moveTopping();
+			 incrementTheCounter(t);
+		 }
+		 
+	 }
 	
 }

@@ -73,18 +73,24 @@ public class TimerMode extends Mode{
 	}	
 	@Override
 	public void showContents() {
-		Gapp.add(wall);
-		Gapp.add(pauseButton);
-		Gapp.add(temp_Exit);
+//		Gapp.add(wall);
+//		Gapp.add(pauseButton);
+//		Gapp.add(temp_Exit);
+//		Gapp.add(timerDisplay);
+//		startTimer();
+		super.showContents();
 		Gapp.add(timerDisplay);
+		PMenu = null;
 		startTimer();
 	}
 
 	@Override
 	public void hideContents() {
-		Gapp.remove(wall);
-		Gapp.remove(pauseButton);
-		Gapp.remove(temp_Exit);
+//		Gapp.remove(wall);
+//		Gapp.remove(pauseButton);
+//		Gapp.remove(temp_Exit);
+//		Gapp.remove(timerDisplay);
+		super.hideContents();
 		Gapp.remove(timerDisplay);
 	}
 }
