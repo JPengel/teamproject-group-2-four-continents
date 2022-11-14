@@ -74,23 +74,23 @@ public class Mode extends GraphicsPane implements ActionListener{
 		//TODO returns all variables back to their original forms.
 	}
 	
-//	public void generateObject() {
-//		//TODO creates a new object.			
-//		int chance = probability.nextInt(1, 100);
-//		if(chance < 81) { //Toppings 80% chance
-//			objList.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)]));
-//		} else if (chance > 80 && chance < 91) { //Hazards 10% chance
-//			objList.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)]));
-//		} else { //Upgrades 10% chance
-//			if(isTimerMode) { 
-//				objList.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)]));
-//			} else {
-//				if(chance % 2 == 0) {
-//					objList.add(new Topping(ToppingType.ROCK));
-//				}
-//			}
-//		}
-//	}
+	public void generateObject() {
+		//TODO creates a new object.			
+		int chance = probability.nextInt(1, 100);
+		if(chance < 81) { //Toppings 80% chance
+			objList.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Gapp));
+		} else if (chance > 80 && chance < 91) { //Hazards 10% chance
+			objList.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)], Gapp));
+		} else { //Upgrades 10% chance
+			if(isTimerMode) { 
+				objList.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)],Gapp));
+			} else {
+				if(chance % 2 == 0) {
+					objList.add(new Topping(ToppingType.ROCK, Gapp));
+				}
+			}
+		}
+	}
 	
 	public void exceedHighScore() {
 		//TODO if scoreCounter is greater than or equal to highscore then 
@@ -120,7 +120,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 	//TODO: delete this
 	public void stopTimer() {
 		//TODO Stops timer.
-		Timer.stop();
 	}
 	public void startTimer() {
 		//TODO Start TImer and set PMenu to null
@@ -185,6 +184,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
     @Override
     public void actionPerformed(ActionEvent e) {
+    //	generateObject();
+    }
 	
-}
 }

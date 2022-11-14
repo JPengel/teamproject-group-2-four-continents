@@ -9,7 +9,7 @@ public class Topping extends GraphicsPane{
 	private static int startX, vertexX, vertexY;
 	private static final int startY = -1080;
 	private static double curX, curY, hParab, aParab, kParab;
-
+	private static GraphicsApplication Gapp;
 	private static RandomGenerator gFlip, gStartXLeft, gStartXRight, gVertexX, gVertexY;
 	private static ToppingType type;
 	private static boolean isCut;
@@ -25,8 +25,9 @@ public class Topping extends GraphicsPane{
 		createPath();
 		createImage();
 	}
-	Topping(ToppingType type, int moveSpeed){
+	Topping(ToppingType type, int moveSpeed, GraphicsApplication s){
 		this.type = type;
+		Gapp = s;
 		generateCoordinates();
 		createPath();
 		createImage();
@@ -77,7 +78,7 @@ public class Topping extends GraphicsPane{
 	static void createImage() {
 		image = new GImage(IMG_FILE_PATH + type.toString() + IMG_EXTENSION);
 		image.setLocation(curX * -1, curY * -1);
-		//add(image); <- HAS A PROBLEM FOR SOME REASON
+		Gapp.add(image);
 	}
 	
 	//INCREMENT LOCATION
@@ -102,7 +103,7 @@ public class Topping extends GraphicsPane{
 			} else {
 				incrementLocation();
 			}
-			//image.move(curX * -1, curY * -1);
+			image.move(curX * -1, curY * -1);
 		} else {
 			System.out.println("TOPPING SHOULDN'T BE MOVING"); //4TPs
 		}
@@ -182,4 +183,5 @@ public class Topping extends GraphicsPane{
 		
 	}
 }
+
 
