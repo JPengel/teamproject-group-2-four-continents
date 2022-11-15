@@ -2,6 +2,7 @@ package edu.pacific.comp55.starter;
 import acm.program.*;
 import acm.util.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
@@ -10,7 +11,6 @@ public class TimerMode extends Mode{
 	int timer = 60;
 	GLabel timerDisplay;
 	int highScore;
-	String timer2 = String.valueOf(timer);
 	
 	public TimerMode() {
 		super();
@@ -24,7 +24,7 @@ public class TimerMode extends Mode{
 	}
 	
 	public void drawTimer() {
-		timerDisplay = new GLabel(timer2, 1200, 50);
+		timerDisplay = new GLabel(String.valueOf(timer), 1200, 50);
 		timerDisplay.setColor(Color.ORANGE);
 		timerDisplay.setFont("Arial-Bold-50");
 	}
@@ -71,6 +71,16 @@ public class TimerMode extends Mode{
 			Gapp.switchToPause(PMenu);
 		}
 	}	
+	
+	 public void actionPerformed(ActionEvent e) {
+		 generateObject();
+	    for (Topping t: objList) {
+	    		t.moveTopping();
+	    		fallenOffScreen(t);
+	   	}
+	    timer--;	
+	    timerDisplay.setLabel(String.valueOf(timer));
+	 }
 	@Override
 	public void showContents() {
 //		Gapp.add(wall);

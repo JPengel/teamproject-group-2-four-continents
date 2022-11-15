@@ -19,9 +19,10 @@ public class Topping extends GraphicsPane{
 	private static double moveSpeed = 1; //Changes the pace of the game
 	
 	//CONSTRUCTORS
-	Topping(ToppingType type,GraphicsApplication a){
+	Topping(ToppingType type,GraphicsApplication s){
 		this.type = type;
 		generateCoordinates();
+		Gapp = s;
 		createPath();
 		createImage();
 	}
@@ -92,20 +93,19 @@ public class Topping extends GraphicsPane{
 	}
 	
 	//UPDATE IMAGE WITH LOCATION
-	static void moveTopping() {
+	static boolean moveTopping() {
 		if(shouldMove()) {
-			if(isCut) {
-				if(flick < 1) {
-					image = new GImage(IMG_FILE_PATH + type.toString() + "_cut" + IMG_EXTENSION);
-					flick++;
-				}
+			if(isCut = true) {
+				
 				curY -= moveSpeed;
 			} else {
 				incrementLocation();
 			}
 			image.move(curX * -1, curY * -1);
+			return true;
 		} else {
 			System.out.println("TOPPING SHOULDN'T BE MOVING"); //4TPs
+			return false;
 		}
 	}
 	
@@ -125,8 +125,9 @@ public class Topping extends GraphicsPane{
 	public boolean isCut() {
 		return isCut;
 	}
-	public void setCut(boolean isCut) {
-		this.isCut = isCut;
+	public void setCut() {
+		isCut = true;
+		image = new GImage(IMG_FILE_PATH + type.toString() + "_cut" + IMG_EXTENSION);
 	}
 	public double getCurY() {
 		return curY;

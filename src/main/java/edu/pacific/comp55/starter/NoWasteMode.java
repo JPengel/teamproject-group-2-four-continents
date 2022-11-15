@@ -124,7 +124,7 @@ public class NoWasteMode extends Mode{
 		Gapp.add(counterX);
 	}
 	 public void actionPerformed(ActionEvent e) {
-//		 generateObject();
+		 generateObject();
 		 for(Topping t : objList) {
 			 t.moveTopping();
 			 incrementTheCounter(t);

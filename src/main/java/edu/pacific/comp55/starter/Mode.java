@@ -1,6 +1,7 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
-import acm.util.RandomGenerator;
+import acm.util.*;
+
 import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -12,8 +13,8 @@ import acm.graphics.*;
 public class Mode extends GraphicsPane implements ActionListener{
 	public static final int WINDOWS_WIDTH = 1920;
 	public static final int WINDOWS_HEIGHT = 1080;
-	private static RandomGenerator probability, toppingChooser, hazardChooser, upgradeChooser;
-	protected ArrayList<Topping> objList;
+	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(), hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator();
+	protected ArrayList<Topping> objList = new ArrayList<Topping>();
 	protected GImage pauseButton, button;
 	protected GImage temp_Exit;
 	protected GLabel bothScores;
@@ -60,13 +61,22 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	
 	public Topping getObject(int x, int y) {
-		Topping t;
+		GObject currTopping = Gapp.getElementAt(x,y); 
+		for(Topping t : objList) {
+			if (t.getCurX()*-1 == currTopping.getX() && t.getCurY()*-1 == currTopping.getY() && t.getImage() == currTopping) {
+				return t;
+			}
+		}
 		return null;
 		//TODO Returns whatever topping is at the x and y coordinate.
 	}
 	
 	public boolean cutObject(Topping a) {
-		return false;
+		if(a.isCut() == false) {
+			a.setCut();
+			return true;
+		}
+		else {return false;}
 		//TODO Return true if topping.isCut() returns true.
 	}
 	
@@ -99,13 +109,17 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public boolean fallenOffScreen(Topping t) {
 		//TODO If topping fell off, then delete it from Array List
-		
-		return true;
-		
+		if(t.shouldMove() == false) {
+			deleteTopping(t);
+			return true;
+		}
+		return false;
 	}
 	
 	public void deleteTopping(Topping t) {
 		//TODO Deletes Image of topping from screen.
+		Gapp.remove(t.getImage());
+		objList.remove(t);
 	}
 	
 	public boolean knifeSharpened() {
@@ -143,6 +157,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		}
 		else if(x == pauseButton) {
 			System.out.println("Open Pause");
+			Timer.stop();
 			PMenu = new PauseMenu(this, Gapp);
 			Gapp.switchToPause(PMenu);
 			
@@ -157,7 +172,9 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
+		if(getObject(e.getX(),e.getY()) != null) {
+			cutObject(getObject(e.getX(),e.getY()));
+		}
 	}
 
 	@Override
@@ -184,7 +201,11 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
     @Override
     public void actionPerformed(ActionEvent e) {
-    //	generateObject();
+    	generateObject();
+    	for (Topping t: objList) {
+    		t.moveTopping();
+    		fallenOffScreen(t);
+    	}
     }
 	
 }
