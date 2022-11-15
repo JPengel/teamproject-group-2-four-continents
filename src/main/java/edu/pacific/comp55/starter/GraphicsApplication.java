@@ -8,7 +8,7 @@ import acm.program.GraphicsProgram;
 
 public class GraphicsApplication extends GraphicsProgram {
 	public static final int WINDOW_WIDTH = 1900;
-	public static final int WINDOW_HEIGHT = 750;
+	public static final int WINDOW_HEIGHT = 1080;
 	
 	protected GraphicsPane curScreen;
 	private MainMenu MMenu;

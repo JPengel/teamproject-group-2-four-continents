@@ -106,7 +106,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		//TODO if scoreCounter is greater than or equal to highscore then 
 		// make scoreCounter the new high score.
 	}
-	
+	//TODO Discuss WIth LINH AND KIBA TOMORROW ABOUT ERROR
 	public boolean fallenOffScreen(Topping t) {
 		//TODO If topping fell off, then delete it from Array List
 		if(t.shouldMove() == false) {
