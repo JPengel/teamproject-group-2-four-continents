@@ -26,20 +26,22 @@ public class Mode extends GraphicsPane implements ActionListener{
 	protected GLine comboLine;
 	protected GImage wall;
 	protected MainMenu MMenu;
-	protected GraphicsApplication Gapp;
+	protected MainApplication Gapp;
 	private static boolean isTimerMode;
 	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
+	protected boolean paused;
 	
 	public Mode() {
 		drawBoard();
 	}
 	
-	public Mode(MainMenu m, GraphicsApplication x) {
+	public Mode(MainMenu m, MainApplication x) {
 		super();
 		MMenu = m;
 		Gapp = x;
 		drawBoard();
 		Timer = new Timer(1000,this);
+		paused = false;
 	}
 	
 	
@@ -151,7 +153,10 @@ public class Mode extends GraphicsPane implements ActionListener{
 		GObject x = Gapp.getElementAt(e.getX(), e.getY());
 		System.out.println(x.toString());
 		
-		if(x == temp_Exit) {
+		if (paused) {
+			PMenu.mouseClicked(e);
+		}
+		else if(x == temp_Exit) {
 			
 			Gapp.switchToScreen(MMenu);
 		}
@@ -159,8 +164,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 			System.out.println("Open Pause");
 			Timer.stop();
 			PMenu = new PauseMenu(this, Gapp);
-			Gapp.switchToPause(PMenu);
-			
+			PMenu.showContents();
 		}
 		else if(x == button) {
 			
@@ -183,6 +187,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		Gapp.add(pauseButton);
 		Gapp.add(temp_Exit);
 		Gapp.add(button);
+		paused = true;
 	}
 
 	@Override

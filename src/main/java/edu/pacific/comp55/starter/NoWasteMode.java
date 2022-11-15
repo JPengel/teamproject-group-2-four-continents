@@ -16,7 +16,7 @@ public class NoWasteMode extends Mode{
 	static int count = 0;
 	
 	
-	public NoWasteMode(MainMenu m, GraphicsApplication x) {
+	public NoWasteMode(MainMenu m, MainApplication x) {
 		super(m, x);
 		drawXCounter();
 	}
@@ -95,7 +95,7 @@ public class NoWasteMode extends Mode{
 			System.out.println("Open Pause");
 			stopTimer();
 			PMenu = new PauseMenu(this, Gapp);
-			Gapp.switchToPause(PMenu);
+			PMenu.showContents();
 		}
 	}
 	

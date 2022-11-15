@@ -12,7 +12,7 @@ class PauseMenu  extends GraphicsPane {
 	private GImage exit = new GImage("src/main/resources/Exit.png",985/2,686/2);
 	private GImage continuE = new GImage("src/main/resources/Continue.png",580/2,376/2);
 	private GImage retry = new GImage("src/main/resources/Retry.png",580/2,686/2);
-	private GraphicsApplication Gapp;
+	private MainApplication Gapp;
 	private boolean returN;
 	private int flick;
 	TimerMode timerModePause;
@@ -21,7 +21,7 @@ class PauseMenu  extends GraphicsPane {
 	
 	
 	public PauseMenu() {}
-	public PauseMenu(Mode mode, GraphicsApplication a) {
+	public PauseMenu(Mode mode, MainApplication a) {
 		if (mode instanceof NoWasteMode) {
 		noWasteModePause = (NoWasteMode) mode;
 			Gapp = a;
@@ -60,12 +60,15 @@ class PauseMenu  extends GraphicsPane {
 	}
 	}
 	public void continueGame() {
+		/*
 		if (flick == 1) {
 			Gapp.switchToScreen(noWasteModePause);
 		}
 		else if (flick == 2) {
 			Gapp.switchToScreen(timerModePause);
 		}
+		*/
+		hideContents();
 	}
 	
 	public void retry() {
@@ -99,6 +102,7 @@ class PauseMenu  extends GraphicsPane {
 		Gapp.add(exit);
 		Gapp.add(continuE);
 		Gapp.add(retry);
+		
 	}
 	@Override
 	public void hideContents() {

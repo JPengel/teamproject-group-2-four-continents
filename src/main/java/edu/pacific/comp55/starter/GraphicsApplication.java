@@ -11,7 +11,7 @@ public class GraphicsApplication extends GraphicsProgram {
 	public static final int WINDOW_HEIGHT = 1080;
 	
 	protected GraphicsPane curScreen;
-	private MainMenu MMenu;
+
 	
 	public GraphicsApplication() {
 		super();
@@ -22,9 +22,7 @@ public class GraphicsApplication extends GraphicsProgram {
 	}
 	
 	public void run() {
-		MMenu = new MainMenu(this);
 		setupInteractions();
-		switchToScreen(MMenu);
 	}
 	
 	/* Method: setupInteractions
@@ -50,11 +48,6 @@ public class GraphicsApplication extends GraphicsProgram {
 		}
 		newScreen.showContents();
 		curScreen = newScreen;
-	}
-	
-	protected void switchToPause(GraphicsPane pauseScreen) {
-		pauseScreen.showContents();
-		curScreen = pauseScreen;
 	}
 	
 	

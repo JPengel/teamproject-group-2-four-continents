@@ -7,6 +7,7 @@ public class MainApplication extends GraphicsApplication {
 
 	private SomePane somePane;
 	private MenuPane menu;
+	private MainMenu MMenu;
 	private int count;
 
 	public void init() {
@@ -17,10 +18,16 @@ public class MainApplication extends GraphicsApplication {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
 		menu = new MenuPane(this);
+		MMenu = new MainMenu(this);
+
 		setupInteractions();
-		switchToMenu();
+		switchToMainMenu();
 	}
 
+	
+	public void switchToMainMenu() {
+		switchToScreen(MMenu);
+	}
 	public void switchToMenu() {
 		playRandomSound();
 		count++;

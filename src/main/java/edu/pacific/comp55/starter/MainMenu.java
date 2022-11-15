@@ -13,11 +13,11 @@ public class MainMenu extends GraphicsPane{
 	private GImage gif, instruction, pizzaWithTitle, help, quit, noWasteModeButton, timerModeButton, backArrow;
 	private TimerMode timerMode;
 	private NoWasteMode noWasteMode;
-	private GraphicsApplication Gapp;
+	private MainApplication Gapp;
 	private static final double scaleSize= 0.6;
 	ArrayList<GImage> pic;
 	
-	public MainMenu(GraphicsApplication a) {
+	public MainMenu(MainApplication a) {
 		super();
 		Gapp = a;
 		drawMainMenu();
