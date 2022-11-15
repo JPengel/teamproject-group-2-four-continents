@@ -121,7 +121,7 @@ public class NoWasteMode extends Mode{
 //		Gapp.remove(temp_Exit);
 //		Gapp.remove(counterX);
 		super.hideContents();
-		Gapp.add(counterX);
+		Gapp.remove(counterX);
 	}
 	 public void actionPerformed(ActionEvent e) {
 		 generateObject();
