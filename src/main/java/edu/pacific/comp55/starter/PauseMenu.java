@@ -12,7 +12,7 @@ class PauseMenu  extends GraphicsPane {
 	private GImage exit = new GImage("src/main/resources/Exit.png",985/2,686/2);
 	private GImage continuE = new GImage("src/main/resources/Continue.png",580/2,376/2);
 	private GImage retry = new GImage("src/main/resources/Retry.png",580/2,686/2);
-	private MainApplication Gapp;
+	private MainApplication Mapp;
 	private boolean returN;
 	private int flick;
 	TimerMode timerModePause;
@@ -24,11 +24,11 @@ class PauseMenu  extends GraphicsPane {
 	public PauseMenu(Mode mode, MainApplication a) {
 		if (mode instanceof NoWasteMode) {
 		noWasteModePause = (NoWasteMode) mode;
-			Gapp = a;
+			Mapp = a;
 			flick = 1;
 		} else {
 		timerModePause = (TimerMode) mode;
-			Gapp = a;
+			Mapp = a;
 			flick = 2;
 		}
 		
@@ -48,7 +48,7 @@ class PauseMenu  extends GraphicsPane {
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-	GObject obj = Gapp.getElementAt(e.getX(),e.getY());
+	GObject obj = Mapp.getElementAt(e.getX(),e.getY());
 	if (obj == continuE) {
 	continueGame();
 	}
@@ -60,33 +60,37 @@ class PauseMenu  extends GraphicsPane {
 	}
 	}
 	public void continueGame() {
-		/*
 		if (flick == 1) {
-			Gapp.switchToScreen(noWasteModePause);
+			noWasteModePause.startTimer();
+			hideContents();
+			//Mapp.switchToScreen(noWasteModePause);
 		}
 		else if (flick == 2) {
-			Gapp.switchToScreen(timerModePause);
+			timerModePause.startTimer();
+			hideContents();
+			//Mapp.switchToScreen(timerModePause);
 		}
-		*/
-		hideContents();
+		
 	}
 	
 	public void retry() {
 		if (flick == 1) {
 			noWasteModePause.resetAll();
-			Gapp.switchToScreen(noWasteModePause);
+			Mapp.switchToScreen(noWasteModePause);
 		}
 		else if (flick == 2) {
 			timerModePause.resetAll();
-			Gapp.switchToScreen(timerModePause);
+			Mapp.switchToScreen(timerModePause);
 		}
 	}
 	
 	public void exit() {
 		if (flick == 1) {
+			noWasteModePause.stopTimer();
 			noWasteModePause.returnToMenu(); 
 		}
 		else if (flick == 2 ) {
+			timerModePause.stopTimer();
 			timerModePause.returnToMenu();
 		}
 	}
@@ -98,19 +102,19 @@ class PauseMenu  extends GraphicsPane {
 	@Override
 	public void showContents() {     
 		// TODO Auto-generated method stub
-		Gapp.add(backGround);
-		Gapp.add(exit);
-		Gapp.add(continuE);
-		Gapp.add(retry);
+		Mapp.add(backGround);
+		Mapp.add(exit);
+		Mapp.add(continuE);
+		Mapp.add(retry);
 		
 	}
 	@Override
 	public void hideContents() {
 		// TODO Auto-generated method stub
-		Gapp.remove(backGround);
-		Gapp.remove(retry);
-		Gapp.remove(exit);
-		Gapp.remove(continuE);
+		Mapp.remove(backGround);
+		Mapp.remove(retry);
+		Mapp.remove(exit);
+		Mapp.remove(continuE);
 		
 	}
 	public static void main(String[] args) {

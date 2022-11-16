@@ -33,6 +33,11 @@ public class MainApplication extends GraphicsApplication {
 		count++;
 		switchToScreen(menu);
 	}
+	
+	public void switchToPause(GraphicsPane pauseScreen) {
+		pauseScreen.showContents();
+		curScreen = pauseScreen;
+	}
 
 	public void switchToSome() {
 		playRandomSound();

@@ -26,10 +26,10 @@ public class Mode extends GraphicsPane implements ActionListener{
 	protected GLine comboLine;
 	protected GImage wall;
 	protected MainMenu MMenu;
-	protected MainApplication Gapp;
+	protected MainApplication Mapp;
+	protected boolean paused;
 	private static boolean isTimerMode;
 	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
-	protected boolean paused;
 	
 	public Mode() {
 		drawBoard();
@@ -40,7 +40,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	public Mode(MainMenu m, MainApplication x) {
 		super();
 		MMenu = m;
-		Gapp = x;
+		Mapp = x;
 		drawBoard();
 		Timer = new Timer(1000,this);
 		paused = false;
@@ -55,8 +55,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 		pauseButton = new GImage("pauseButton.png",950,550);
 		temp_Exit = new GImage("Exit.png");
 		button = new GImage("lives0.png", 500, 500);
-		
-		
 	}
 	
 	public MainMenu getMMenu() {
@@ -66,7 +64,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	
 	public Topping getObject(int x, int y) {
-		GObject currTopping = Gapp.getElementAt(x,y); 
+		GObject currTopping = Mapp.getElementAt(x,y); 
 		for(Topping t : objList) {
 			if (t.getCurX()*-1 == currTopping.getX() && t.getCurY()*-1 == currTopping.getY() && t.getImage() == currTopping) {
 				return t;
@@ -93,15 +91,15 @@ public class Mode extends GraphicsPane implements ActionListener{
 		//TODO creates a new object.			
 		int chance = probability.nextInt(1, 100);
 		if(chance < 81) { //Toppings 80% chance
-			objList.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Gapp));
+			objList.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Mapp));
 		} else if (chance > 80 && chance < 91) { //Hazards 10% chance
-			objList.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)], Gapp));
+			objList.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)], Mapp));
 		} else { //Upgrades 10% chance
 			if(isTimerMode) { 
-				objList.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)],Gapp));
+				objList.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)],Mapp));
 			} else {
 				if(chance % 2 == 0) {
-					objList.add(new Topping(ToppingType.ROCK, Gapp));
+					objList.add(new Topping(ToppingType.ROCK, Mapp));
 				}
 			}
 		}
@@ -123,7 +121,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public void deleteTopping(Topping t) {
 		//TODO Deletes Image of topping from screen.
-		Gapp.remove(t.getImage());
+		Mapp.remove(t.getImage());
 		objList.remove(t);
 	}
 	
@@ -138,6 +136,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	//TODO: delete this
 	public void stopTimer() {
+		Timer.stop();
 		//TODO Stops timer.
 	}
 	public void startTimer() {
@@ -147,33 +146,32 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	
 	public void setPauseToNull() {
-//		PMenu = null;
+		PMenu = null;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("Hi");
-		GObject x = Gapp.getElementAt(e.getX(), e.getY());
+		GObject x = Mapp.getElementAt(e.getX(), e.getY());
 		System.out.println(x.toString());
 		
 		if (paused) {
 			paused = false;
 			PMenu.mouseClicked(e);
 		}
-		else if(x == temp_Exit) {
-			
-			Gapp.switchToScreen(MMenu);
+		else if(x == temp_Exit) {	
+			Mapp.switchToScreen(MMenu);
 		}
 		else if(x == pauseButton) {
 			System.out.println("Open Pause");
 			Timer.stop();
-			PMenu = new PauseMenu(this, Gapp);
-			PMenu.showContents();
+			PMenu = new PauseMenu(this, Mapp);
+			Mapp.switchToPause(PMenu);
 		}
 		else if(x == button) {
 			
-			gameOver = new GameOver(this, Gapp,10,10,10);
-			Gapp.switchToScreen(gameOver);
+			gameOver = new GameOver(this, Mapp,10,10,10);
+			Mapp.switchToScreen(gameOver);
 			System.out.println("hi");
 			paused = true;
 		}
@@ -188,33 +186,40 @@ public class Mode extends GraphicsPane implements ActionListener{
 
 	@Override
 	public void showContents() {
-		Gapp.add(wall);
-		Gapp.add(pauseButton);
-		Gapp.add(temp_Exit);
-		Gapp.add(button);
+		Mapp.add(wall);
+		Mapp.add(pauseButton);
+		Mapp.add(temp_Exit);
+		Mapp.add(button);
 	}
 
 	@Override
 	public void hideContents() {
-		Gapp.remove(wall);
-		Gapp.remove(pauseButton);
-		Gapp.remove(button);
+		Mapp.remove(wall);
+		Mapp.remove(pauseButton);
+		Mapp.remove(button);
 	}
 	
 	public void returnToMenu() {
 		//TODO Has Main Menu call isTimeOver()
 		PMenu = null;
 		gameOver = null;
-		Gapp.switchToScreen(MMenu);
+		System.out.println("Quit the game");
+		Mapp.switchToScreen(MMenu);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    	generateObject();
-    	for (Topping t: objList) {
-    		t.moveTopping();
-    		fallenOffScreen(t);
-    	}
-    }
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//    	generateObject();
+//    	for (Topping t: objList) {
+//    		t.moveTopping();
+//    		fallenOffScreen(t);
+//    	}
+//    }
 	
 }

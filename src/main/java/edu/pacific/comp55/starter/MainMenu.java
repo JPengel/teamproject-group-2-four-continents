@@ -13,18 +13,16 @@ public class MainMenu extends GraphicsPane{
 	private GImage gif, instruction, pizzaWithTitle, help, quit, noWasteModeButton, timerModeButton, backArrow;
 	private TimerMode timerMode;
 	private NoWasteMode noWasteMode;
-	private MainApplication Gapp;
+	private MainApplication Mapp;
 	private static final double scaleSize= 0.6;
 	ArrayList<GImage> pic;
 	
 	public MainMenu(MainApplication a) {
 		super();
-		Gapp = a;
+		Mapp = a;
 		drawMainMenu();
 	}
-	
-	
-	
+
 	public void drawMainMenu(){
 		// TODO Set up the menu screen
 		pic = new ArrayList<GImage>();
@@ -61,8 +59,8 @@ public class MainMenu extends GraphicsPane{
 		backArrow = new GImage("src/main/resources/Xbutton.PNG",50,50);
 		backArrow.setSize(80, 80);
 		backArrow.sendForward();
-		Gapp.add(instruction);
-		Gapp.add(backArrow);
+		Mapp.add(instruction);
+		Mapp.add(backArrow);
 	}
 	
 	public void creatTimer() {
@@ -83,22 +81,22 @@ public class MainMenu extends GraphicsPane{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		GObject obj = Gapp.getElementAt(e.getX(),e.getY());
+		GObject obj = Mapp.getElementAt(e.getX(),e.getY());
 		if(obj == help) {
 			help();
 		}
 		else if(obj == backArrow) {
-			Gapp.remove(instruction);
-			Gapp.remove(backArrow);
+			Mapp.remove(instruction);
+			Mapp.remove(backArrow);
 		}
 		else if(obj == timerModeButton) {
-			timerMode = new TimerMode(this, Gapp);
-			Gapp.switchToScreen(timerMode);
+			timerMode = new TimerMode(this, Mapp);
+			Mapp.switchToScreen(timerMode);
 			
 		}
 		else if(obj == noWasteModeButton) {
-			noWasteMode = new NoWasteMode(this, Gapp);
-			Gapp.switchToScreen(noWasteMode);
+			noWasteMode = new NoWasteMode(this, Mapp);
+			Mapp.switchToScreen(noWasteMode);
 		}
 		else if(obj == quit) {
 			System.exit(0);
@@ -111,7 +109,7 @@ public class MainMenu extends GraphicsPane{
 		for(GImage e : pic) {
 			//e.scale(scaleSize);
 			e.sendForward();
-			Gapp.add(e);
+			Mapp.add(e);
 		}
 		
 		timerMode = null;
@@ -122,7 +120,7 @@ public class MainMenu extends GraphicsPane{
 	public void hideContents() {
 		// TODO Auto-generated method stub
 		for(GImage e : pic) {
-			Gapp.remove(e);
+			Mapp.remove(e);
 		}
 		
 	}

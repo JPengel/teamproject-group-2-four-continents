@@ -29,7 +29,7 @@ class GameOver extends GraphicsPane{
 	GLabel cheeseC = new GLabel("" + cheeseCount, 407/2,470/2);
 	GLabel eggC = new GLabel("" + eggCount, 627/2,470/2);
 	GLabel totalScore = new GLabel("" + scoreCount, 407/2,648/2);
-	private GraphicsApplication Gapp;
+	private MainApplication Mapp;
 	TimerMode timerModeGameOver;
 	NoWasteMode noWasteModeGameOver;
 	ArrayList<GImage> images;
@@ -37,7 +37,7 @@ class GameOver extends GraphicsPane{
 	
 	public GameOver() {}
 	
-	public GameOver(Mode mode, GraphicsApplication a, int bacon, int cheese,int eggs) {
+	public GameOver(Mode mode, MainApplication a, int bacon, int cheese,int eggs) {
 		if (mode instanceof NoWasteMode) {
 			noWasteModeGameOver = (NoWasteMode) mode;
 			flick = 1;
@@ -46,7 +46,7 @@ class GameOver extends GraphicsPane{
 			timerModeGameOver = (TimerMode) mode;
 			flick = 2;
 		}
-		Gapp = a;
+		Mapp = a;
 		baconCount = bacon;
 		cheeseCount = cheese;
 		eggCount = eggs;
@@ -55,7 +55,7 @@ class GameOver extends GraphicsPane{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		GObject obj = Gapp.getElementAt(e.getX(),e.getY()); // why do we need the gapp before? 
+		GObject obj = Mapp.getElementAt(e.getX(),e.getY()); // why do we need the gapp before? 
 		if (obj == retry) {
 			retry();
 		}
@@ -85,7 +85,7 @@ class GameOver extends GraphicsPane{
 	
 	public void drawPizza() {
 		//TODO Uses the variables to draw a pizza with the toppings.
-		Gapp.add(blankPizza);
+		Mapp.add(blankPizza);
 		addToppings();
 	}
 
@@ -99,19 +99,19 @@ class GameOver extends GraphicsPane{
 				baconCount--;
 				GImage bacon = new GImage("src/main/resources/bacon_pizza.png");
 				bacon.setLocation(coords.getKey(), coords.getValue());
-				Gapp.add(bacon);
+				Mapp.add(bacon);
 				images.add(bacon);
 			} else if (x > baconCount && x <= cheeseCount + baconCount) {
 				cheeseCount--;
 				GImage cheese = new GImage("src/main/resources/cheese_pizza.png");
 				cheese.setLocation(coords.getKey(), coords.getValue());
-				Gapp.add(cheese);
+				Mapp.add(cheese);
 				images.add(cheese);
 			} else {
 				eggCount--;
 				GImage egg = new GImage("src/main/resources/egg_pizza.png");
 				egg.setLocation(coords.getKey(), coords.getValue());
-				Gapp.add(egg);
+				Mapp.add(egg);
 				images.add(egg);
 			}
 		}
@@ -148,14 +148,14 @@ class GameOver extends GraphicsPane{
 	@Override
 	public void showContents() {
 		// TODO Auto-generated method stub
-		Gapp.add(backGround);
-		Gapp.add(cuttingBoard);
-		Gapp.add(quit);
-		Gapp.add(retry);
-		Gapp.add(baconC);
-		Gapp.add(cheeseC);
-		Gapp.add(eggC);
-		Gapp.add(totalScore);
+		Mapp.add(backGround);
+		Mapp.add(cuttingBoard);
+		Mapp.add(quit);
+		Mapp.add(retry);
+		Mapp.add(baconC);
+		Mapp.add(cheeseC);
+		Mapp.add(eggC);
+		Mapp.add(totalScore);
 		drawPizza();
 		
 	}
@@ -163,17 +163,17 @@ class GameOver extends GraphicsPane{
 	@Override
 	public void hideContents() {
 		// TODO Auto-generated method stub
-		Gapp.remove(backGround);
-		Gapp.remove(cuttingBoard);
-		Gapp.remove(quit);
-		Gapp.remove(retry);
-		Gapp.remove(blankPizza);
-		Gapp.remove(baconC);
-		Gapp.remove(cheeseC);
-		Gapp.remove(eggC);
-		Gapp.remove(totalScore);
+		Mapp.remove(backGround);
+		Mapp.remove(cuttingBoard);
+		Mapp.remove(quit);
+		Mapp.remove(retry);
+		Mapp.remove(blankPizza);
+		Mapp.remove(baconC);
+		Mapp.remove(cheeseC);
+		Mapp.remove(eggC);
+		Mapp.remove(totalScore);
 		for(int i = 0; i < images.size(); i++) {
-			Gapp.remove(images.get(i));
+			Mapp.remove(images.get(i));
 		}
 	}
 	
