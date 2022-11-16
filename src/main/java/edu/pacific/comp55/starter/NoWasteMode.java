@@ -33,18 +33,20 @@ public class NoWasteMode extends Mode{
 			filePath += "1";
 			filePath += source;
 			counterX = new GImage(filePath);
-			
+			counterX.setLocation(counter); 
 
 		}
 		else if(count == 2) {
 			filePath+= "2";
 			filePath += source;
 			counterX = new GImage(filePath);
+			counterX.setLocation(counter); 
 		}
 		else {
 			filePath += "3";
 			filePath += source;
 			counterX = new GImage(filePath);
+			counterX.setLocation(counter); 
 			stopTimer();
 			GameOver(); // im calling game over is here instead of creating an isGameOver();
 			
@@ -114,9 +116,9 @@ public class NoWasteMode extends Mode{
 	 public void actionPerformed(ActionEvent e) {
 		 generateObject();
 		 for(Topping t : objList) {
-//			 t.moveTopping();
-//			 incrementTheCounter(t);
-			 t.createImage();
+			 t.moveTopping();
+			 incrementTheCounter(t);
+//			 t.createImage();
 		 }
 		 
 	 }
