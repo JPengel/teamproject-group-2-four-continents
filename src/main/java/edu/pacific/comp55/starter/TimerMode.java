@@ -15,7 +15,6 @@ public class TimerMode extends Mode{
 	public TimerMode() {
 		super();
 		drawTimer();
-		paused = false;
 	}
 	
 	public TimerMode(MainMenu m, MainApplication ma) {
@@ -87,13 +86,11 @@ public class TimerMode extends Mode{
 		Mapp.add(timerDisplay);
 		PMenu = null;
 		startTimer();
-		paused = true;
 	}
 
 	@Override
 	public void hideContents() {
 		super.hideContents();
 		Mapp.remove(timerDisplay);
-		paused = false;
 	}
 }

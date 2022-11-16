@@ -29,7 +29,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 	protected MainApplication Mapp;
 	private static boolean isTimerMode;
 	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
-	protected boolean paused;
 	
 	public Mode() {
 		drawBoard();
@@ -41,7 +40,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 		Mapp = x;
 		drawBoard();
 		Timer = new Timer(1000,this);
-		paused = false;
 	}
 	
 	
@@ -151,11 +149,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		System.out.println("Hi");
 		GObject x = Mapp.getElementAt(e.getX(), e.getY());
 		System.out.println(x.toString());
-		
-		if (paused) {
-			PMenu.mouseClicked(e);
-		}
-		else if(x == temp_Exit) {
+		if(x == temp_Exit) {
 			
 			Mapp.switchToScreen(MMenu);
 		}
@@ -186,7 +180,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 		Mapp.add(pauseButton);
 		Mapp.add(temp_Exit);
 		Mapp.add(button);
-		paused = true;
 	}
 
 	@Override
