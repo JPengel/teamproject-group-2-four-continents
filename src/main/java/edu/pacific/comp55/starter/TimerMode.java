@@ -18,8 +18,8 @@ public class TimerMode extends Mode{
 		paused = false;
 	}
 	
-	public TimerMode(MainMenu m, MainApplication x) {
-		super(m,x);
+	public TimerMode(MainMenu m, MainApplication ma) {
+		super(m, ma);
 		drawTimer();
 	}
 	
@@ -38,8 +38,8 @@ public class TimerMode extends Mode{
 	
 	public void GameOver() { // not sure where to call gameOver
 		//TODO Calls new instance of GameOver
-		gameOver = new GameOver(this, Gapp, baconSliced, cheeseSliced, eggSliced);
-		Gapp.switchToScreen(gameOver);
+		gameOver = new GameOver(this, Mapp, baconSliced, cheeseSliced, eggSliced);
+		Mapp.switchToScreen(gameOver);
 	}
 	
 	public void importHighScore() {
@@ -58,40 +58,32 @@ public class TimerMode extends Mode{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Hi");
-		GObject x = Gapp.getElementAt(e.getX(), e.getY());
-		if(paused) {
-			PMenu.mouseClicked(e);
-		}
-		else if(x == temp_Exit) {
-			System.out.println("hi");
-			Gapp.switchToScreen(MMenu);
+		System.out.println("hi");
+		GObject x = Mapp.getElementAt(e.getX(), e.getY());
+		if(x == temp_Exit) {
+			Mapp.switchToScreen(MMenu);
 		}
 		else if(x == pauseButton) {
 			System.out.println("Open Pause");
-			PMenu = new PauseMenu(this, Gapp);
-			PMenu.showContents();
+			stopTimer();
+			PMenu = new PauseMenu(this, Mapp);
+			Mapp.switchToPause(PMenu);
 		}
-	}	
+	}
 	
 	 public void actionPerformed(ActionEvent e) {
-		 generateObject();
-	    for (Topping t: objList) {
-	    		t.moveTopping();
-	    		fallenOffScreen(t);
-	   	}
+//		 generateObject();
+//	    for (Topping t: objList) {
+//	    		t.moveTopping();
+//	    		fallenOffScreen(t);
+//	   	}
 	    timer--;	
 	    timerDisplay.setLabel(String.valueOf(timer));
 	 }
 	@Override
 	public void showContents() {
-//		Gapp.add(wall);
-//		Gapp.add(pauseButton);
-//		Gapp.add(temp_Exit);
-//		Gapp.add(timerDisplay);
-//		startTimer();
 		super.showContents();
-		Gapp.add(timerDisplay);
+		Mapp.add(timerDisplay);
 		PMenu = null;
 		startTimer();
 		paused = true;
@@ -99,12 +91,8 @@ public class TimerMode extends Mode{
 
 	@Override
 	public void hideContents() {
-//		Gapp.remove(wall);
-//		Gapp.remove(pauseButton);
-//		Gapp.remove(temp_Exit);
-//		Gapp.remove(timerDisplay);
 		super.hideContents();
-		Gapp.remove(timerDisplay);
+		Mapp.remove(timerDisplay);
 		paused = false;
 	}
 }

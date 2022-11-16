@@ -16,8 +16,8 @@ public class NoWasteMode extends Mode{
 	static int count = 0;
 	
 	
-	public NoWasteMode(MainMenu m, MainApplication x) {
-		super(m, x);
+	public NoWasteMode(MainMenu m, MainApplication ma) {
+		super(m, ma);
 		drawXCounter();
 	}
 	public void drawXCounter() {
@@ -49,7 +49,7 @@ public class NoWasteMode extends Mode{
 			GameOver(); // im calling game over is here instead of creating an isGameOver();
 			
 		}
-		Gapp.add(counterX);
+		Mapp.add(counterX);
 		filePath = "lives";
 	}
 	
@@ -65,8 +65,8 @@ public class NoWasteMode extends Mode{
 	
 	public void GameOver() { 
 		//TODO Calls new instance of GameOver
-		gameOver = new GameOver(this, Gapp, baconSliced, cheeseSliced, eggSliced);
-		Gapp.switchToScreen(gameOver);
+		gameOver = new GameOver(this, Mapp, baconSliced, cheeseSliced, eggSliced);
+		Mapp.switchToScreen(gameOver);
 	}
 	
 	public void importHighScore() {
@@ -85,51 +85,38 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Hi");
-		GObject x = Gapp.getElementAt(e.getX(), e.getY());
+		System.out.println("hi");
+		GObject x = Mapp.getElementAt(e.getX(), e.getY());
 		if(x == temp_Exit) {
-			System.out.println("hi");
-			Gapp.switchToScreen(MMenu);
+			Mapp.switchToScreen(MMenu);
 		}
 		else if(x == pauseButton) {
 			System.out.println("Open Pause");
 			stopTimer();
-			PMenu = new PauseMenu(this, Gapp);
-			PMenu.showContents();
+			PMenu = new PauseMenu(this, Mapp);
+			Mapp.switchToPause(PMenu);
 		}
 	}
 	
 	@Override
 	public void showContents() {
-//		button.scale(3);
-//		Gapp.add(wall);
-//		Gapp.add(pauseButton);
-//		Gapp.add(temp_Exit);
-//		Gapp.add(counterX);
-//		Gapp.add(button);
-//		PMenu = null;
-//		startTimer();
 		super.showContents();
-		Gapp.add(counterX);
+		Mapp.add(counterX);
 		PMenu = null;
 	}
 
 	@Override
 	public void hideContents() {
-//		Gapp.remove(wall);
-//		Gapp.remove(pauseButton);
-//		Gapp.remove(temp_Exit);
-//		Gapp.remove(counterX);
 		super.hideContents();
-		Gapp.remove(counterX);
+		Mapp.remove(counterX);
 	}
-	 public void actionPerformed(ActionEvent e) {
-		 generateObject();
-		 for(Topping t : objList) {
-			 t.moveTopping();
-			 incrementTheCounter(t);
-		 }
-		 
-	 }
+//	 public void actionPerformed(ActionEvent e) {
+//		 generateObject();
+//		 for(Topping t : objList) {
+//			 t.moveTopping();
+//			 incrementTheCounter(t);
+//		 }
+//		 
+//	 }
 	
 }

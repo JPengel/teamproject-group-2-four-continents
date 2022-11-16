@@ -9,7 +9,7 @@ public class Topping extends GraphicsPane{
 	private static int startX, vertexX, vertexY;
 	private static final int startY = -1080;
 	private static double curX, curY, hParab, aParab, kParab;
-	private static GraphicsApplication Gapp;
+	private static MainApplication Mapp;
 	private static RandomGenerator gFlip, gStartXLeft, gStartXRight, gVertexX, gVertexY;
 	private static ToppingType type;
 	private static boolean isCut;
@@ -19,16 +19,16 @@ public class Topping extends GraphicsPane{
 	private static double moveSpeed = 1; //Changes the pace of the game
 	
 	//CONSTRUCTORS
-	Topping(ToppingType type,GraphicsApplication s){
+	Topping(ToppingType type,MainApplication s){
 		this.type = type;
 		generateCoordinates();
-		Gapp = s;
+		Mapp = s;
 		createPath();
 		createImage();
 	}
-	Topping(ToppingType type, int moveSpeed, GraphicsApplication s){
+	Topping(ToppingType type, int moveSpeed, MainApplication s){
 		this.type = type;
-		Gapp = s;
+		Mapp = s;
 		generateCoordinates();
 		createPath();
 		createImage();
@@ -79,7 +79,7 @@ public class Topping extends GraphicsPane{
 	static void createImage() {
 		image = new GImage(IMG_FILE_PATH + type.toString() + IMG_EXTENSION);
 		image.setLocation(curX * -1, curY * -1);
-		Gapp.add(image);
+		Mapp.add(image);
 	}
 	
 	//INCREMENT LOCATION
