@@ -85,11 +85,15 @@ class PauseMenu  extends GraphicsPane {
 	public void exit() {
 		if (flick == 1) {
 			noWasteModePause.stopTimer();
-			noWasteModePause.returnToMenu(); 
+			noWasteModePause.hideContents(); // adding this
+			noWasteModePause.returnToMenu();
+			
 		}
 		else if (flick == 2 ) {
 			timerModePause.stopTimer();
+			timerModePause.hideContents(); //adding this
 			timerModePause.returnToMenu();
+			
 		}
 	}
 

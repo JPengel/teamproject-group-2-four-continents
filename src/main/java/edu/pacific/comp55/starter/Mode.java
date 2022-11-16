@@ -11,8 +11,8 @@ import java.util.*;
 import acm.graphics.*;
 
 public class Mode extends GraphicsPane implements ActionListener{
-	public static final int WINDOWS_WIDTH = 1920;
-	public static final int WINDOWS_HEIGHT = 1080;
+	public static final int WINDOWS_WIDTH = 1920/2;
+	public static final int WINDOWS_HEIGHT = 1080/2;
 	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(), hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator();
 	protected ArrayList<Topping> objList = new ArrayList<Topping>();
 	protected GImage pauseButton, button;
@@ -39,17 +39,16 @@ public class Mode extends GraphicsPane implements ActionListener{
 		MMenu = m;
 		Mapp = x;
 		drawBoard();
-		Timer = new Timer(1000,this);
+		Timer = new Timer(110,this);
 	}
 	
 	
 	public void drawBoard() {
 		//TODO Calls all other draw functions.
-		wall = new GImage("wall.jpg");
-		wall.setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
-		pauseButton = new GImage("pauseButton.png",950,550);
-		temp_Exit = new GImage("Exit.png");
-		button = new GImage("lives0.png", 500, 500);
+		wall = new GImage("BackgroundWall.png");
+		wall.scale(0.5);
+		pauseButton = new GImage("Pause button.png",1695/2,810/2);
+		pauseButton.scale(0.5);
 	}
 	
 	public MainMenu getMMenu() {
@@ -71,7 +70,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public boolean cutObject(Topping a) {
 		if(a.isCut() == false) {
-			a.setCut();
+			a.cutTopping();
 			return true;
 		}
 		else {return false;}
@@ -83,7 +82,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	
 	public void generateObject() {
-		//TODO creates a new object.			
 		int chance = probability.nextInt(1, 100);
 		if(chance < 81) { //Toppings 80% chance
 			objList.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Mapp));
@@ -106,8 +104,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	//TODO Discuss WIth LINH AND KIBA TOMORROW ABOUT ERROR
 	public boolean fallenOffScreen(Topping t) {
-		//TODO If topping fell off, then delete it from Array List
-		if(t.shouldMove() == false) {
+		if(!t.shouldMove()) {
 			deleteTopping(t);
 			return true;
 		}
@@ -115,7 +112,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	
 	public void deleteTopping(Topping t) {
-		//TODO Deletes Image of topping from screen.
 		Mapp.remove(t.getImage());
 		objList.remove(t);
 	}
@@ -178,15 +174,15 @@ public class Mode extends GraphicsPane implements ActionListener{
 	public void showContents() {
 		Mapp.add(wall);
 		Mapp.add(pauseButton);
-		Mapp.add(temp_Exit);
-		Mapp.add(button);
 	}
 
 	@Override
 	public void hideContents() {
+		for(Topping t: objList) {
+			Mapp.remove(t.getImage());
+		}
 		Mapp.remove(wall);
 		Mapp.remove(pauseButton);
-		Mapp.remove(button);
 	}
 	
 	public void returnToMenu() {

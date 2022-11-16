@@ -8,7 +8,7 @@ import acm.graphics.*;
 
 public class NoWasteMode extends Mode{
 	int wasteCount = 0;
-	GPoint counter = new GPoint(1100,50);
+	GPoint counter = new GPoint(830,50);
 	GImage counterX;
 	int highScore;
 	String filePath = "lives";
@@ -27,36 +27,29 @@ public class NoWasteMode extends Mode{
 			filePath += source;
 			counterX = new GImage(filePath);
 			counterX.setLocation(counter);       
-			
-		}
-		else if(count == 1) {
+		} else if(count == 1) {
 			filePath += "1";
 			filePath += source;
 			counterX = new GImage(filePath);
-			
-
-		}
-		else if(count == 2) {
+		} else if(count == 2) {
 			filePath+= "2";
 			filePath += source;
 			counterX = new GImage(filePath);
-		}
-		else {
+		} else {
 			filePath += "3";
 			filePath += source;
 			counterX = new GImage(filePath);
 			stopTimer();
 			GameOver(); // im calling game over is here instead of creating an isGameOver();
-			
 		}
 		Mapp.add(counterX);
 		filePath = "lives";
 	}
 	
-	public void incrementTheCounter(Topping t) {
+	public void checkForFall(Topping t) {
 		if(super.fallenOffScreen(t)){
-		count += 1;
-		drawXCounter();
+			count++;
+			//drawXCounter();
 		}
 		//TODO Overrides fallenOffScreen so that in addition
 		//to deleting it from the ArrayList, it also adds to the wasCount.
@@ -64,7 +57,6 @@ public class NoWasteMode extends Mode{
 	}
 	
 	public void GameOver() { 
-		//TODO Calls new instance of GameOver
 		gameOver = new GameOver(this, Mapp, baconSliced, cheeseSliced, eggSliced);
 		Mapp.switchToScreen(gameOver);
 	}
@@ -79,7 +71,6 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void resetAll() {
-		//TODO Reset all parameters to their original forms.
 		PMenu = null;
 	}
 	
@@ -96,13 +87,15 @@ public class NoWasteMode extends Mode{
 			PMenu = new PauseMenu(this, Mapp);
 			Mapp.switchToPause(PMenu);
 		}
+		generateObject();
+
 	}
 	
 	@Override
 	public void showContents() {
 		startTimer();
 		super.showContents();
-		Mapp.add(counterX);
+		//Mapp.add(counterX);
 		PMenu = null;
 	}
 
@@ -112,13 +105,10 @@ public class NoWasteMode extends Mode{
 		Mapp.remove(counterX);
 	}
 	 public void actionPerformed(ActionEvent e) {
-		 generateObject();
 		 for(Topping t : objList) {
-//			 t.moveTopping();
-//			 incrementTheCounter(t);
-			 t.createImage();
+			 t.moveTopping();
+			//checkForFall(t);
 		 }
-		 
 	 }
 	
 }

@@ -8,6 +8,7 @@ import java.util.*;
 import acm.graphics.*;
 
 public class TimerMode extends Mode{
+	private int count = 0;
 	int timer = 60;
 	GLabel timerDisplay;
 	int highScore;
@@ -23,9 +24,9 @@ public class TimerMode extends Mode{
 	}
 	
 	public void drawTimer() {
-		timerDisplay = new GLabel(String.valueOf(timer), 1200, 50);
+		timerDisplay = new GLabel(String.valueOf(timer), 860, 70);
 		timerDisplay.setColor(Color.ORANGE);
-		timerDisplay.setFont("Arial-Bold-50");
+		timerDisplay.setFont("Arial-Bold-65");
 	}
 	
 	@Override 
@@ -68,17 +69,21 @@ public class TimerMode extends Mode{
 			PMenu = new PauseMenu(this, Mapp);
 			Mapp.switchToPause(PMenu);
 		}
+		generateObject();
 	}
 	
-	 public void actionPerformed(ActionEvent e) {
-		 generateObject();
-	    for (Topping t: objList) {
-//	    		t.moveTopping();
-//	    		fallenOffScreen(t);
-	    	t.createImage();
-	   	}
-	    timer--;	
-	    timerDisplay.setLabel(String.valueOf(timer));
+	public void actionPerformed(ActionEvent e) {
+		if(count >1000/110){
+			timer--;	
+			count = 0;
+		    timerDisplay.setLabel(String.valueOf(timer));
+		}
+		count++;
+	    System.out.println(count);
+		for (Topping t: objList) {
+		    t.moveTopping();
+//		    fallenOffScreen(t);
+		    }
 	 }
 	@Override
 	public void showContents() {

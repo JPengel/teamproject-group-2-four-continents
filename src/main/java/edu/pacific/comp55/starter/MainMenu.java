@@ -6,16 +6,19 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import javax.swing.colorchooser.ColorSelectionModel;
+
 import acm.graphics.*;
 public class MainMenu extends GraphicsPane{
-	public static final int WINDOW_WIDTH = 1900;
-	public static final int WINDOW_HEIGHT = 750;
+	public static final int WINDOW_WIDTH = 1920/2;
+	public static final int WINDOW_HEIGHT = 1080/2;
 	private GImage gif, instruction, pizzaWithTitle, help, quit, noWasteModeButton, timerModeButton, backArrow;
 	private TimerMode timerMode;
 	private NoWasteMode noWasteMode;
 	private MainApplication Mapp;
-	private static final double scaleSize= 0.6;
-	ArrayList<GImage> pic;
+	private static final double scaleSize = 0.5;
+	GRect exit = new GRect(55,42,45,45);
+	ArrayList<GObject> pic;
 	
 	public MainMenu(MainApplication a) {
 		super();
@@ -25,26 +28,26 @@ public class MainMenu extends GraphicsPane{
 
 	public void drawMainMenu(){
 		// TODO Set up the menu screen
-		pic = new ArrayList<GImage>();
+		pic = new ArrayList<GObject>();
 		gif = new GImage("src/main/resources/backgroundMainMenu.png");
-		gif.scale(.67, .7);
-		pizzaWithTitle = new GImage("src/main/resources/Pizza.png",700,100);
+		gif.scale(scaleSize);
+		pizzaWithTitle = new GImage("src/main/resources/Pizza.png",960*scaleSize,100*scaleSize);
 		pizzaWithTitle.scale(scaleSize);
-		noWasteModeButton = new GImage("src/main/resources/Nowaste.png",100,100);
+		noWasteModeButton = new GImage("src/main/resources/Nowaste.png",100*scaleSize,100*scaleSize);
 		noWasteModeButton.scale(scaleSize);
-		timerModeButton = new GImage("src/main/resources/Timer.png" , 100, 300);
+		timerModeButton = new GImage("src/main/resources/Timer.png" , 100*scaleSize, 410*scaleSize);
 		timerModeButton.scale(scaleSize);
-		quit = new GImage("src/main/resources/Quit.png", 100, 500);
+		quit = new GImage("src/main/resources/Quit.png", 505*scaleSize, 720*scaleSize);
 		quit.scale(scaleSize);
-		help = new GImage ("src/main/resources/Help.png", 350, 500);
+		help = new GImage ("src/main/resources/Help.png", 100*scaleSize, 720*scaleSize);
 		help.scale(scaleSize);
+		exit.setVisible(false);
 		pic.add(gif);
 		pic.add(pizzaWithTitle);
 		pic.add(noWasteModeButton);
 		pic.add(timerModeButton);
 		pic.add(quit);
 		pic.add(help);
-		
 		
 	}
 	
@@ -55,12 +58,9 @@ public class MainMenu extends GraphicsPane{
 	public void help() {
 		// TODO It should show up the help gImage
 		instruction = new GImage("src/main/resources/Instructions.png");
-		instruction.scale(.95, .9);
-		backArrow = new GImage("src/main/resources/Xbutton.PNG",50,50);
-		backArrow.setSize(80, 80);
-		backArrow.sendForward();
+		instruction.scale(scaleSize);
 		Mapp.add(instruction);
-		Mapp.add(backArrow);
+		Mapp.add(exit);
 	}
 	
 	public void creatTimer() {
@@ -85,9 +85,9 @@ public class MainMenu extends GraphicsPane{
 		if(obj == help) {
 			help();
 		}
-		else if(obj == backArrow) {
+		else if(obj == exit) {
 			Mapp.remove(instruction);
-			Mapp.remove(backArrow);
+			Mapp.remove(exit);
 		}
 		else if(obj == timerModeButton) {
 			timerMode = new TimerMode(this, Mapp);
@@ -106,7 +106,7 @@ public class MainMenu extends GraphicsPane{
 	@Override
 	public void showContents() {
 		// TODO Auto-generated method stub
-		for(GImage e : pic) {
+		for(GObject e : pic) {
 			//e.scale(scaleSize);
 			e.sendForward();
 			Mapp.add(e);
@@ -119,7 +119,7 @@ public class MainMenu extends GraphicsPane{
 	@Override
 	public void hideContents() {
 		// TODO Auto-generated method stub
-		for(GImage e : pic) {
+		for(GObject e : pic) {
 			Mapp.remove(e);
 		}
 		
