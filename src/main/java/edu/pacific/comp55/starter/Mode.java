@@ -200,16 +200,23 @@ public class Mode extends GraphicsPane implements ActionListener{
 		//TODO Has Main Menu call isTimeOver()
 		PMenu = null;
 		gameOver = null;
+		System.out.println("Quit the game");
 		Mapp.switchToScreen(MMenu);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    	generateObject();
-    	for (Topping t: objList) {
-    		t.moveTopping();
-    		fallenOffScreen(t);
-    	}
-    }
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//    	generateObject();
+//    	for (Topping t: objList) {
+//    		t.moveTopping();
+//    		fallenOffScreen(t);
+//    	}
+//    }
 	
 }

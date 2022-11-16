@@ -100,6 +100,7 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void showContents() {
+		startTimer();
 		super.showContents();
 		Mapp.add(counterX);
 		PMenu = null;
@@ -110,13 +111,14 @@ public class NoWasteMode extends Mode{
 		super.hideContents();
 		Mapp.remove(counterX);
 	}
-//	 public void actionPerformed(ActionEvent e) {
-//		 generateObject();
-//		 for(Topping t : objList) {
+	 public void actionPerformed(ActionEvent e) {
+		 generateObject();
+		 for(Topping t : objList) {
 //			 t.moveTopping();
 //			 incrementTheCounter(t);
-//		 }
-//		 
-//	 }
+			 t.createImage();
+		 }
+		 
+	 }
 	
 }

@@ -77,8 +77,9 @@ public class Topping extends GraphicsPane{
 	
 	//CREATE IMAGE 
 	static void createImage() {
+		System.out.println("Hello");
 		image = new GImage(IMG_FILE_PATH + type.toString() + IMG_EXTENSION);
-		image.setLocation(curX * -1, curY * -1);
+		image.setLocation(300, 300);
 		Mapp.add(image);
 	}
 	

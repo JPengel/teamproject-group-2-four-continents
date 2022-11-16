@@ -72,11 +72,12 @@ public class TimerMode extends Mode{
 	}
 	
 	 public void actionPerformed(ActionEvent e) {
-//		 generateObject();
-//	    for (Topping t: objList) {
+		 generateObject();
+	    for (Topping t: objList) {
 //	    		t.moveTopping();
 //	    		fallenOffScreen(t);
-//	   	}
+	    	t.createImage();
+	   	}
 	    timer--;	
 	    timerDisplay.setLabel(String.valueOf(timer));
 	 }
