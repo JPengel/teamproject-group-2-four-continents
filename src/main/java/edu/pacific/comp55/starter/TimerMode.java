@@ -15,12 +15,13 @@ public class TimerMode extends Mode{
 	public TimerMode() {
 		super();
 		drawTimer();
-		paused = false;
+		System.out.println("Timer Constructor");
 	}
 	
 	public TimerMode(MainMenu m, MainApplication x) {
 		super(m,x);
 		drawTimer();
+		System.out.println("Timer Constructor");
 	}
 	
 	public void drawTimer() {
@@ -58,19 +59,22 @@ public class TimerMode extends Mode{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Hi");
+		System.out.println("Timer Mouse Clicked");
 		GObject x = Gapp.getElementAt(e.getX(), e.getY());
 		if(paused) {
+			paused = false;
 			PMenu.mouseClicked(e);
+			System.out.println("Pause back");
 		}
 		else if(x == temp_Exit) {
-			System.out.println("hi");
+			System.out.println("Exit");
 			Gapp.switchToScreen(MMenu);
 		}
 		else if(x == pauseButton) {
 			System.out.println("Open Pause");
 			PMenu = new PauseMenu(this, Gapp);
 			PMenu.showContents();
+			paused = true;
 		}
 	}	
 	
@@ -94,7 +98,6 @@ public class TimerMode extends Mode{
 		Gapp.add(timerDisplay);
 		PMenu = null;
 		startTimer();
-		paused = true;
 	}
 
 	@Override
@@ -105,6 +108,5 @@ public class TimerMode extends Mode{
 //		Gapp.remove(timerDisplay);
 		super.hideContents();
 		Gapp.remove(timerDisplay);
-		paused = false;
 	}
 }

@@ -85,10 +85,15 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Hi");
+		System.out.println("No Waste Mouce Clicked");
 		GObject x = Gapp.getElementAt(e.getX(), e.getY());
-		if(x == temp_Exit) {
-			System.out.println("hi");
+		if(paused) {
+			paused = false;
+			PMenu.mouseClicked(e);
+			System.out.println("send to pause");
+		}
+		else if(x == temp_Exit) {
+			System.out.println("Exit");
 			Gapp.switchToScreen(MMenu);
 		}
 		else if(x == pauseButton) {
@@ -96,6 +101,7 @@ public class NoWasteMode extends Mode{
 			stopTimer();
 			PMenu = new PauseMenu(this, Gapp);
 			PMenu.showContents();
+			paused = true;
 		}
 	}
 	

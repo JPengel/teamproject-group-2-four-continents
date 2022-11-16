@@ -33,6 +33,8 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public Mode() {
 		drawBoard();
+		paused = false;
+		System.out.println("Mode Constructor");
 	}
 	
 	public Mode(MainMenu m, MainApplication x) {
@@ -42,6 +44,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		drawBoard();
 		Timer = new Timer(1000,this);
 		paused = false;
+		System.out.println("Mode Constructor");
 	}
 	
 	
@@ -154,6 +157,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		System.out.println(x.toString());
 		
 		if (paused) {
+			paused = false;
 			PMenu.mouseClicked(e);
 		}
 		else if(x == temp_Exit) {
@@ -171,6 +175,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 			gameOver = new GameOver(this, Gapp,10,10,10);
 			Gapp.switchToScreen(gameOver);
 			System.out.println("hi");
+			paused = true;
 		}
 		
 	}
@@ -187,7 +192,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 		Gapp.add(pauseButton);
 		Gapp.add(temp_Exit);
 		Gapp.add(button);
-		paused = true;
 	}
 
 	@Override
