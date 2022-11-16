@@ -11,8 +11,8 @@ public class NoWasteMode extends Mode{
 	GPoint counter = new GPoint(1100,50);
 	GImage counterX;
 	int highScore;
-	String filePath = "lives";
-	String source = ".png";
+	String filePath = "lives0.png";
+//	String source = ".png";
 	static int count = 0;
 	
 	
@@ -20,39 +20,58 @@ public class NoWasteMode extends Mode{
 		super(m, ma);
 		drawXCounter();
 	}
+	
 	public void drawXCounter() {
-		//TODO Inserts the Image of counterX.
-		if (count == 0) {
-			filePath += "0";
-			filePath += source;
-			counterX = new GImage(filePath);
-			counterX.setLocation(counter);       
-			
-		}
-		else if(count == 1) {
-			filePath += "1";
-			filePath += source;
-			counterX = new GImage(filePath);
-			counterX.setLocation(counter); 
+			if(count == 0) {
+				counterX = new GImage(filePath);
+				counterX.setLocation(counter);  
+			}
+			else if(count == 1) {
+				filePath.replace("0", "1");
+			}
+			else if(count == 2) {
+				filePath.replace("1", "2");
+			}
+			else if(count == 3) {
+				stopTimer();
+				filePath.replace("2", "3");
+				GameOver();
+			}
+			Mapp.add(counterX);
+			filePath = "lives";
 
-		}
-		else if(count == 2) {
-			filePath+= "2";
-			filePath += source;
-			counterX = new GImage(filePath);
-			counterX.setLocation(counter); 
-		}
-		else {
-			filePath += "3";
-			filePath += source;
-			counterX = new GImage(filePath);
-			counterX.setLocation(counter); 
-			stopTimer();
-			GameOver(); // im calling game over is here instead of creating an isGameOver();
-			
-		}
-		Mapp.add(counterX);
-		filePath = "lives";
+		//TODO Inserts the Image of counterX.
+//		if (count == 0) {
+//			filePath += "0";
+//			filePath += source;
+//			counterX = new GImage(filePath);
+//			counterX.setLocation(counter);       
+//			
+//		}
+//		else if(count == 1) {
+//			filePath += "1";
+//			filePath += source;
+//			counterX = new GImage(filePath);
+//			counterX.setLocation(counter); 
+//
+//		}
+//		else if(count == 2) {
+//			filePath+= "2";
+//			filePath += source;
+//			counterX = new GImage(filePath);
+//			counterX.setLocation(counter); 
+//		}
+//		else {
+//			filePath += "3";
+//			filePath += source;
+//			counterX = new GImage(filePath);
+//			counterX.setLocation(counter); 
+//			stopTimer();
+//			GameOver(); // im calling game over is here instead of creating an isGameOver();
+//			
+//		}
+//		Mapp.add(counterX);
+//		filePath = "lives";
 	}
 	
 	public void incrementTheCounter(Topping t) {
