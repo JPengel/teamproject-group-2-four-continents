@@ -23,11 +23,11 @@ class PauseMenu  extends GraphicsPane {
 	public PauseMenu() {}
 	public PauseMenu(Mode mode, MainApplication a) {
 		if (mode instanceof NoWasteMode) {
-		noWasteModePause = (NoWasteMode) mode;
+			noWasteModePause = (NoWasteMode) mode;
 			Mapp = a;
 			flick = 1;
 		} else {
-		timerModePause = (TimerMode) mode;
+			timerModePause = (TimerMode) mode;
 			Mapp = a;
 			flick = 2;
 		}
@@ -50,39 +50,43 @@ class PauseMenu  extends GraphicsPane {
 	public void mouseClicked(MouseEvent e) {
 	GObject obj = Mapp.getElementAt(e.getX(),e.getY());
 	if (obj == continuE) {
-	continueGame();
+		continueGame();
 	}
 	else if (obj == retry) {
-	retry();
+		retry();
 	}
 	else if (obj == exit) {
-	exit();
+		exit();
 	}
 	}
 	public void continueGame() {
 		if (flick == 1) {
 			noWasteModePause.startTimer();
-			Mapp.switchToScreen(noWasteModePause);
+			hideContents();
+			//Mapp.switchToScreen(noWasteModePause);
 		}
 		else if (flick == 2) {
 			timerModePause.startTimer();
-			Mapp.switchToScreen(timerModePause);
+			hideContents();
+			//Mapp.switchToScreen(timerModePause);
 		}
 		
 	}
 	
 	public void retry() {
+		hideContents();
 		if (flick == 1) {
 			noWasteModePause.resetAll();
-			Mapp.switchToScreen(noWasteModePause);
+			//Mapp.switchToScreen(noWasteModePause);
 		}
 		else if (flick == 2) {
 			timerModePause.resetAll();
-			Mapp.switchToScreen(timerModePause);
+			///Mapp.switchToScreen(timerModePause);
 		}
 	}
 	
 	public void exit() {
+		hideContents();
 		if (flick == 1) {
 			noWasteModePause.stopTimer();
 			noWasteModePause.hideContents(); // adding this
@@ -108,6 +112,11 @@ class PauseMenu  extends GraphicsPane {
 		Mapp.add(exit);
 		Mapp.add(continuE);
 		Mapp.add(retry);
+		if (flick == 1) {
+			noWasteModePause.paused = true;
+		} else if (flick == 2) {
+			timerModePause.paused = true;
+		}
 		
 	}
 	@Override
@@ -117,7 +126,11 @@ class PauseMenu  extends GraphicsPane {
 		Mapp.remove(retry);
 		Mapp.remove(exit);
 		Mapp.remove(continuE);
-		
+		if (flick == 1) {
+			noWasteModePause.paused = false;
+		} else if (flick == 2) {
+			timerModePause.paused = false;
+		}
 	}
 	public static void main(String[] args) {
 	//new PauseMenu().start(); 

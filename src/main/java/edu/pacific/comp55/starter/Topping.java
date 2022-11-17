@@ -6,18 +6,18 @@ import java.util.random.RandomGenerator;
 
 public class Topping extends GraphicsPane{
 	//VARIABLES
-	private static double startX, vertexX, vertexY;
+	private  double startX, vertexX, vertexY;
 	//					    ↘ CHANGE SCALE ↙ not the screen dimensions
-	private static final double SCALE = 0.5, startY = 0, WIDTH = 1920 * SCALE, HEIGHT = 1080 * SCALE;
-	private static double curX, curY, hParab, aParab, kParab;
-	private static MainApplication Mapp;
-	private static RandomGenerator gFlip, gStartXLeft, gStartXRight, gVertexX, gVertexY;
-	private static ToppingType type;
-	private static boolean isCut;
-	private static int flick = 0;
-	private static GImage image;
-	public static final String IMG_FILE_PATH = "src/main/resources/", IMG_EXTENSION = ".png";
-	private static double moveSpeed = 20; //Changes the pace of the game
+	private  final double SCALE = 0.5, startY = 0, WIDTH = 1920 * SCALE, HEIGHT = 1080 * SCALE;
+	private  double curX, curY, hParab, aParab, kParab;
+	private  MainApplication Mapp;
+	private  RandomGenerator gFlip, gStartXLeft, gStartXRight, gVertexX, gVertexY;
+	private  ToppingType type;
+	private  boolean isCut;
+	private  int flick = 0;
+	private  GImage image;
+	public  final String IMG_FILE_PATH = "src/main/resources/", IMG_EXTENSION = ".png";
+	private  double moveSpeed = 20; //Changes the pace of the game
 	
 	//CONSTRUCTORS
 	Topping(ToppingType type,MainApplication s){
@@ -37,7 +37,7 @@ public class Topping extends GraphicsPane{
 	}
 	
 	//COORDINATE GENERATORS
-	static void generateStartX() {
+	 void generateStartX() {
 		gFlip = RandomGenerator.getDefault();
 		int flip = gFlip.nextInt(0, 2);
 		if(flip == 1) {
@@ -49,24 +49,24 @@ public class Topping extends GraphicsPane{
 		}
 		System.out.println("Starting X: " + startX); //4TPs
 	}
-	static void generateVertexX() {
+	 void generateVertexX() {
 		gVertexX = RandomGenerator.getDefault();
 		vertexX = gVertexX.nextDouble(760*SCALE, 1160*SCALE);
 		System.out.println("Vertex X: " + vertexX); //4TPs
 	}
-	static void generateVertexY() {
+	 void generateVertexY() {
 		gVertexY = RandomGenerator.getDefault();
 		vertexY = gVertexY.nextDouble(580*SCALE, 980*SCALE);
 		System.out.println("Vertex Y: " + vertexY); //4TPs
 	}
-	static void generateCoordinates() {
+	 void generateCoordinates() {
 		generateStartX();
 		generateVertexX();
 		generateVertexY();
 	}
 	
 	//PARABOLA MAKER
-	static void createPath() {
+	 void createPath() {
 		curX = startX;
 		curY = startY*SCALE;
 		hParab = vertexX;
@@ -76,7 +76,7 @@ public class Topping extends GraphicsPane{
 	}
 	
 	//CREATE IMAGE 
-	static void createImage() {
+	void createImage() {
 		image = new GImage(IMG_FILE_PATH + type.toString() + IMG_EXTENSION);
 		image.setLocation(curX, HEIGHT- curY);
 		System.out.println(IMG_FILE_PATH + type.toString() + IMG_EXTENSION); //4TPs
@@ -85,7 +85,7 @@ public class Topping extends GraphicsPane{
 	}
 	
 	//INCREMENT LOCATION
-	static void incrementLocation() {
+	void incrementLocation() {
 		if (startX > vertexX) {
 			curX -= moveSpeed;
 		} else {
@@ -95,7 +95,9 @@ public class Topping extends GraphicsPane{
 	}
 	
 	//UPDATE IMAGE WITH LOCATION
-	static void moveTopping() {
+	 void moveTopping() {
+		 System.out.print("----");
+		 System.out.println(shouldMove());
 		if(shouldMove()) {
 			if(isCut) {
 				curY -= moveSpeed;
@@ -108,8 +110,9 @@ public class Topping extends GraphicsPane{
 		}
 	}
 	
-	public static boolean shouldMove() {
+	public boolean shouldMove() {
 		if(curY < -1 || curX < 0 - image.getWidth() || curX > WIDTH) {
+			Mapp.remove(image);
 			return false;
 		} else {
 			return true;
@@ -133,28 +136,28 @@ public class Topping extends GraphicsPane{
 	public void setMoveSpeed(int moveSpeed) {
 		this.moveSpeed = moveSpeed;
 	}
-	public static double getHParab() {
+	public  double getHParab() {
 		return hParab;
 	}
-	public static double getAParab() {
+	public  double getAParab() {
 		return aParab;
 	}
-	public static double getKParab() {
+	public  double getKParab() {
 		return kParab;
 	}
-	public static GImage getImage() {
+	public  GImage getImage() {
 		return image;
 	}
 	
 	//TEST GROUND
-	public static void main(String[] args) {
+	public  void main(String[] args) {
 		type = ToppingType.BACON;
 		createImage();
 		parabolaTester();
 	}
 	
 	//PARABOLA TESTER
-	public static void parabolaTester() {
+	public  void parabolaTester() {
 		generateCoordinates();
 		createPath();
 		moveSpeed = 1;

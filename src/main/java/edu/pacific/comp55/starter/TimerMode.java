@@ -16,11 +16,13 @@ public class TimerMode extends Mode{
 	public TimerMode() {
 		super();
 		drawTimer();
+		System.out.println("Timer Constructor");
 	}
 	
 	public TimerMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
 		drawTimer();
+		System.out.println("Timer Constructor");
 	}
 	
 	public void drawTimer() {
@@ -58,18 +60,19 @@ public class TimerMode extends Mode{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("hi");
+		System.out.println("Timer Mouse Clicked");
 		GObject x = Mapp.getElementAt(e.getX(), e.getY());
-		if(x == temp_Exit) {
-			Mapp.switchToScreen(MMenu);
-		}
-		else if(x == pauseButton) {
+		if(paused) {
+			PMenu.mouseClicked(e);
+			System.out.println("Pause back");
+		} else if(x == pauseButton) {
 			System.out.println("Open Pause");
-			stopTimer();
 			PMenu = new PauseMenu(this, Mapp);
-			Mapp.switchToPause(PMenu);
+			PMenu.showContents();
+			stopTimer();
+		} else {
+			generateObject();
 		}
-		generateObject();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -79,11 +82,13 @@ public class TimerMode extends Mode{
 		    timerDisplay.setLabel(String.valueOf(timer));
 		}
 		count++;
-	    System.out.println(count);
-		for (Topping t: objList) {
-		    t.moveTopping();
-//		    fallenOffScreen(t);
+	   System.out.println("move timer");
+		for (int i = toppingArray.size() - 1 ; i >= 0 ; i--) {
+		    toppingArray.get(i).moveTopping();
+		    if (!toppingArray.get(i).shouldMove()) {
+		    	toppingArray.remove(i);
 		    }
+		}
 	 }
 	@Override
 	public void showContents() {

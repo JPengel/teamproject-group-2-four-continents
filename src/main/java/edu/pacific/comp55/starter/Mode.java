@@ -11,27 +11,26 @@ import java.util.*;
 import acm.graphics.*;
 
 public class Mode extends GraphicsPane implements ActionListener{
-	public static final int WINDOWS_WIDTH = 1920/2;
-	public static final int WINDOWS_HEIGHT = 1080/2;
+	public static final int WINDOWS_WIDTH = 1920/2, WINDOWS_HEIGHT = 1080/2;
 	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(), hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator();
-	protected ArrayList<Topping> objList = new ArrayList<Topping>();
-	protected GImage pauseButton, button;
-	protected GImage temp_Exit;
+	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
+	protected ArrayList <Topping> toppingArray = new ArrayList<Topping>();
+	protected GImage pauseButton, button, wall;
 	protected GLabel bothScores;
 	protected PauseMenu PMenu;
 	protected GameOver gameOver;
 	protected int baconSliced, cheeseSliced, eggSliced, scoreCounter, comboCounter = 1;
-	protected ArrayList <Topping> toppingArray = new ArrayList<Topping>();
 	protected Timer Timer;
 	protected GLine comboLine;
-	protected GImage wall;
 	protected MainMenu MMenu;
 	protected MainApplication Mapp;
+	protected boolean paused;
 	private static boolean isTimerMode;
-	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
 	
 	public Mode() {
 		drawBoard();
+		paused = false;
+		System.out.println("Mode Constructor");
 	}
 	
 	public Mode(MainMenu m, MainApplication x) {
@@ -40,11 +39,12 @@ public class Mode extends GraphicsPane implements ActionListener{
 		Mapp = x;
 		drawBoard();
 		Timer = new Timer(110,this);
+		paused = false;
+		System.out.println("Mode Constructor");
 	}
 	
 	
 	public void drawBoard() {
-		//TODO Calls all other draw functions.
 		wall = new GImage("BackgroundWall.png");
 		wall.scale(0.5);
 		pauseButton = new GImage("Pause button.png",1695/2,810/2);
@@ -59,22 +59,21 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public Topping getObject(int x, int y) {
 		GObject currTopping = Mapp.getElementAt(x,y); 
-		for(Topping t : objList) {
+		for(Topping t : toppingArray) {
 			if (t.getCurX()*-1 == currTopping.getX() && t.getCurY()*-1 == currTopping.getY() && t.getImage() == currTopping) {
 				return t;
 			}
 		}
 		return null;
-		//TODO Returns whatever topping is at the x and y coordinate.
 	}
 	
-	public boolean cutObject(Topping a) {
-		if(a.isCut() == false) {
-			a.cutTopping();
+	public boolean cutObject(Topping t) {
+		if(t.isCut() == false) {
+			t.cutTopping();
 			return true;
+		} else {
+			return false;
 		}
-		else {return false;}
-		//TODO Return true if topping.isCut() returns true.
 	}
 	
 	public void resetAll() {
@@ -84,15 +83,15 @@ public class Mode extends GraphicsPane implements ActionListener{
 	public void generateObject() {
 		int chance = probability.nextInt(1, 100);
 		if(chance < 81) { //Toppings 80% chance
-			objList.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Mapp));
+			toppingArray.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Mapp));
 		} else if (chance > 80 && chance < 91) { //Hazards 10% chance
-			objList.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)], Mapp));
+			toppingArray.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)], Mapp));
 		} else { //Upgrades 10% chance
 			if(isTimerMode) { 
-				objList.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)],Mapp));
+				toppingArray.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)],Mapp));
 			} else {
 				if(chance % 2 == 0) {
-					objList.add(new Topping(ToppingType.ROCK, Mapp));
+					toppingArray.add(new Topping(ToppingType.ROCK, Mapp));
 				}
 			}
 		}
@@ -102,7 +101,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		//TODO if scoreCounter is greater than or equal to highscore then 
 		// make scoreCounter the new high score.
 	}
-	//TODO Discuss WIth LINH AND KIBA TOMORROW ABOUT ERROR
+	
 	public boolean fallenOffScreen(Topping t) {
 		if(!t.shouldMove()) {
 			deleteTopping(t);
@@ -113,7 +112,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public void deleteTopping(Topping t) {
 		Mapp.remove(t.getImage());
-		objList.remove(t);
+		toppingArray.remove(t);
 	}
 	
 	public boolean knifeSharpened() {
@@ -142,27 +141,24 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Hi");
 		GObject x = Mapp.getElementAt(e.getX(), e.getY());
 		System.out.println(x.toString());
-		if(x == temp_Exit) {
-			
-			Mapp.switchToScreen(MMenu);
-		}
-		else if(x == pauseButton) {
+		if (paused) {
+			paused = false;
+			PMenu.mouseClicked(e);
+		} else if(x == pauseButton) {
 			System.out.println("Open Pause");
 			Timer.stop();
 			PMenu = new PauseMenu(this, Mapp);
 			Mapp.switchToPause(PMenu);
-		}
-		else if(x == button) {
-			
+		} else if(x == button) {
 			gameOver = new GameOver(this, Mapp,10,10,10);
 			Mapp.switchToScreen(gameOver);
 			System.out.println("hi");
+			paused = true;
 		}
-		
 	}
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if(getObject(e.getX(),e.getY()) != null) {
@@ -178,7 +174,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 
 	@Override
 	public void hideContents() {
-		for(Topping t: objList) {
+		for(Topping t: toppingArray) {
 			Mapp.remove(t.getImage());
 		}
 		Mapp.remove(wall);
@@ -202,7 +198,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 //    @Override
 //    public void actionPerformed(ActionEvent e) {
 //    	generateObject();
-//    	for (Topping t: objList) {
+//    	for (Topping t: toppingArray) {
 //    		t.moveTopping();
 //    		fallenOffScreen(t);
 //    	}
