@@ -9,18 +9,19 @@ import acm.graphics.*;
 
 public class TimerMode extends Mode{
 	private int count = 0;
-	int timer = 60;
 	GLabel timerDisplay;
 	int highScore;
 	
 	public TimerMode() {
 		super();
+		isTimerMode = true;
 		drawTimer();
 		System.out.println("Timer Constructor");
 	}
 	
 	public TimerMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
+		isTimerMode = true;
 		drawTimer();
 		System.out.println("Timer Constructor");
 	}
@@ -31,19 +32,7 @@ public class TimerMode extends Mode{
 		timerDisplay.setFont("Arial-Bold-65");
 	}
 	
-	@Override 
-	public boolean cutObject(Topping a) {
-		return false;
-		//TODO Return true if topping.isCut() returns true, and check for hazards specific to mode.
-	}
-	
-	
-	public void GameOver() { // not sure where to call gameOver
-		//TODO Calls new instance of GameOver
-		gameOver = new GameOver(this, Mapp, baconSliced, cheeseSliced, eggSliced);
-		Mapp.switchToScreen(gameOver);
-	}
-	
+
 	public void importHighScore() {
 		//TODO Copies high score of specific mode from text file.
 	}
@@ -70,26 +59,29 @@ public class TimerMode extends Mode{
 			PMenu = new PauseMenu(this, Mapp);
 			PMenu.showContents();
 			stopTimer();
-		} else {
-			generateObject();
-		}
+		} 
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(count >1000/110){
+		gameClock();
+		tossToppings();
+		runToppings();
+	}
+
+
+	public void gameClock() {
+		if(count > 1000/110){
 			timer--;	
 			count = 0;
 		    timerDisplay.setLabel(String.valueOf(timer));
 		}
 		count++;
-	   System.out.println("move timer");
-		for (int i = toppingArray.size() - 1 ; i >= 0 ; i--) {
-		    toppingArray.get(i).moveTopping();
-		    if (!toppingArray.get(i).shouldMove()) {
-		    	toppingArray.remove(i);
-		    }
+		if(timer == 0) {
+			//callGameOver();
 		}
-	 }
+	}
+	
+	
 	@Override
 	public void showContents() {
 		super.showContents();

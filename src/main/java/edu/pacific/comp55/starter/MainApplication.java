@@ -19,7 +19,6 @@ public class MainApplication extends GraphicsApplication {
 		somePane = new SomePane(this);
 		menu = new MenuPane(this);
 		MMenu = new MainMenu(this);
-
 		setupInteractions();
 		switchToMainMenu();
 	}

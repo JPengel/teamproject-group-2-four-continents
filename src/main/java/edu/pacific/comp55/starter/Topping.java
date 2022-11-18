@@ -13,9 +13,10 @@ public class Topping extends GraphicsPane{
 	private  MainApplication Mapp;
 	private  RandomGenerator gFlip, gStartXLeft, gStartXRight, gVertexX, gVertexY;
 	private  ToppingType type;
+	
 	private  boolean isCut;
 	private  int flick = 0;
-	private  GImage image;
+	private  GImage image, cutImage;
 	public  final String IMG_FILE_PATH = "src/main/resources/", IMG_EXTENSION = ".png";
 	private  double moveSpeed = 20; //Changes the pace of the game
 	
@@ -96,15 +97,14 @@ public class Topping extends GraphicsPane{
 	
 	//UPDATE IMAGE WITH LOCATION
 	 void moveTopping() {
-		 System.out.print("----");
-		 System.out.println(shouldMove());
 		if(shouldMove()) {
 			if(isCut) {
 				curY -= moveSpeed;
+				cutImage.setLocation(curX, HEIGHT - curY);
 			} else {
 				incrementLocation();
+				image.setLocation(curX, HEIGHT - curY);
 			}
-			image.setLocation(curX, HEIGHT - curY);
 		} else {
 			System.out.println("TOPPING SHOULDN'T BE MOVING"); //4TPs
 		}
@@ -112,7 +112,11 @@ public class Topping extends GraphicsPane{
 	
 	public boolean shouldMove() {
 		if(curY < -1 || curX < 0 - image.getWidth() || curX > WIDTH) {
-			Mapp.remove(image);
+			if(isCut()) {
+				Mapp.remove(cutImage);
+			} else {
+				Mapp.remove(image);
+			}
 			return false;
 		} else {
 			return true;
@@ -125,7 +129,10 @@ public class Topping extends GraphicsPane{
 	}
 	public void cutTopping() {
 		isCut = true;
-		image = new GImage(IMG_FILE_PATH + type.toString() + "_cut" + IMG_EXTENSION);
+		cutImage = new GImage(IMG_FILE_PATH + type.toString() + "_cut" + IMG_EXTENSION);
+		cutImage.setLocation(curX, curY);
+		Mapp.remove(image);
+		Mapp.add(cutImage); 
 	}
 	public double getCurY() {
 		return curY;
@@ -147,6 +154,9 @@ public class Topping extends GraphicsPane{
 	}
 	public  GImage getImage() {
 		return image;
+	}
+	public ToppingType getType() {
+		return type;
 	}
 	
 	//TEST GROUND

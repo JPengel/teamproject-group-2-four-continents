@@ -75,10 +75,7 @@ public class NoWasteMode extends Mode{
 	}
 	
 	public void checkForFall(Topping t) {
-		if(super.fallenOffScreen(t)){
-			count++;
-			//drawXCounter();
-		}
+		 
 		//TODO Overrides fallenOffScreen so that in addition
 		//to deleting it from the ArrayList, it also adds to the wasCount.
 		
