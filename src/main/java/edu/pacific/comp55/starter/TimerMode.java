@@ -76,8 +76,9 @@ public class TimerMode extends Mode{
 		    timerDisplay.setLabel(String.valueOf(timer));
 		}
 		count++;
-		if(timer == 0) {
-			//callGameOver();
+		if(timer <= 0) {
+			stopTimer();
+			callGameOver();
 		}
 	}
 	

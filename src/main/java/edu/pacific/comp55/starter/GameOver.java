@@ -32,7 +32,7 @@ class GameOver extends GraphicsPane{
 	private MainApplication Mapp;
 	TimerMode timerModeGameOver;
 	NoWasteMode noWasteModeGameOver;
-	ArrayList<GImage> images;
+	ArrayList<GImage> images = new ArrayList<GImage>();
 	private RandomGenerator rand = new RandomGenerator();
 	
 	public GameOver() {}
@@ -48,8 +48,13 @@ class GameOver extends GraphicsPane{
 		}
 		Mapp = a;
 		baconCount = bacon;
+		baconC = new GLabel("" + baconCount,172/2, 470/2);
 		cheeseCount = cheese;
+		cheeseC = new GLabel("" + cheeseCount, 407/2,470/2);
 		eggCount = eggs;
+		eggC = new GLabel("" + eggCount, 627/2,470/2);
+		scoreCount = baconCount + cheeseCount + eggCount;
+		totalScore = new GLabel("" + scoreCount, 407/2,648/2);
 		drawGameOver();
 	}
 	
