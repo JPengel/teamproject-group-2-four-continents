@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
-
+//koba
 public class Mode extends GraphicsPane implements ActionListener{
 	
 	//VARIABLES
