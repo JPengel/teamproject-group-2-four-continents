@@ -24,6 +24,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	protected GameOver gameOver;
 	protected Timer Timer;
 	protected GLine comboLine;
+	protected GImage gif = new GImage("src/main/resources/gifMainMenu.gif");
 	protected MainMenu MMenu;
 	protected MainApplication Mapp;
 	protected boolean paused, isTimerMode, onRock = false;
@@ -38,10 +39,12 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public Mode(MainMenu m, MainApplication x) {
 		super();
+		gif.scale(1.6);
 		MMenu = m;
 		Mapp = x;
 		drawBoard();
 		Timer = new Timer(110,this);
+		Timer.setInitialDelay(1800);
 		paused = false;
 		System.out.println("Mode Constructor");
 	}
@@ -305,8 +308,13 @@ public class Mode extends GraphicsPane implements ActionListener{
 	//GRAPHICS
 	@Override
 	public void showContents() {
+		Mapp.add(gif);
 		Mapp.add(wall);
+		gif.sendToFront();
 		Mapp.add(pauseButton);
+		gif.sendToFront();
+		
+		
 	}
 
 	@Override
@@ -347,7 +355,9 @@ public class Mode extends GraphicsPane implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(gif != null) {
+			Mapp.remove(gif);
+		}
 		
 	}
 	

@@ -63,6 +63,7 @@ public class TimerMode extends Mode{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		super.actionPerformed(e);
 		gameClock();
 		tossToppings();
 		runToppings();
