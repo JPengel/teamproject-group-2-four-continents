@@ -308,11 +308,10 @@ public class Mode extends GraphicsPane implements ActionListener{
 	//GRAPHICS
 	@Override
 	public void showContents() {
-		Mapp.add(gif);
+		
 		Mapp.add(wall);
-		gif.sendToFront();
 		Mapp.add(pauseButton);
-		gif.sendToFront();
+		Mapp.add(gif);
 		
 		
 	}
@@ -357,6 +356,8 @@ public class Mode extends GraphicsPane implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(gif != null) {
 			Mapp.remove(gif);
+			gif = null;
+			
 		}
 		
 	}
