@@ -118,7 +118,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		} else if(x == pauseButton) {
 			System.out.println("Open Pause");
 			Timer.stop();
-			PMenu = new PauseMenu(this, Mapp);
+			PMenu = new PauseMenu(this, Mapp, MMenu);
 			Mapp.switchToPause(PMenu);
 		} 
 	}
@@ -340,8 +340,10 @@ public class Mode extends GraphicsPane implements ActionListener{
 		return MMenu;
 	}
 	
+	
 	public void resetAll() {
 		//TODO returns all variables back to their original forms.
+			
 	}
 	
 	public void returnToMenu() {
@@ -363,4 +365,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	
 	
+	
+
 }

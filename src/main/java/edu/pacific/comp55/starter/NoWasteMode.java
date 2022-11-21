@@ -37,7 +37,7 @@ public class NoWasteMode extends Mode{
 				filePath.replace("2", "3");
 				GameOver();
 			}
-			Mapp.add(counterX);
+//			Mapp.add(counterX);
 			filePath = "lives";
 
 		//TODO Inserts the Image of counterX.
@@ -97,6 +97,8 @@ public class NoWasteMode extends Mode{
 	@Override
 	public void resetAll() {
 		PMenu = null;
+		gameOver = null;
+		Timer.restart();
 	}
 	
 	@Override
@@ -109,7 +111,7 @@ public class NoWasteMode extends Mode{
 		} else if(x == pauseButton) {
 			System.out.println("Open Pause");
 			stopTimer();
-			PMenu = new PauseMenu(this, Mapp);
+			PMenu = new PauseMenu(this, Mapp, MMenu);
 			PMenu.showContents();
 		}
 		generateObject();
@@ -120,7 +122,7 @@ public class NoWasteMode extends Mode{
 	public void showContents() {
 		startTimer();
 		super.showContents();
-		//Mapp.add(counterX);
+		Mapp.add(counterX);
 		PMenu = null;
 	}
 

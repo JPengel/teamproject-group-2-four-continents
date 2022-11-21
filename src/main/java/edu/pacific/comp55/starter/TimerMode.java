@@ -26,6 +26,7 @@ public class TimerMode extends Mode{
 		System.out.println("Timer Constructor");
 	}
 	
+	
 	public void drawTimer() {
 		timerDisplay = new GLabel(String.valueOf(timer), 860, 70);
 		timerDisplay.setColor(Color.ORANGE);
@@ -44,7 +45,9 @@ public class TimerMode extends Mode{
 	@Override
 	public void resetAll() {
 		//TODO Reset all parameters to their original forms.
-		PMenu = null;
+		super.resetAll();
+		timer = 60;
+		
 	}
 	
 	@Override
@@ -56,13 +59,14 @@ public class TimerMode extends Mode{
 			System.out.println("Pause back");
 		} else if(x == pauseButton) {
 			System.out.println("Open Pause");
-			PMenu = new PauseMenu(this, Mapp);
+			PMenu = new PauseMenu(this, Mapp, MMenu);
 			PMenu.showContents();
 			stopTimer();
 		} 
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("start timer");
 		super.actionPerformed(e);
 		gameClock();
 		tossToppings();
