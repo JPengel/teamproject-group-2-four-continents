@@ -16,7 +16,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	public static final int WINDOWS_WIDTH = 1920/2, WINDOWS_HEIGHT = 1080/2;
 	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(), hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator();
 	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
-	protected int baconSliced, cheeseSliced, eggSliced, scoreCounter = 0, comboCounter = 1, timer = 60, splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0;
+	protected int baconSliced, cheeseSliced, eggSliced, scoreCounter = 0, comboCounter = 1, timer = 60, splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0, wasteCount = 0;
 	protected ArrayList <Topping> toppingArray = new ArrayList<Topping>();
 	protected GImage pauseButton, button, wall, splash = new GImage("src/main/resources/Splash.png"), pineappleLabel = new GImage("src/main/resources/Pineapple_Label.png"), clockLabel = new GImage("src/main/resources/Clock_Label.png"), sharpLabel = new GImage("src/main/resources/Sharp_Knife_5.png", 525/2,75/2);
 	protected GLabel bothScores;
@@ -132,7 +132,8 @@ public class Mode extends GraphicsPane implements ActionListener{
 				pineappleLabel.setLocation(i.getCurX(), i.getCurY());
 				Mapp.add(pineappleLabel);
 			} else {
-				//callGameOver();
+				stopTimer();
+				callGameOver();
 			}
 		} else if (i.getType() == ToppingType.CLOCK) {
 			clockLabel.setLocation(i.getCurX(), i.getCurY());
@@ -224,7 +225,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		for (int i = toppingArray.size() - 1 ; i >= 0 ; i--) {
 		    toppingArray.get(i).moveTopping();
 		    if (!toppingArray.get(i).shouldMove()) {
-		    	toppingArray.remove(i);
+		    	deleteTopping(toppingArray.get(i));
 		    }
 		}
 		checkAllCountDowns();
@@ -282,6 +283,9 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	
 	public void deleteTopping(Topping t) {
+		if(!isTimerMode && !t.isCut() && t.getType() != ToppingType.CAN&& t.getType() != ToppingType.PINEAPPLE && t.getType() != ToppingType.ROCK) {
+			wasteCount++;
+		}
 		Mapp.remove(t.getImage());
 		toppingArray.remove(t);
 	}

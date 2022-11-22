@@ -7,38 +7,41 @@ import java.util.*;
 import acm.graphics.*;
 
 public class NoWasteMode extends Mode{
-	int wasteCount = 0;
 	GPoint counter = new GPoint(830,50);
-	GImage counterX;
+	GImage counterX = new GImage("lives3.png");
 	int highScore;
-	String filePath = "lives0.png";
-//	String source = ".png";
+	String filePath = "lives";
+	String fileName = ".png";
 	static int count = 0;
 	
 	
 	public NoWasteMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
+		isTimerMode = false;
 		drawXCounter();
+		System.out.println("NoWaste Constructor");
 	}
 	
 	public void drawXCounter() {
-			if(count == 0) {
-				counterX = new GImage(filePath);
-				counterX.setLocation(counter);  
-			}
-			else if(count == 1) {
-				filePath.replace("0", "1");
-			}
-			else if(count == 2) {
-				filePath.replace("1", "2");
-			}
-			else if(count == 3) {
-				stopTimer();
-				filePath.replace("2", "3");
-				GameOver();
-			}
-//			Mapp.add(counterX);
-			filePath = "lives";
+		counterX.setImage(filePath + wasteCount + fileName);
+		System.out.println("XCounter Drawn");
+//			if(count == 0) {
+//				counterX = new GImage(filePath);
+//				counterX.setLocation(counter);  
+//			}
+//			else if(count == 1) {
+//				filePath.replace("0", "1");
+//			}
+//			else if(count == 2) {
+//				filePath.replace("1", "2");
+//			}
+//			else if(count == 3) {
+//				stopTimer();
+//				filePath.replace("2", "3");
+//				GameOver();
+//			}
+////			Mapp.add(counterX);
+//			filePath = "lives";
 
 		//TODO Inserts the Image of counterX.
 //		if (count == 0) {
@@ -74,17 +77,6 @@ public class NoWasteMode extends Mode{
 //		filePath = "lives";
 	}
 	
-	public void checkForFall(Topping t) {
-		 
-		//TODO Overrides fallenOffScreen so that in addition
-		//to deleting it from the ArrayList, it also adds to the wasCount.
-		
-	}
-	
-	public void GameOver() { 
-		gameOver = new GameOver(this, Mapp, baconSliced, cheeseSliced, eggSliced);
-		Mapp.switchToScreen(gameOver);
-	}
 	
 	public void importHighScore() {
 		//TODO Copies high score of specific mode from text file.
@@ -96,9 +88,8 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void resetAll() {
-		PMenu = null;
-		gameOver = null;
-		Timer.restart();
+		super.resetAll();
+		wasteCount = 0;
 	}
 	
 	@Override
@@ -120,10 +111,10 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void showContents() {
-		startTimer();
 		super.showContents();
 		Mapp.add(counterX);
 		PMenu = null;
+		startTimer();
 	}
 
 	@Override
@@ -132,12 +123,15 @@ public class NoWasteMode extends Mode{
 		Mapp.remove(counterX);
 	}
 	 public void actionPerformed(ActionEvent e) {
-		 for(Topping t : toppingArray) {
-			 t.moveTopping();
-			 checkForFall(t);
-//			 t.createImage();
-
-		 }
+		 	System.out.println("start timer");
+			super.actionPerformed(e);
+			tossToppings();
+			runToppings();
+			drawXCounter();
+			if(wasteCount == 3) {
+				stopTimer();
+				callGameOver();
+			}
 	 }
 	
 }
