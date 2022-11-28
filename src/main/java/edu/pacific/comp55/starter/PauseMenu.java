@@ -13,7 +13,6 @@ class PauseMenu  extends GraphicsPane {
 	private GImage continuE = new GImage("src/main/resources/Continue.png",580/2,376/2);
 	private GImage retry = new GImage("src/main/resources/Retry.png",580/2,686/2);
 	private MainApplication Mapp;
-	private boolean returN;
 	private int flick;
 	TimerMode timerModePause;
 	NoWasteMode noWasteModePause;
@@ -21,17 +20,18 @@ class PauseMenu  extends GraphicsPane {
 	
 	
 	public PauseMenu() {}
-	public PauseMenu(Mode mode, MainApplication a) {
+	public PauseMenu(Mode mode, MainApplication a, MainMenu m) {
 		if (mode instanceof NoWasteMode) {
 			noWasteModePause = (NoWasteMode) mode;
-			Mapp = a;
+//			Mapp = a;
 			flick = 1;
 		} else {
 			timerModePause = (TimerMode) mode;
-			Mapp = a;
+//			Mapp = a;
 			flick = 2;
 		}
-		
+		Mapp = a;
+		mainMenu = m;
 		drawMenu();
 	}
 	
@@ -74,14 +74,18 @@ class PauseMenu  extends GraphicsPane {
 	}
 	
 	public void retry() {
-		hideContents();
+		//hideContents();
+		Mapp.removeAll();
 		if (flick == 1) {
-			noWasteModePause.resetAll();
-			//Mapp.switchToScreen(noWasteModePause);
+//			noWasteModePause.resetAll(); 
+			noWasteModePause = new NoWasteMode(mainMenu, Mapp);
+			Mapp.switchToScreen(noWasteModePause);
 		}
 		else if (flick == 2) {
-			timerModePause.resetAll();
-			///Mapp.switchToScreen(timerModePause);
+//			timerModePause.resetAll();
+			timerModePause = new TimerMode(mainMenu, Mapp);
+			Mapp.switchToScreen(timerModePause);
+			
 		}
 	}
 	
