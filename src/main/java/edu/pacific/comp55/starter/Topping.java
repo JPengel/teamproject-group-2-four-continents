@@ -48,17 +48,17 @@ public class Topping extends GraphicsPane{
 			gStartXRight = RandomGenerator.getDefault();
 			startX = gStartXRight.nextDouble(1320*SCALE, 1720*SCALE);
 		}
-		System.out.println("Starting X: " + startX); //4TPs
+//		System.out.println("Starting X: " + startX); //4TPs
 	}
 	 void generateVertexX() {
 		gVertexX = RandomGenerator.getDefault();
 		vertexX = gVertexX.nextDouble(760*SCALE, 1160*SCALE);
-		System.out.println("Vertex X: " + vertexX); //4TPs
+//		System.out.println("Vertex X: " + vertexX); //4TPs
 	}
 	 void generateVertexY() {
 		gVertexY = RandomGenerator.getDefault();
 		vertexY = gVertexY.nextDouble(580*SCALE, 980*SCALE);
-		System.out.println("Vertex Y: " + vertexY); //4TPs
+//		System.out.println("Vertex Y: " + vertexY); //4TPs
 	}
 	 void generateCoordinates() {
 		generateStartX();
@@ -73,15 +73,15 @@ public class Topping extends GraphicsPane{
 		hParab = vertexX;
 		kParab = vertexY;
 		aParab = (curY/Math.pow((curX-hParab),2))-(kParab/Math.pow((curX-hParab),2));
-		System.out.println("FUNCTION: y = " + aParab + " * ( x - " + hParab + ")^2 + " + kParab); //4TPs
+//		System.out.println("FUNCTION: y = " + aParab + " * ( x - " + hParab + ")^2 + " + kParab); //4TPs
 	}
 	
 	//CREATE IMAGE 
 	void createImage() {
 		image = new GImage(IMG_FILE_PATH + type.toString() + IMG_EXTENSION);
 		image.setLocation(curX, HEIGHT- curY);
-		System.out.println(IMG_FILE_PATH + type.toString() + IMG_EXTENSION); //4TPs
-		System.out.println(image); //4TPs
+//		System.out.println(IMG_FILE_PATH + type.toString() + IMG_EXTENSION); //4TPs
+//		System.out.println(image); //4TPs
 		Mapp.add(image); 
 	}
 	
@@ -106,7 +106,7 @@ public class Topping extends GraphicsPane{
 				image.setLocation(curX, HEIGHT - curY);
 			}
 		} else {
-			System.out.println("TOPPING SHOULDN'T BE MOVING"); //4TPs
+//			System.out.println("TOPPING SHOULDN'T BE MOVING"); //4TPs
 		}
 	}
 	

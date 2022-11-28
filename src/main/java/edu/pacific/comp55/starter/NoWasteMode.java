@@ -129,13 +129,9 @@ public class NoWasteMode extends Mode{
 		super.hideContents();
 		Mapp.remove(counterX);
 	}
-	 public void actionPerformed(ActionEvent e) {
-		 for(Topping t : toppingArray) {
-			 t.moveTopping();
-			 checkForFall(t);
-//			 t.createImage();
-
-		 }
-	 }
+	public void actionPerformed(ActionEvent e) {
+		tossToppings();
+		runToppings();
+	}
 	
 }

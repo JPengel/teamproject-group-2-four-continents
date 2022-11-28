@@ -1,7 +1,6 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
 import acm.util.*;
-
 import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -9,17 +8,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
-//koba
 public class Mode extends GraphicsPane implements ActionListener{
 	
 	//VARIABLES
 	public static final int WINDOWS_WIDTH = 1920/2, WINDOWS_HEIGHT = 1080/2;
 	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(), hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator();
-	private static double comboEntryX, comboEntryY, comboLaterX, comboLaterY, lineSlope = 0, lineB = 0;
-	protected int baconSliced, cheeseSliced, eggSliced, scoreCounter = 0, comboCounter = 1, timer = 60, splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0;
+	private static double comboEntryX, comboEntryY, comboPrevX, comboPrevY, comboNewX = 0, comboNewY = 0, lineSlope = 0, lineB = 0, coordinateWaiter = 0;
+	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 15, splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0, earlierCounter = 0, crossCounter = 0;
 	protected ArrayList <Topping> toppingArray = new ArrayList<Topping>();
-	protected GImage pauseButton, button, wall, splash = new GImage("src/main/resources/Splash.png"), pineappleLabel = new GImage("src/main/resources/Pineapple_Label.png"), clockLabel = new GImage("src/main/resources/Clock_Label.png"), sharpLabel = new GImage("src/main/resources/Sharp_Knife_5.png", 525/2,75/2);
-	protected GLabel bothScores;
+	protected GImage pauseButton, wall, splash = new GImage("src/main/resources/Splash.png"), pineappleLabel = new GImage("src/main/resources/Pineapple_Label.png"), clockLabel = new GImage("src/main/resources/Clock_Label.png"), sharpLabel = new GImage("src/main/resources/Sharp_Knife_5.png", 525/2,75/2);// comboLabel = new GImage("");
+	protected GLabel bothScores, score = new GLabel(String.valueOf(scoreCounter), 100/2,200/2), comboLabel = new GLabel("Combo\n + 2");
+	protected GImage gif = new GImage("src/main/resources/gifMainMenu.gif");
 	protected PauseMenu PMenu;
 	protected GameOver gameOver;
 	protected Timer Timer;
@@ -37,21 +36,27 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	
 	public Mode(MainMenu m, MainApplication x) {
-		super();
-		MMenu = m;
-		Mapp = x;
-		drawBoard();
-		Timer = new Timer(110,this);
-		paused = false;
-		System.out.println("Mode Constructor");
-	}
+ 		super();
+ 		gif.scale(1.6);
+ 		MMenu = m;
+ 		Mapp = x;
+ 		drawBoard();
+ 		Timer = new Timer(110,this);
+ 		Timer.setInitialDelay(1800);
+ 		paused = false;
+ 		System.out.println("Mode Constructor");
+ 	}
 	
 	
 	//LINE MAKER
-	static public void calculateLineFunction() {
-		lineSlope = (comboLaterY - comboEntryY) / (comboLaterX - comboEntryX);
+	public void calculateLineFunction() {
+		if(comboLine != null) {
+			Mapp.remove(comboLine);
+		}
+		lineSlope = (comboEntryY - comboPrevY) / (comboEntryX - comboPrevX);
 		lineB = -lineSlope * comboEntryX + comboEntryY;
 		System.out.println("FUNCTION: y = " + lineSlope + "x + " + lineB); //4TPs
+		drawLine();
 	}
 	
 	public void drawLine() {
@@ -60,18 +65,29 @@ public class Mode extends GraphicsPane implements ActionListener{
 		y2 =  x2 * lineSlope + lineB;
 		comboLine = new GLine(x1, y1, x2, y2);
 		comboLine.setLineWidth(50);
-		System.out.println("x1: " + x1 + ", y1: " + y1 + "  |  x2: " + x2 + " y2: " + y2); //4TPs
+		//comboLine.setVisible(false); //VISIBILITY OF THE LINE
 		Mapp.add(comboLine);
+		comboLine.sendToBack();
+		
 	}
 		
 	//COMBO
-	public void combo(Topping t, MouseEvent e) {
+	public void combo(MouseEvent e) {
 		if(lineSlope != 0 && lineB != 0) {
-			if(wasCombo(t, e)) {
+			if(wasCombo(e)) {
 				comboCounter++;
+				comboLabel.setLocation(e.getX(), e.getY());
+				Mapp.add(comboLabel);
+				System.out.println("COMBO: " + comboCounter); //4TPs
+				if(onRock) {
+					scoreCounter += 2;
+				} else {
+					scoreCounter++;
+				}
 			} else {
 				lineSlope = 0;
 				lineB = 0;
+				Mapp.remove(comboLabel);
 				calculateLineFunction();
 				comboCounter = 1;
 			}
@@ -80,26 +96,41 @@ public class Mode extends GraphicsPane implements ActionListener{
 		}
 	}
 		
-	public boolean wasCombo(Topping t, MouseEvent e) {  
-		comboLine.sendToFront();
-		return (Mapp.getElementAt(e.getX(), e.getY()) == comboLine);
+	public boolean wasCombo(MouseEvent e) {  
+		if (comboLine != null) {
+			comboLine.sendToFront();
+		}
+		boolean isLine = (Mapp.getElementAt(e.getX(), e.getY()) == comboLine);
+		comboLine.sendToBack();
+		return isLine;
 	}
 	
 	//MOUSE LISTENERS
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		//CUTTING CODE SHOULD GO HERE MARK OBJECT AS CUT, UPDATE 4 POINTS ENTRY X Y & LATER X Y
+		comboPrevX = comboNewX;
+		comboPrevY = comboNewY;
+		if(coordinateWaiter == 5) {
+			comboNewX = e.getX();
+			comboNewY = e.getY();
+			coordinateWaiter = 0;
+		}
+		coordinateWaiter++;
 		if(toppingArray != null) {
 			for(Topping i : toppingArray) {
 				if(!i.isCut()) {
 														// CHECK X								 <- | ->									// CHECK Y
 					if(e.getX() < (i.getCurX() + i.getImage().getWidth()) && e.getX() > i.getCurX() && e.getY() < (i.getCurY() + i.getImage().getHeight()) && e.getY() > i.getCurY()) {
 						i.cutTopping();
-						comboEntryX = e.getX();
-						comboEntryY = e.getY();
 						checkForEffects(i);
-						//combo(i, e);
-					} 
+						if(i.getType() == ToppingType.CHEESE || i.getType() == ToppingType.BACON || i.getType() == ToppingType.EGG) {
+							comboEntryX = e.getX();
+							comboEntryY = e.getY();
+							System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: " + comboEntryX + " EntryY: " + comboEntryY); //4TPs
+							combo(e);
+						}
+					}
 				}
 			}
 		}
@@ -129,7 +160,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 				pineappleLabel.setLocation(i.getCurX(), i.getCurY());
 				Mapp.add(pineappleLabel);
 			} else {
-				//callGameOver();
+				crossCounter = 3;
 			}
 		} else if (i.getType() == ToppingType.CLOCK) {
 			clockLabel.setLocation(i.getCurX(), i.getCurY());
@@ -160,6 +191,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 			}
 			scoreCounter ++;
 		}
+		score.setLabel(String.valueOf(scoreCounter));
 	}
 	
 	private void clockLabel() {
@@ -188,11 +220,11 @@ public class Mode extends GraphicsPane implements ActionListener{
 	//OBJECT GENERATOR
 	public void generateObject() {
 		int chance = probability.nextInt(1, 100);
-		if(chance < 61) { //Toppings 80% chance
+		if(chance < 71) { //Toppings 70% chance
 			toppingArray.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Mapp));
-		} else if (chance > 60 && chance < 81) { //Hazards 10% chance
+		} else if (chance > 70 && chance < 86) { //Hazards 15% chance
 			toppingArray.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3,4)], Mapp));
-		} else { //Upgrades 10% chance
+		} else { //Upgrades 15% chance
 			if(isTimerMode) { 
 				if(!onRock) {
 					toppingArray.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5,6)],Mapp));
@@ -236,12 +268,14 @@ public class Mode extends GraphicsPane implements ActionListener{
 		splashCounter ++;
 		
 		//PINEAPPLE
-		if(!isTimerMode) {
+		if(isTimerMode) {
 			if (pineappleLabelCounter > 3*(1000/110)) {
 				Mapp.remove(pineappleLabel);
 				pineappleLabelCounter = 0;
 			}
 			pineappleLabelCounter++;
+		} else {
+			
 		}
 		
 		//CLOCK
@@ -301,21 +335,38 @@ public class Mode extends GraphicsPane implements ActionListener{
 		PMenu = null;
 	}
 	
+	public void removeLabels() {
+		Mapp.remove(splash);
+		Mapp.remove(pineappleLabel);
+		Mapp.remove(clockLabel);
+		Mapp.remove(sharpLabel);
+		Mapp.remove(comboLabel);
+	}
+	
 	
 	//GRAPHICS
 	@Override
-	public void showContents() {
-		Mapp.add(wall);
-		Mapp.add(pauseButton);
-	}
+ 	public void showContents() {
+ 		Mapp.add(wall);
+ 		Mapp.add(pauseButton);
+ 		Mapp.add(score);
+ 		Mapp.add(gif);
+ 	}
 
 	@Override
 	public void hideContents() {
-		for(Topping t: toppingArray) {
-			Mapp.remove(t.getImage());
-		}
 		Mapp.remove(wall);
 		Mapp.remove(pauseButton);
+		Mapp.remove(score);
+		if(comboLine != null) {
+			Mapp.remove(comboLine);
+		}
+		removeLabels();
+		if(toppingArray != null) {
+			for(Topping t: toppingArray) {
+				Mapp.remove(t.getImage());
+			}
+		}
 	}
 	
 	public void drawBoard() {
@@ -327,11 +378,16 @@ public class Mode extends GraphicsPane implements ActionListener{
 		pauseButton = new GImage("Pause button.png",1695/2,810/2);
 		pauseButton.scale(0.5);
 		sharpLabel.scale(0.5);
+		score.setColor(Color.ORANGE);
+		score.setFont("Arial-Bold-65");
+		comboLabel.setColor(Color.ORANGE);
+		comboLabel.setFont("Arial-Bold-35");
 	}
 	
 	public MainMenu getMMenu() {
 		return MMenu;
 	}
+	
 	
 	public void resetAll() {
 		//TODO returns all variables back to their original forms.
@@ -347,9 +403,11 @@ public class Mode extends GraphicsPane implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
+ 		if(gif != null) {
+ 			Mapp.remove(gif);
+ 			gif = null;
+
+ 		}
+
+ 	}
 }

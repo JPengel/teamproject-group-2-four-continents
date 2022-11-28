@@ -2,7 +2,10 @@ package edu.pacific.comp55.starter;
 import acm.program.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
+import java.awt.Font;
+import java.io.IOException;
 
 import org.apache.commons.math3.analysis.function.Sqrt;
 
@@ -12,8 +15,7 @@ import acm.graphics.*;
 
 //comment
 class GameOver extends GraphicsPane{
-	public static final int PROGRAM_WIDTH = 1920/2; 
-	public static final int PROGRAM_HEIGHT =1080/2;
+	public static final int PROGRAM_WIDTH = 1920/2, PROGRAM_HEIGHT =1080/2, CRUST_SIZE = 80;
 	public static final String FONT = "Arial-Bold-70";
 	
 	GImage backGround = new GImage("src/main/resources/backgroundMainMenu.png");
@@ -24,6 +26,9 @@ class GameOver extends GraphicsPane{
 	GImage pizza_bacon = new GImage("src/main/resources/bacon_pizza.png");
 	GImage pizza_cheese = new GImage ("src/main/resources/cheese_pizza.png");
 	GImage pizza_egg = new GImage("src/main/resources/egg_pizza.png");
+	GImage bacon = new GImage("src/main/resources/bacon.png",270/2,380/2);
+	GImage cheese = new GImage("src/main/resources/cheese.png",495/2,380/2);
+	GImage egg = new GImage("src/main/resources/egg.png",725/2,380/2);
 	private int baconCount, cheeseCount, eggCount, scoreCount, flick;
 	GLabel baconC = new GLabel("" + baconCount,172/2, 470/2);
 	GLabel cheeseC = new GLabel("" + cheeseCount, 407/2,470/2);
@@ -34,25 +39,35 @@ class GameOver extends GraphicsPane{
 	NoWasteMode noWasteModeGameOver;
 	ArrayList<GImage> images = new ArrayList<GImage>();
 	private RandomGenerator rand = new RandomGenerator();
+	Font Noto;
 	
 	public GameOver() {}
 	
 	public GameOver(Mode mode, MainApplication a, int bacon, int cheese,int eggs) {
+//		try {
+//		Noto = Font.createFont(Font.TRUETYPE_FONT, new File("NotoColorEmoji-Regular.ttf")).deriveFont(30f);
+//		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//		ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("NotoColorEmoji-Regular.ttf")));
+//		}
+//		catch(IOException | FontFormatException e) {
+//			
+//		}
 		if (mode instanceof NoWasteMode) {
 			noWasteModeGameOver = (NoWasteMode) mode;
 			flick = 1;
-		} 
-		else {
+		} else {
 			timerModeGameOver = (TimerMode) mode;
 			flick = 2;
 		}
 		Mapp = a;
 		baconCount = bacon;
-		baconC = new GLabel("" + baconCount,172/2, 470/2);
+		baconC = new GLabel("" + baconCount, 172/2, 470/2);
 		cheeseCount = cheese;
 		cheeseC = new GLabel("" + cheeseCount, 407/2,470/2);
 		eggCount = eggs;
 		eggC = new GLabel("" + eggCount, 627/2,470/2);
+
+		
 		scoreCount = baconCount + cheeseCount + eggCount;
 		totalScore = new GLabel("" + scoreCount, 407/2,648/2);
 		drawGameOver();
@@ -63,8 +78,7 @@ class GameOver extends GraphicsPane{
 		GObject obj = Mapp.getElementAt(e.getX(),e.getY()); // why do we need the gapp before? 
 		if (obj == retry) {
 			retry();
-		}
-		else if (obj == quit) {
+		} else if (obj == quit) {
 			quit();		
 		}
 	}
@@ -82,10 +96,11 @@ class GameOver extends GraphicsPane{
 		totalScore.setFont("Arial-Bold-100");
 		totalScore.setColor(Color.red);
 		if(scoreCount > 9) {
-		totalScore.setLocation(355/2,648/2);
+			totalScore.setLocation(355/2,648/2);
 		}
-		
-		
+		egg.scale(.5);
+		bacon.scale(.5);
+		cheese.scale(.5);
 	}
 	
 	public void drawPizza() {
@@ -97,7 +112,8 @@ class GameOver extends GraphicsPane{
 	
 	private void addToppings() {
 		int sum = baconCount + cheeseCount + eggCount;
-		for(int i = 0; i < sum; i++) {
+		int i = 0;
+		while(sum > 0) {
 			int x = rand.nextInt(1, sum);	
 			Pair<Double, Double> coords = generatePlace();
 			if(x <= baconCount) {
@@ -118,24 +134,30 @@ class GameOver extends GraphicsPane{
 				egg.setLocation(coords.getKey(), coords.getValue());
 				Mapp.add(egg);
 				images.add(egg);
+				//com
 			}
+			sum = baconCount + cheeseCount + eggCount;
+			i++;
+			System.out.println("SUM " + i + ": " + sum);
 		}
 	}
 	
 	private Pair<Double, Double> generatePlace() {
-		Double x = rand.nextDouble(blankPizza.getX(),blankPizza.getX()+ blankPizza.getWidth());
-		Double y = rand.nextDouble(blankPizza.getY(),blankPizza.getY()+ blankPizza.getHeight());
-		Pair <Double, Double> coords = new Pair<>(x,y);
+		Double x = rand.nextDouble(blankPizza.getX(), (blankPizza.getX()+ blankPizza.getWidth()));
+		Double y = rand.nextDouble(blankPizza.getY(), (blankPizza.getY()+ blankPizza.getHeight()));
+		//System.out.println("----New Object---");
 		while (!insidePizza(x, y)) {
 			x = rand.nextDouble(blankPizza.getX(),blankPizza.getX()+ blankPizza.getWidth());
 			y = rand.nextDouble(blankPizza.getY(),blankPizza.getY()+ blankPizza.getHeight());
 		}
-		return coords;
+		return new Pair<>(x,y);
 	}
 
 	private boolean insidePizza(double x, double y) {
 		double radius = blankPizza.getWidth()/2;
-		if(radius > distanceFromRadius(x, y)) {
+		//System.out.println("Distance from Radius: " + distanceFromRadius(x,y) + "   | x: " + x + "   y: " + y);
+		if((radius - CRUST_SIZE) > distanceFromRadius(x, y)) {
+			System.out.println(radius > distanceFromRadius(x, y));
 			return true;
 		} else {
 			return false;
@@ -143,8 +165,9 @@ class GameOver extends GraphicsPane{
 	}
 
 	private double distanceFromRadius(double x, double y) {
-		double centerX = (blankPizza.getX()+ blankPizza.getWidth())/2;
-		double centerY = (blankPizza.getY()+ blankPizza.getHeight())/2;
+		double centerX = blankPizza.getX() + blankPizza.getWidth() / 2 - 35;
+		double centerY = blankPizza.getY() + blankPizza.getHeight() / 2 - 35;
+		//System.out.println("Center X: " + centerX + "   Center Y: " + centerY);
 		double a = centerX - x, b = centerY - y;
 		return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
 	}
@@ -161,6 +184,9 @@ class GameOver extends GraphicsPane{
 		Mapp.add(cheeseC);
 		Mapp.add(eggC);
 		Mapp.add(totalScore);
+		Mapp.add(bacon);
+		Mapp.add(cheese);
+		Mapp.add(egg);
 		drawPizza();
 		
 	}
@@ -177,6 +203,9 @@ class GameOver extends GraphicsPane{
 		Mapp.remove(cheeseC);
 		Mapp.remove(eggC);
 		Mapp.remove(totalScore);
+		Mapp.remove(bacon);
+		Mapp.remove(cheese);
+		Mapp.remove(egg);
 		for(int i = 0; i < images.size(); i++) {
 			Mapp.remove(images.get(i));
 		}
@@ -210,8 +239,8 @@ class GameOver extends GraphicsPane{
 //	}
 	
 //	public static void main(String[] args) {
-//		new GameOver().start();
-//	}
+		//new GameOver().start();
+		
+		
+	}
 
-	
-}
