@@ -72,6 +72,7 @@ public class NoWasteMode extends Mode{
 		super.hideContents();
 		Mapp.remove(counterX);
 	}
+
 	 public void actionPerformed(ActionEvent e) {
 		 	System.out.println("start timer");
 			super.actionPerformed(e);
@@ -83,5 +84,4 @@ public class NoWasteMode extends Mode{
 				callGameOver();
 			}
 	 }
-	
 }

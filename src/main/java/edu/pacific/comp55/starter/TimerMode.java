@@ -66,6 +66,7 @@ public class TimerMode extends Mode{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+
 		System.out.println("start timer");
 		super.actionPerformed(e);
 		gameClock();
