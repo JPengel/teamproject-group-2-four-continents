@@ -227,7 +227,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public void callGameOver() { // not sure where to call gameOver
 		//check which mode it is to do XXX
-		gameOver = new GameOver(this, Mapp, baconSliced, cheeseSliced, eggSliced);
+		gameOver = new GameOver(this, Mapp, MMenu, baconSliced, cheeseSliced, eggSliced);
 		Mapp.switchToScreen(gameOver);
 	}
 	

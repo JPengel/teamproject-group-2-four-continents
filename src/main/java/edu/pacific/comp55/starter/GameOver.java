@@ -44,7 +44,7 @@ class GameOver extends GraphicsPane{
 	
 	public GameOver() {}
 	
-	public GameOver(Mode mode, MainApplication a, int bacon, int cheese, int eggs) {
+	public GameOver(Mode mode, MainApplication a, MainMenu menu, int bacon, int cheese, int eggs) {
 //		try {
 //		Noto = Font.createFont(Font.TRUETYPE_FONT, new File("NotoColorEmoji-Regular.ttf")).deriveFont(30f);
 //		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -61,6 +61,7 @@ class GameOver extends GraphicsPane{
 			flick = 2;
 		}
 		Mapp = a;
+		this.menu = menu;
 		baconCount = bacon;
 		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
 		eggCount = eggs;
