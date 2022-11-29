@@ -25,56 +25,6 @@ public class NoWasteMode extends Mode{
 	public void drawXCounter() {
 		counterX.setImage(filePath + wasteCount + fileName);
 		System.out.println("XCounter Drawn");
-//			if(count == 0) {
-//				counterX = new GImage(filePath);
-//				counterX.setLocation(counter);  
-//			}
-//			else if(count == 1) {
-//				filePath.replace("0", "1");
-//			}
-//			else if(count == 2) {
-//				filePath.replace("1", "2");
-//			}
-//			else if(count == 3) {
-//				stopTimer();
-//				filePath.replace("2", "3");
-//				GameOver();
-//			}
-////			Mapp.add(counterX);
-//			filePath = "lives";
-
-		//TODO Inserts the Image of counterX.
-//		if (count == 0) {
-//			filePath += "0";
-//			filePath += source;
-//			counterX = new GImage(filePath);
-//			counterX.setLocation(counter);       
-//			
-//		}
-//		else if(count == 1) {
-//			filePath += "1";
-//			filePath += source;
-//			counterX = new GImage(filePath);
-//			counterX.setLocation(counter); 
-//
-//		}
-//		else if(count == 2) {
-//			filePath+= "2";
-//			filePath += source;
-//			counterX = new GImage(filePath);
-//			counterX.setLocation(counter); 
-//		}
-//		else {
-//			filePath += "3";
-//			filePath += source;
-//			counterX = new GImage(filePath);
-//			counterX.setLocation(counter); 
-//			stopTimer();
-//			GameOver(); // im calling game over is here instead of creating an isGameOver();
-//			
-//		}
-//		Mapp.add(counterX);
-//		filePath = "lives";
 	}
 	
 	
