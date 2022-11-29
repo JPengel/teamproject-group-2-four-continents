@@ -65,7 +65,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 		y2 =  x2 * lineSlope + lineB;
 		comboLine = new GLine(x1, y1, x2, y2);
 		comboLine.setLineWidth(50);
-		//comboLine.setVisible(false); //VISIBILITY OF THE LINE
+		comboLine.setVisible(false); //VISIBILITY OF THE LINE
 		Mapp.add(comboLine);
 		comboLine.sendToBack();
 		
