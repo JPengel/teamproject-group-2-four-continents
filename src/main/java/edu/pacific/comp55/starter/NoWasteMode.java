@@ -8,7 +8,7 @@ import acm.graphics.*;
 
 public class NoWasteMode extends Mode{
 	GPoint counter = new GPoint(830,50);
-	GImage counterX = new GImage("lives3.png");
+	GImage counterX = new GImage("lives3.png",750,20);
 	int highScore;
 	String filePath = "lives";
 	String fileName = ".png";
@@ -18,6 +18,7 @@ public class NoWasteMode extends Mode{
 	public NoWasteMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
 		isTimerMode = false;
+		counterX.scale(0.5);
 		drawXCounter();
 		System.out.println("NoWaste Constructor");
 	}
