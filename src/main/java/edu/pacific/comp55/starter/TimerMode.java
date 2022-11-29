@@ -15,20 +15,19 @@ public class TimerMode extends Mode{
 	public TimerMode() {
 		super();
 		isTimerMode = true;
-		drawTimer();
+		//drawTimer();
 		System.out.println("Timer Constructor");
 	}
 	
 	public TimerMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
 		isTimerMode = true;
-		drawTimer();
 		System.out.println("Timer Constructor");
 	}
 	
 	
 	public void drawTimer() {
-		timerDisplay = new GLabel(String.valueOf(timer), 860, 70);
+		timerDisplay = new GLabel(String.valueOf(timer), 860, 100);
 		timerDisplay.setColor(Color.ORANGE);
 		timerDisplay.setFont("Arial-Bold-65");
 	}
@@ -66,8 +65,7 @@ public class TimerMode extends Mode{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-
-		System.out.println("start timer");
+		//System.out.println("TimerMode action performed");
 		super.actionPerformed(e);
 		gameClock();
 		tossToppings();
@@ -91,15 +89,20 @@ public class TimerMode extends Mode{
 	
 	@Override
 	public void showContents() {
-		super.showContents();
+		drawTimer();
+		super.showWall();
 		Mapp.add(timerDisplay);
+		super.showTopContents();
 		PMenu = null;
 		startTimer();
 	}
 
 	@Override
 	public void hideContents() {
+		super.Timer.stop();
+		System.out.println("Hide!");
 		super.hideContents();
 		Mapp.remove(timerDisplay);
+		Mapp.removeAll();
 	}
 }
