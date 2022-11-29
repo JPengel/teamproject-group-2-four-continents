@@ -14,7 +14,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	public static final int WINDOWS_WIDTH = 1920/2, WINDOWS_HEIGHT = 1080/2;
 	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(), hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator();
 	private static double comboEntryX, comboEntryY, comboPrevX, comboPrevY, comboNewX = 0, comboNewY = 0, lineSlope = 0, lineB = 0, coordinateWaiter = 0;
-	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 15, splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0, earlierCounter = 0, crossCounter = 0, wasteCount = 0;
+	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 5, splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0, earlierCounter = 0, crossCounter = 0, wasteCount = 0;
 
 	protected ArrayList <Topping> toppingArray = new ArrayList<Topping>();
 	protected GImage pauseButton, wall, splash = new GImage("src/main/resources/Splash.png"), pineappleLabel = new GImage("src/main/resources/Pineapple_Label.png"), clockLabel = new GImage("src/main/resources/Clock_Label.png"), sharpLabel = new GImage("src/main/resources/Sharp_Knife_5.png", 525/2,75/2);// comboLabel = new GImage("");
@@ -101,7 +101,9 @@ public class Mode extends GraphicsPane implements ActionListener{
 			comboLine.sendToFront();
 		}
 		boolean isLine = (Mapp.getElementAt(e.getX(), e.getY()) == comboLine);
-		comboLine.sendToBack();
+		if( comboLine != null) {
+			comboLine.sendToBack();
+		}
 		return isLine;
 	}
 	
@@ -162,7 +164,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 			} else {
 				stopTimer();
 				callGameOver();
-
 			}
 		} else if (i.getType() == ToppingType.CLOCK) {
 			clockLabel.setLocation(i.getCurX(), i.getCurY());
@@ -209,7 +210,11 @@ public class Mode extends GraphicsPane implements ActionListener{
 
 	private void startRockTimer() {
 		onRock = true;
-		sharpLabel.setImage("src/main/resources/Sharp_Knife_5.png");
+		Mapp.remove(sharpLabel);
+		//sharpLabel.setImage("src/main/resources/Sharp_Knife_5.png");
+		sharpLabel = new GImage("src/main/resources/Sharp_Knife_5.png", 525/2, 75/2);
+		sharpLabel.scale(0.5);
+
 		Mapp.add(sharpLabel);
 	}
 	
@@ -221,6 +226,9 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	//OBJECT GENERATOR
 	public void generateObject() {
+		if(!Timer.isRunning()) return;
+		
+		System.out.println("---TOPPING ADDED---");;
 		int chance = probability.nextInt(1, 100);
 		if(chance < 71) { //Toppings 70% chance
 			toppingArray.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Mapp));
@@ -315,7 +323,7 @@ public class Mode extends GraphicsPane implements ActionListener{
 	}
 	
 	public void deleteTopping(Topping t) {
-		if(!isTimerMode && !t.isCut() && t.getType() != ToppingType.CAN&& t.getType() != ToppingType.PINEAPPLE && t.getType() != ToppingType.ROCK) {
+		if(!isTimerMode && !t.isCut() && t.getType() != ToppingType.CAN && t.getType() != ToppingType.PINEAPPLE && t.getType() != ToppingType.ROCK) {
 			wasteCount++;
 		}
 		Mapp.remove(t.getImage());
@@ -352,11 +360,19 @@ public class Mode extends GraphicsPane implements ActionListener{
 	//GRAPHICS
 	@Override
  	public void showContents() {
- 		Mapp.add(wall);
+		showWall();
+		showTopContents();
+ 	}
+	
+	public void showWall() {
+		Mapp.add(wall);
+	}
+	
+	public void showTopContents() {
  		Mapp.add(pauseButton);
  		Mapp.add(score);
  		Mapp.add(gif);
- 	}
+	}
 
 	@Override
 	public void hideContents() {
