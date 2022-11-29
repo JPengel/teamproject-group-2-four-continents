@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class NoWasteMode extends Mode{
 	GPoint counter = new GPoint(830,50);
@@ -35,6 +38,8 @@ public class NoWasteMode extends Mode{
 	
 	public void exportHighScore(int score) {
 		//TODO Copies high score of mode to text file.
+		Scanner scObj = new Scanner(String.valueOf(highScore));
+		
 	}
 	
 	@Override
