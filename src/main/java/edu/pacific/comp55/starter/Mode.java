@@ -394,7 +394,6 @@ public class Mode extends GraphicsPane implements ActionListener{
 		Mapp.remove(splash4);
 	}
 
-	//GRAPHICS
 	@Override
  	public void showContents() {
 		showWall();

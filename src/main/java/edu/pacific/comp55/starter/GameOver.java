@@ -70,7 +70,7 @@ class GameOver extends GraphicsPane{
 		totalScore = new GLabel(String.valueOf(mode.scoreCounter));
 		if(mode.scoreCounter <10) {
 			totalScore.setLocation(250/2, 580/2);
-		} else if (mode.scoreCounter <99 && mode.scoreCounter > 10) {
+		} else if (mode.scoreCounter <99 && mode.scoreCounter >= 10) {
 			totalScore.setLocation(200/2, 580/2);
 		}
 		else {
