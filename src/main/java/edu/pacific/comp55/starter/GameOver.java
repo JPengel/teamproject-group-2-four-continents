@@ -68,9 +68,12 @@ class GameOver extends GraphicsPane{
 		cheeseCount = cheese;
 		cheeseC = new GLabel(String.valueOf(cheeseCount), 600/2, 610/2);
 		totalScore = new GLabel(String.valueOf(mode.scoreCounter));
-		if(mode.scoreCounter < 100) {
+		if(mode.scoreCounter <10) {
 			totalScore.setLocation(250/2, 580/2);
-		} else {
+		} else if (mode.scoreCounter <99 && mode.scoreCounter > 10) {
+			totalScore.setLocation(200/2, 580/2);
+		}
+		else {
 			totalScore.setLocation(150/2, 580/2);
 		}
 		drawGameOver();
@@ -132,11 +135,10 @@ class GameOver extends GraphicsPane{
 				egg.setLocation(coords.getKey(), coords.getValue());
 				Mapp.add(egg);
 				images.add(egg);
-				//com
 			}
 			sum = baconCount + cheeseCount + eggCount;
 			i++;
-			System.out.println("SUM " + i + ": " + sum);
+			//System.out.println("SUM " + i + ": " + sum);
 		}
 	}
 	
@@ -155,7 +157,7 @@ class GameOver extends GraphicsPane{
 		double radius = blankPizza.getWidth()/2;
 		//System.out.println("Distance from Radius: " + distanceFromRadius(x,y) + "   | x: " + x + "   y: " + y);
 		if((radius - CRUST_SIZE) > distanceFromRadius(x, y)) {
-			System.out.println(radius > distanceFromRadius(x, y));
+			//System.out.println(radius > distanceFromRadius(x, y));
 			return true;
 		} else {
 			return false;

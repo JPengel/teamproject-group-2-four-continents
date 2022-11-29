@@ -12,7 +12,7 @@ public class NoWasteMode extends Mode{
 	int highScore;
 	String filePath = "lives";
 	String fileName = ".png";
-	static int count = 0;
+	static int lives = 3;
 	
 	
 	public NoWasteMode(MainMenu m, MainApplication ma) {
@@ -24,7 +24,7 @@ public class NoWasteMode extends Mode{
 	}
 	
 	public void drawXCounter() {
-		counterX.setImage(filePath + wasteCount + fileName);
+		counterX.setImage(filePath + (lives - wasteCount) + fileName);
 		System.out.println("XCounter Drawn");
 	}
 	
@@ -75,7 +75,6 @@ public class NoWasteMode extends Mode{
 	}
 
 	 public void actionPerformed(ActionEvent e) {
-		 	System.out.println("start timer");
 			super.actionPerformed(e);
 			tossToppings();
 			runToppings();

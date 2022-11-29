@@ -27,7 +27,7 @@ public class TimerMode extends Mode{
 	
 	
 	public void drawTimer() {
-		timerDisplay = new GLabel(String.valueOf(timer), 860, 70);
+		timerDisplay = new GLabel(String.valueOf(timer), 860, 100);
 		timerDisplay.setColor(Color.ORANGE);
 		timerDisplay.setFont("Arial-Bold-65");
 	}
@@ -65,7 +65,7 @@ public class TimerMode extends Mode{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("TimerMode action performed");
+		//System.out.println("TimerMode action performed");
 		super.actionPerformed(e);
 		gameClock();
 		tossToppings();
