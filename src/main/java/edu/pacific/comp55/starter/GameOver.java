@@ -35,6 +35,7 @@ class GameOver extends GraphicsPane{
 	GLabel eggC = new GLabel("" + eggCount, 627/2,470/2);
 	GLabel totalScore = new GLabel("" + scoreCount, 407/2,648/2);
 	private MainApplication Mapp;
+	MainMenu menu; 
 	TimerMode timerModeGameOver;
 	NoWasteMode noWasteModeGameOver;
 	ArrayList<GImage> images = new ArrayList<GImage>();
@@ -212,11 +213,14 @@ class GameOver extends GraphicsPane{
 	}
 	
 	public void retry() {
+		Mapp.removeAll();
 		if (flick == 1) {
-			noWasteModeGameOver.resetAll();
+			noWasteModeGameOver = new NoWasteMode(menu,Mapp);
+			Mapp.switchToScreen(noWasteModeGameOver);
 		}
 		else if (flick == 2) {
-			timerModeGameOver.resetAll();
+			timerModeGameOver = new TimerMode(menu,Mapp);
+			Mapp.switchToScreen(timerModeGameOver);
 		}
 	}
 	
