@@ -25,7 +25,6 @@ public class NoWasteMode extends Mode{
 	
 	public void drawXCounter() {
 		counterX.setImage(filePath + (lives - wasteCount) + fileName);
-		System.out.println("XCounter Drawn");
 	}
 	
 	

@@ -12,9 +12,9 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	//VARIABLES
 	public static final int WINDOWS_WIDTH = 1920/2, WINDOWS_HEIGHT = 1080/2;
-	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(), hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator();
+	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(), hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator(), toppingToss = new RandomGenerator();
 	private static double comboEntryX, comboEntryY, comboPrevX, comboPrevY, comboNewX = 0, comboNewY = 0, lineSlope = 0, lineB = 0, coordinateWaiter = 0;
-	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 15, splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0, earlierCounter = 0, crossCounter = 0, wasteCount = 0;
+	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 15, splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0, earlierCounter = 0, crossCounter = 0, wasteCount = 0, noWasteTossSpeed = 100;
 
 	protected ArrayList <Topping> toppingArray = new ArrayList<Topping>();
 	protected GImage pauseButton, wall, pineappleLabel = new GImage("src/main/resources/Pineapple_Label.png"), clockLabel = new GImage("src/main/resources/Clock_Label.png"), sharpLabel = new GImage("src/main/resources/Sharp_Knife_5.png", 525/2,75/2), gif = new GImage("src/main/resources/gifMainMenu.gif");// comboLabel = new GImage("");
@@ -233,9 +233,8 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	//OBJECT GENERATOR
 	public void generateObject() {
-		if(!Timer.isRunning()) return;
-		
-		System.out.println("---TOPPING ADDED---");;
+		if(!Timer.isRunning()) { return; }
+		//System.out.println("---TOPPING ADDED---");;
 		int chance = probability.nextInt(1, 100);
 		if(chance < 71) { //Toppings 70% chance
 			toppingArray.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0,2)], Mapp));
@@ -258,9 +257,21 @@ public class Mode extends GraphicsPane implements ActionListener{
 	
 	public void tossToppings() {
 		// add random generator to change toppins appearence
-		if(tossCounter > 5) {
-			generateObject();
-			tossCounter = 0;
+		if(!isTimerMode) {
+			int ratio = toppingToss.nextInt(1, noWasteTossSpeed);
+			if(tossCounter > ratio) {
+				generateObject();
+				tossCounter = 0;
+			}
+			if(tossCounter % 13 == 0 && noWasteTossSpeed > 1) {
+				noWasteTossSpeed--;
+				System.out.println(String.valueOf(noWasteTossSpeed));
+			}
+		} else {
+			if(tossCounter > 5) {
+				generateObject();
+				tossCounter = 0;
+			}
 		}
 		tossCounter++;
 	}
