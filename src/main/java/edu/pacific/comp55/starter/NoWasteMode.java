@@ -3,6 +3,10 @@ import acm.program.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 import acm.graphics.*;
 
@@ -13,7 +17,7 @@ public class NoWasteMode extends Mode{
 	String filePath = "lives";
 	String fileName = ".png";
 	static int count = 0;
-	
+	static int highestScore = 0;
 	
 	public NoWasteMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
@@ -29,8 +33,20 @@ public class NoWasteMode extends Mode{
 	}
 	
 	
-	public void importHighScore() {
+	public void importHighScore() throws FileNotFoundException {
 		//TODO Copies high score of specific mode from text file.
+		try {
+			File file = new File("HighScore.text");
+			Scanner myReader = new Scanner(file);
+			String highScore = myReader.nextLine();
+			highestScore = Integer.parseInt(highScore);
+			System.out.println(highScore);
+			myReader.close();
+		} catch(FileNotFoundException e) {
+			System.out.println("An error occured");
+		}
+		
+		
 	}
 	
 	public void exportHighScore(int score) {
