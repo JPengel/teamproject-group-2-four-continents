@@ -4,6 +4,9 @@ import acm.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import acm.graphics.*;
 
@@ -11,23 +14,26 @@ public class TimerMode extends Mode{
 	private int count = 0;
 	GLabel timerDisplay;
 	int highScore;
+	String oldLine;
 	
 	public TimerMode() {
 		super();
 		isTimerMode = true;
 		//drawTimer();
+		oldLine = "Timer: " + String.valueOf(highScore);
 		System.out.println("Timer Constructor");
 	}
 	
 	public TimerMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
 		isTimerMode = true;
+		oldLine = "Timer: " + String.valueOf(highScore);
 		System.out.println("Timer Constructor");
 	}
 	
 	
 	public void drawTimer() {
-		timerDisplay = new GLabel(String.valueOf(timer), 860, 70);
+		timerDisplay = new GLabel(String.valueOf(timer), 860, 100);
 		timerDisplay.setColor(Color.ORANGE);
 		timerDisplay.setFont("Arial-Bold-65");
 	}
@@ -37,8 +43,28 @@ public class TimerMode extends Mode{
 		//TODO Copies high score of specific mode from text file.
 	}
 	
-	public void exportHighScore(int score) {
+	public void exportHighScore() {
 		//TODO Copies high score of mode to text file.
+		String newLine = "Timer: " + String.valueOf(highScore);
+		try {
+			Scanner HighScore = new Scanner(new File("src/main/resources/HighScore.txt"));
+			StringBuffer buffer = new StringBuffer();
+			
+			while(HighScore.hasNextLine()) {
+				buffer.append(HighScore.nextLine() + System.lineSeparator());
+			}
+			String scObj = buffer.toString();
+			HighScore.close();
+			scObj = scObj.replaceAll(oldLine, newLine);
+			FileWriter writer = new FileWriter("src/main/resources/HighScore.txt");
+			writer.append(scObj);
+			System.out.println("High Score updated.");
+			writer.close();
+	
+		}catch (IOException e) {
+            e.printStackTrace();
+        }
+		
 	}
 	
 	@Override
@@ -65,7 +91,7 @@ public class TimerMode extends Mode{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("TimerMode action performed");
+		//System.out.println("TimerMode action performed");
 		super.actionPerformed(e);
 		gameClock();
 		tossToppings();
@@ -82,6 +108,7 @@ public class TimerMode extends Mode{
 		count++;
 		if(timer <= 0) {
 			stopTimer();
+			exportHighScore();
 			callGameOver();
 		}
 	}

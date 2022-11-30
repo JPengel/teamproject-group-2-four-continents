@@ -45,7 +45,7 @@ public class MainMenu extends GraphicsPane implements ActionListener{
 		quit.scale(scaleSize);
 		help = new GImage ("src/main/resources/Help.png", 100*scaleSize, 720*scaleSize);
 		gif = new GImage("src/main/resources/gifMainMenu.gif");
-		//gif.scale(scaleSize);
+		gif.scale(scaleSize);
 		help.scale(scaleSize);
 		exit.setVisible(false);
 		button.add(noWasteModeButton);
@@ -105,6 +105,15 @@ public class MainMenu extends GraphicsPane implements ActionListener{
 			System.exit(0);
 		}
 	}
+	
+	public Mode getMode() {
+		if(flank == 2) {
+			return timerMode;
+		}
+		else {
+			return noWasteMode;
+		}
+	}
 
 	@Override
 	public void showContents() {
@@ -128,7 +137,7 @@ public class MainMenu extends GraphicsPane implements ActionListener{
 			}
 		Mapp.remove(pizzaWithTitle);
 		Mapp.remove(backGround);
-		
+		Mapp.remove(gif);
 	}
 
 	@Override
@@ -140,15 +149,15 @@ public class MainMenu extends GraphicsPane implements ActionListener{
 		pizzaWithTitle.move(12, 0);
 		if(pizzaWithTitle.getX() >= 960) {
 			System.out.println("move stp");
+			
 			if(flank == 1) {
-			Mapp.switchToScreen(noWasteMode);
+				timer.stop();
+				Mapp.switchToScreen(noWasteMode);	
+			} else {
+				timer.stop();
+				Mapp.switchToScreen(timerMode);	
 			}
-			else {
-			Mapp.switchToScreen(timerMode);
-			}
-			timer.stop();	}
+			
+		}
 	}
-	
-	
-
 }

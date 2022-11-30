@@ -16,7 +16,7 @@ import acm.graphics.*;
 //comment
 class GameOver extends GraphicsPane{
 	public static final int PROGRAM_WIDTH = 1920/2, PROGRAM_HEIGHT =1080/2, CRUST_SIZE = 80;
-	public static final String FONT = "Arial-Bold-70";
+	public static final String FONT = "Arial-Bold-50";
 	
 	GImage backGround = new GImage("src/main/resources/backgroundMainMenu.png");
 	GImage blankPizza  = new GImage("src/main/resources/Pizzablank.png",960/2,100/2);
@@ -30,10 +30,10 @@ class GameOver extends GraphicsPane{
 	GImage cheese = new GImage("src/main/resources/cheese.png",495/2,380/2);
 	GImage egg = new GImage("src/main/resources/egg.png",725/2,380/2);
 	private int baconCount, cheeseCount, eggCount, scoreCount, flick;
-	GLabel baconC = new GLabel("" + baconCount,172/2, 470/2);
-	GLabel cheeseC = new GLabel("" + cheeseCount, 407/2,470/2);
-	GLabel eggC = new GLabel("" + eggCount, 627/2,470/2);
-	GLabel totalScore = new GLabel("" + scoreCount, 407/2,648/2);
+	GLabel baconC; 
+	GLabel cheeseC;  
+	GLabel eggC;
+	GLabel totalScore;
 	private MainApplication Mapp;
 	MainMenu menu; 
 	TimerMode timerModeGameOver;
@@ -44,7 +44,7 @@ class GameOver extends GraphicsPane{
 	
 	public GameOver() {}
 	
-	public GameOver(Mode mode, MainApplication a, int bacon, int cheese,int eggs) {
+	public GameOver(Mode mode, MainApplication a, MainMenu menu, int bacon, int cheese, int eggs) {
 //		try {
 //		Noto = Font.createFont(Font.TRUETYPE_FONT, new File("NotoColorEmoji-Regular.ttf")).deriveFont(30f);
 //		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -61,16 +61,22 @@ class GameOver extends GraphicsPane{
 			flick = 2;
 		}
 		Mapp = a;
+		this.menu = menu;
 		baconCount = bacon;
-		baconC = new GLabel("" + baconCount, 172/2, 470/2);
-		cheeseCount = cheese;
-		cheeseC = new GLabel("" + cheeseCount, 407/2,470/2);
+		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
 		eggCount = eggs;
-		eggC = new GLabel("" + eggCount, 627/2,470/2);
-
-		
-		scoreCount = baconCount + cheeseCount + eggCount;
-		totalScore = new GLabel("" + scoreCount, 407/2,648/2);
+		eggC = new GLabel(String.valueOf(eggCount),600/2, 430/2);
+		cheeseCount = cheese;
+		cheeseC = new GLabel(String.valueOf(cheeseCount), 600/2, 610/2);
+		totalScore = new GLabel(String.valueOf(mode.scoreCounter));
+		if(mode.scoreCounter <10) {
+			totalScore.setLocation(250/2, 580/2);
+		} else if (mode.scoreCounter <99 && mode.scoreCounter >= 10) {
+			totalScore.setLocation(200/2, 580/2);
+		}
+		else {
+			totalScore.setLocation(150/2, 580/2);
+		}
 		drawGameOver();
 	}
 	
@@ -85,7 +91,6 @@ class GameOver extends GraphicsPane{
 	}
 	
 	public void drawGameOver() {
-		//TODO Draws the game over menu, would also call the drawPizza() function.
 		backGround.scale(.5);
 		cuttingBoard.scale(.5);
 		quit.scale(.5);
@@ -94,18 +99,14 @@ class GameOver extends GraphicsPane{
 		baconC.setFont(FONT);
 		cheeseC.setFont(FONT);
 		eggC.setFont(FONT);
-		totalScore.setFont("Arial-Bold-100");
+		totalScore.setFont(FONT);
 		totalScore.setColor(Color.red);
-		if(scoreCount > 9) {
-			totalScore.setLocation(355/2,648/2);
-		}
 		egg.scale(.5);
 		bacon.scale(.5);
 		cheese.scale(.5);
 	}
 	
 	public void drawPizza() {
-		//TODO Uses the variables to draw a pizza with the toppings.
 		Mapp.add(blankPizza);
 		addToppings();
 	}
@@ -135,11 +136,10 @@ class GameOver extends GraphicsPane{
 				egg.setLocation(coords.getKey(), coords.getValue());
 				Mapp.add(egg);
 				images.add(egg);
-				//com
 			}
 			sum = baconCount + cheeseCount + eggCount;
 			i++;
-			System.out.println("SUM " + i + ": " + sum);
+			//System.out.println("SUM " + i + ": " + sum);
 		}
 	}
 	
@@ -158,7 +158,7 @@ class GameOver extends GraphicsPane{
 		double radius = blankPizza.getWidth()/2;
 		//System.out.println("Distance from Radius: " + distanceFromRadius(x,y) + "   | x: " + x + "   y: " + y);
 		if((radius - CRUST_SIZE) > distanceFromRadius(x, y)) {
-			System.out.println(radius > distanceFromRadius(x, y));
+			//System.out.println(radius > distanceFromRadius(x, y));
 			return true;
 		} else {
 			return false;
@@ -176,7 +176,6 @@ class GameOver extends GraphicsPane{
 	
 	@Override
 	public void showContents() {
-		// TODO Auto-generated method stub
 		Mapp.add(backGround);
 		Mapp.add(cuttingBoard);
 		Mapp.add(quit);
@@ -185,9 +184,6 @@ class GameOver extends GraphicsPane{
 		Mapp.add(cheeseC);
 		Mapp.add(eggC);
 		Mapp.add(totalScore);
-		Mapp.add(bacon);
-		Mapp.add(cheese);
-		Mapp.add(egg);
 		drawPizza();
 		
 	}
@@ -231,20 +227,7 @@ class GameOver extends GraphicsPane{
 		else if (flick == 2) {
 			timerModeGameOver.returnToMenu();
 		}
-	}
-	
-//	public void run() {
-//		drawGameOver();
-//		addMouseListeners();
-//	}
-	
-//	public void init() {
-//		//setSize(PROGRAM_WIDTH,PROGRAM_HEIGHT);
-//	}
-	
-//	public static void main(String[] args) {
-		//new GameOver().start();
-		
+	}	
 		
 	}
 
