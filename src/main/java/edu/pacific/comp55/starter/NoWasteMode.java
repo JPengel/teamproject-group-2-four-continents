@@ -5,8 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import acm.graphics.*;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class NoWasteMode extends Mode{
@@ -15,6 +14,7 @@ public class NoWasteMode extends Mode{
 	int highScore;
 	String filePath = "lives";
 	String fileName = ".png";
+	String oldLine;
 	static int lives = 3;
 	
 	
@@ -23,6 +23,8 @@ public class NoWasteMode extends Mode{
 		isTimerMode = false;
 		counterX.scale(0.5);
 		drawXCounter();
+		importHighScore();
+		oldLine = "NoWaste: " + String.valueOf(highScore);
 		System.out.println("NoWaste Constructor");
 	}
 	
@@ -35,9 +37,26 @@ public class NoWasteMode extends Mode{
 		//TODO Copies high score of specific mode from text file.
 	}
 	
-	public void exportHighScore(int score) {
+	public void exportHighScore() {
 		//TODO Copies high score of mode to text file.
-		Scanner scObj = new Scanner(String.valueOf(highScore));
+		String newLine = "NoWaste: " + String.valueOf(highScore);
+		try {
+			Scanner HighScore = new Scanner(new File("src/main/resources/HighScore.txt"));
+			StringBuffer buffer = new StringBuffer();
+			
+			while(HighScore.hasNextLine()) {
+				buffer.append(HighScore.nextLine() + System.lineSeparator());
+			}
+			String scObj = buffer.toString();
+			HighScore.close();
+			scObj = scObj.replaceAll(oldLine, newLine);
+			FileWriter writer = new FileWriter("src/main/resources/HighScore.txt");
+			writer.append(scObj);
+			writer.close();
+	
+		}catch (IOException e) {
+            e.printStackTrace();
+        }
 		
 	}
 	
@@ -65,6 +84,14 @@ public class NoWasteMode extends Mode{
 	}
 	
 	@Override
+	public void mouseDragged(MouseEvent e) {
+		super.mouseDragged(e);
+		if(scoreCounter >= highScore) {
+			highScore = scoreCounter;
+		}
+	}
+	
+	@Override
 	public void showContents() {
 		super.showContents();
 		Mapp.add(counterX);
@@ -85,6 +112,7 @@ public class NoWasteMode extends Mode{
 			drawXCounter();
 			if(wasteCount == 3) {
 				stopTimer();
+				exportHighScore();
 				callGameOver();
 			}
 	 }
