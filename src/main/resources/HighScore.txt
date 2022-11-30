@@ -1,2 +1,2 @@
 NoWaste: 24
-Timer: 0
+Timer: 30

@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -27,6 +28,12 @@ public class TimerMode extends Mode{
 	public TimerMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
 		isTimerMode = true;
+		try {
+			importHighScore();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		oldLine = "Timer: " + String.valueOf(highScore);
 		System.out.println("Timer Constructor");
 	}
@@ -39,8 +46,22 @@ public class TimerMode extends Mode{
 	}
 	
 
-	public void importHighScore() {
+	public void importHighScore() throws FileNotFoundException {
 		//TODO Copies high score of specific mode from text file.
+		try {
+			File file = new File("src/main/resources/HighScore.txt");
+			Scanner myReader = new Scanner(file);
+			myReader.nextLine();
+			String highestScore = myReader.nextLine();
+			highestScore = highestScore.replaceAll("[^0-9]","");
+			highScore = Integer.parseInt(highestScore);
+			System.out.println(highScore);
+			myReader.close();
+		} catch(FileNotFoundException e) {
+			System.out.println("An error occured");
+		}
+		
+		
 	}
 	
 	public void exportHighScore() {
@@ -108,11 +129,23 @@ public class TimerMode extends Mode{
 		count++;
 		if(timer <= 0) {
 			stopTimer();
-			exportHighScore();
 			callGameOver();
 		}
 	}
 	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		super.mouseDragged(e);
+		if(scoreCounter >= highScore) {
+			highScore = scoreCounter;
+		}
+	}
+	
+	@Override
+	public void callGameOver() {
+		super.callGameOver();
+		exportHighScore();
+	}
 	
 	@Override
 	public void showContents() {
