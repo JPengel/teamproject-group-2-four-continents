@@ -1,2 +1,2 @@
-NoWaste: 5
+NoWaste: 0
 Timer: 0

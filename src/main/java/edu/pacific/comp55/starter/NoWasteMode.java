@@ -52,6 +52,7 @@ public class NoWasteMode extends Mode{
 			scObj = scObj.replaceAll(oldLine, newLine);
 			FileWriter writer = new FileWriter("src/main/resources/HighScore.txt");
 			writer.append(scObj);
+			System.out.println("High Score updated.");
 			writer.close();
 	
 		}catch (IOException e) {
