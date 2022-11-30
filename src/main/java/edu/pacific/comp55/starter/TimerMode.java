@@ -79,7 +79,7 @@ public class TimerMode extends Mode{
 			scObj = scObj.replaceAll(oldLine, newLine);
 			FileWriter writer = new FileWriter("src/main/resources/HighScore.txt");
 			writer.append(scObj);
-			System.out.println("High Score updated.");
+			System.out.println("High Score updated." + highScore);
 			writer.close();
 	
 		}catch (IOException e) {
