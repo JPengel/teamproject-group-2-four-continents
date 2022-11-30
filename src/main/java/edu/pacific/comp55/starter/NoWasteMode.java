@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 import acm.graphics.*;
+import java.io.*;
+import java.util.Scanner;
 
 public class NoWasteMode extends Mode{
 	GPoint counter = new GPoint(830,50);
@@ -17,29 +19,39 @@ public class NoWasteMode extends Mode{
 	String filePath = "lives";
 	String fileName = ".png";
 	static int count = 0;
-	static int highestScore = 0;
+	String oldLine;
+	static int lives = 3;
+	
 	
 	public NoWasteMode(MainMenu m, MainApplication ma) {
 		super(m, ma);
 		isTimerMode = false;
 		counterX.scale(0.5);
 		drawXCounter();
+		try {
+			importHighScore();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		oldLine = "NoWaste: " + String.valueOf(highScore);
 		System.out.println("NoWaste Constructor");
 	}
 	
 	public void drawXCounter() {
-		counterX.setImage(filePath + wasteCount + fileName);
-		System.out.println("XCounter Drawn");
+		counterX.setImage(filePath + (lives - wasteCount) + fileName);
 	}
 	
 	
 	public void importHighScore() throws FileNotFoundException {
 		//TODO Copies high score of specific mode from text file.
 		try {
-			File file = new File("HighScore.text");
+			File file = new File("src/main/resources/HighScore.txt");
 			Scanner myReader = new Scanner(file);
-			String highScore = myReader.nextLine();
-			highestScore = Integer.parseInt(highScore);
+			String highestScore = myReader.nextLine();
+			highestScore = highestScore.replaceAll("[^0-9]","");
+			highScore = Integer.parseInt(highestScore);
 			System.out.println(highScore);
 			myReader.close();
 		} catch(FileNotFoundException e) {
@@ -49,8 +61,28 @@ public class NoWasteMode extends Mode{
 		
 	}
 	
-	public void exportHighScore(int score) {
+	public void exportHighScore() {
 		//TODO Copies high score of mode to text file.
+		String newLine = "NoWaste: " + String.valueOf(highScore);
+		try {
+			Scanner HighScore = new Scanner(new File("src/main/resources/HighScore.txt"));
+			StringBuffer buffer = new StringBuffer();
+			
+			while(HighScore.hasNextLine()) {
+				buffer.append(HighScore.nextLine() + System.lineSeparator());
+			}
+			String scObj = buffer.toString();
+			HighScore.close();
+			scObj = scObj.replaceAll(oldLine, newLine);
+			FileWriter writer = new FileWriter("src/main/resources/HighScore.txt");
+			writer.append(scObj);
+			System.out.println("High Score updated." + highScore);
+			writer.close();
+	
+		}catch (IOException e) {
+            e.printStackTrace();
+        }
+		
 	}
 	
 	@Override
@@ -77,6 +109,14 @@ public class NoWasteMode extends Mode{
 	}
 	
 	@Override
+	public void mouseDragged(MouseEvent e) {
+		super.mouseDragged(e);
+		if(scoreCounter >= highScore) {
+			highScore = scoreCounter;
+		}
+	}
+	
+	@Override
 	public void showContents() {
 		super.showContents();
 		Mapp.add(counterX);
@@ -89,9 +129,14 @@ public class NoWasteMode extends Mode{
 		super.hideContents();
 		Mapp.remove(counterX);
 	}
+	
+	@Override
+	public void callGameOver() {
+		super.callGameOver();
+		exportHighScore();
+	}
 
 	 public void actionPerformed(ActionEvent e) {
-		 	System.out.println("start timer");
 			super.actionPerformed(e);
 			tossToppings();
 			runToppings();
