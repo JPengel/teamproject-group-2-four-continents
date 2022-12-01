@@ -396,17 +396,22 @@ public class Mode extends GraphicsPane implements ActionListener{
 
 	@Override
  	public void showContents() {
-		showWall();
-		showTopContents();
+//		showWall();
+//		showTopContents();
+		Mapp.add(wall);
+		Mapp.add(pauseButton);
+ 		Mapp.add(score);
  	}
 	
 	public void showWall() {
-		Mapp.add(wall);
+//		Mapp.add(wall);
+//		Mapp.add(pauseButton);
+// 		Mapp.add(score);
 	}
 	
 	public void showTopContents() {
- 		Mapp.add(pauseButton);
- 		Mapp.add(score);
+// 		Mapp.add(pauseButton);
+// 		Mapp.add(score);
  		Mapp.add(gif);
 	}
 

@@ -126,9 +126,10 @@ public class NoWasteMode extends Mode{
 		Mapp.add(counterX);
 		Mapp.add(highScoreDisplay);
 		super.showTopContents();
-		
-		PMenu = null;
 		startTimer();
+//		super.showTopContents();	
+		PMenu = null;
+//		startTimer();
 	}
 
 	@Override
