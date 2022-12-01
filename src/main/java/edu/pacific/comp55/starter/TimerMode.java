@@ -14,6 +14,7 @@ import acm.graphics.*;
 public class TimerMode extends Mode{
 	private int count = 0;
 	GLabel timerDisplay;
+	GLabel highScoreDisplay;
 	int highScore;
 	String oldLine;
 	
@@ -35,6 +36,7 @@ public class TimerMode extends Mode{
 			e.printStackTrace();
 		}
 		oldLine = "Timer: " + String.valueOf(highScore);
+		highScoreDisplay = new GLabel(String.valueOf(highScore), 100/2, 400/2);
 		System.out.println("Timer Constructor");
 	}
 	
@@ -43,6 +45,8 @@ public class TimerMode extends Mode{
 		timerDisplay = new GLabel(String.valueOf(timer), 860, 100);
 		timerDisplay.setColor(Color.ORANGE);
 		timerDisplay.setFont("Arial-Bold-65");
+		highScoreDisplay.setColor(Color.ORANGE);
+		highScoreDisplay.setFont("Arial-Bold-65");
 	}
 	
 
@@ -138,6 +142,7 @@ public class TimerMode extends Mode{
 		super.mouseDragged(e);
 		if(scoreCounter >= highScore) {
 			highScore = scoreCounter;
+			highScoreDisplay.setLabel(String.valueOf(highScore));
 		}
 	}
 	
@@ -152,6 +157,7 @@ public class TimerMode extends Mode{
 		drawTimer();
 		super.showWall();
 		Mapp.add(timerDisplay);
+		Mapp.add(highScoreDisplay);
 		super.showTopContents();
 		PMenu = null;
 		startTimer();

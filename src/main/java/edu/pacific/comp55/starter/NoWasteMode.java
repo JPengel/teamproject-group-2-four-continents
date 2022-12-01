@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class NoWasteMode extends Mode{
 	GPoint counter = new GPoint(830,50);
 	GImage counterX = new GImage("lives3.png",750,20);
+	GLabel highScoreDisplay;
 	int highScore;
 	String filePath = "lives";
 	String fileName = ".png";
@@ -27,7 +28,6 @@ public class NoWasteMode extends Mode{
 		super(m, ma);
 		isTimerMode = false;
 		counterX.scale(0.5);
-		drawXCounter();
 		try {
 			importHighScore();
 		} catch (FileNotFoundException e) {
@@ -36,11 +36,14 @@ public class NoWasteMode extends Mode{
 		}
 		
 		oldLine = "NoWaste: " + String.valueOf(highScore);
+		highScoreDisplay = new GLabel(String.valueOf(highScore), 100/2, 400/2);
 		System.out.println("NoWaste Constructor");
 	}
 	
 	public void drawXCounter() {
 		counterX.setImage(filePath + (lives - wasteCount) + fileName);
+		highScoreDisplay.setColor(Color.ORANGE);
+		highScoreDisplay.setFont("Arial-Bold-65");
 	}
 	
 	
@@ -118,8 +121,12 @@ public class NoWasteMode extends Mode{
 	
 	@Override
 	public void showContents() {
+		drawXCounter();
 		super.showContents();
 		Mapp.add(counterX);
+		Mapp.add(highScoreDisplay);
+		super.showTopContents();
+		
 		PMenu = null;
 		startTimer();
 	}
