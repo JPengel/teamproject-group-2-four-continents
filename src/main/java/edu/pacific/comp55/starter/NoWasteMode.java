@@ -36,14 +36,14 @@ public class NoWasteMode extends Mode{
 		}
 		
 		oldLine = "NoWaste: " + String.valueOf(highScore);
-		highScoreDisplay = new GLabel(String.valueOf(highScore), 100/2, 400/2);
+		highScoreDisplay = new GLabel("High Score: " + String.valueOf(highScore), 100/2, 900/2);
 		System.out.println("NoWaste Constructor");
 	}
 	
 	public void drawXCounter() {
 		counterX.setImage(filePath + (lives - wasteCount) + fileName);
-		highScoreDisplay.setColor(Color.ORANGE);
-		highScoreDisplay.setFont("Arial-Bold-65");
+		highScoreDisplay.setColor(Color.decode("#ffdaa7"));
+		highScoreDisplay.setFont("Arial-Bold-40");
 	}
 	
 	
@@ -116,6 +116,7 @@ public class NoWasteMode extends Mode{
 		super.mouseDragged(e);
 		if(scoreCounter >= highScore) {
 			highScore = scoreCounter;
+			highScoreDisplay.setLabel("High Score: " + String.valueOf(highScore));
 		}
 	}
 	

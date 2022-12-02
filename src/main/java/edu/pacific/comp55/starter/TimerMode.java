@@ -36,17 +36,17 @@ public class TimerMode extends Mode{
 			e.printStackTrace();
 		}
 		oldLine = "Timer: " + String.valueOf(highScore);
-		highScoreDisplay = new GLabel(String.valueOf(highScore), 100/2, 400/2);
+		highScoreDisplay = new GLabel("High Score: " + String.valueOf(highScore), 100/2, 900/2);
 		System.out.println("Timer Constructor");
 	}
 	
 	
 	public void drawTimer() {
 		timerDisplay = new GLabel(String.valueOf(timer), 860, 100);
-		timerDisplay.setColor(Color.ORANGE);
+		timerDisplay.setColor(Color.decode("#ffdaa7"));
 		timerDisplay.setFont("Arial-Bold-65");
-		highScoreDisplay.setColor(Color.ORANGE);
-		highScoreDisplay.setFont("Arial-Bold-65");
+		highScoreDisplay.setColor(Color.decode("#ffdaa7"));
+		highScoreDisplay.setFont("Arial-Bold-40");
 	}
 	
 
@@ -142,7 +142,7 @@ public class TimerMode extends Mode{
 		super.mouseDragged(e);
 		if(scoreCounter >= highScore) {
 			highScore = scoreCounter;
-			highScoreDisplay.setLabel(String.valueOf(highScore));
+			highScoreDisplay.setLabel("High Score: " + String.valueOf(highScore));
 		}
 	}
 	
@@ -155,12 +155,13 @@ public class TimerMode extends Mode{
 	@Override
 	public void showContents() {
 		drawTimer();
-		super.showWall();
+		super.showContents();
 		Mapp.add(timerDisplay);
 		Mapp.add(highScoreDisplay);
 		super.showTopContents();
-		PMenu = null;
 		startTimer();
+		PMenu = null;
+//		startTimer();
 	}
 
 	@Override

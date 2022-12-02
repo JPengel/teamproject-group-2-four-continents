@@ -75,7 +75,7 @@ class PauseMenu  extends GraphicsPane {
 	
 	public void retry() {
 		//hideContents();
-		Mapp.removeAll();
+//		Mapp.removeAll();
 		if (flick == 1) {
 //			noWasteModePause.resetAll(); 
 			noWasteModePause = new NoWasteMode(mainMenu, Mapp);
