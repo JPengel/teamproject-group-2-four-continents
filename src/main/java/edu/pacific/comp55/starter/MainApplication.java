@@ -5,6 +5,8 @@ public class MainApplication extends GraphicsApplication {
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String SOUND_FILES =  "background.mp3" ;
 
+	
+
 	private SomePane somePane;
 	private MenuPane menu;
 	private MainMenu MMenu;
