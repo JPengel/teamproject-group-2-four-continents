@@ -1,9 +1,14 @@
 package edu.pacific.comp55.starter;
 import acm.program.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+
+import javax.swing.Timer;
+
 import java.awt.Font;
 import java.io.IOException;
 
@@ -14,11 +19,13 @@ import javafx.util.Pair;
 import acm.graphics.*;
 
 //comment
-class GameOver extends GraphicsPane{
+class GameOver extends GraphicsPane implements ActionListener{
 	public static final int PROGRAM_WIDTH = 1920/2, PROGRAM_HEIGHT =1080/2, CRUST_SIZE = 80;
 	public static final String FONT = "Arial-Bold-50";
-	
-	GImage backGround = new GImage("src/main/resources/backgroundMainMenu.png");
+	private Timer timer = new Timer(5,this); 
+	ArrayList<GImage> button,pizza;
+	ArrayList<GLabel> label;
+	GImage background = new GImage("src/main/resources/backgroundMainMenu.png");
 	GImage blankPizza  = new GImage("src/main/resources/Pizzablank.png",960/2,100/2);
 	GImage cuttingBoard = new GImage("src/main/resources/The_end.png",100/2,100/2);
 	GImage quit = new GImage("src/main/resources/QuitgameOver.png",505/2,720/2);
@@ -29,7 +36,8 @@ class GameOver extends GraphicsPane{
 	GImage bacon = new GImage("src/main/resources/bacon.png",270/2,380/2);
 	GImage cheese = new GImage("src/main/resources/cheese.png",495/2,380/2);
 	GImage egg = new GImage("src/main/resources/egg.png",725/2,380/2);
-	private int baconCount, cheeseCount, eggCount, scoreCount, flick;
+	GImage gif = new GImage("src/main/resources/Outro.gif");
+	private int baconCount, cheeseCount, eggCount, scoreCount, flick, offsetCounter = 0;
 	GLabel baconC; 
 	GLabel cheeseC;  
 	GLabel eggC;
@@ -41,6 +49,7 @@ class GameOver extends GraphicsPane{
 	ArrayList<GImage> images = new ArrayList<GImage>();
 	private RandomGenerator rand = new RandomGenerator();
 	Font Noto;
+	
 	
 	public GameOver() {}
 	
@@ -61,6 +70,7 @@ class GameOver extends GraphicsPane{
 			flick = 2;
 		}
 		Mapp = a;
+		timer.setInitialDelay(1750);
 		this.menu = menu;
 		baconCount = bacon;
 		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
@@ -69,6 +79,9 @@ class GameOver extends GraphicsPane{
 		cheeseCount = cheese;
 		cheeseC = new GLabel(String.valueOf(cheeseCount), 600/2, 610/2);
 		totalScore = new GLabel(String.valueOf(mode.scoreCounter));
+		button = new ArrayList<GImage>();
+		pizza = new ArrayList<GImage>();
+		label = new ArrayList<GLabel>();
 		if(mode.scoreCounter <10) {
 			totalScore.setLocation(250/2, 580/2);
 		} else if (mode.scoreCounter <99 && mode.scoreCounter >= 10) {
@@ -91,7 +104,8 @@ class GameOver extends GraphicsPane{
 	}
 	
 	public void drawGameOver() {
-		backGround.scale(.5);
+		background.scale(.5);
+		gif.scale(2);
 		cuttingBoard.scale(.5);
 		quit.scale(.5);
 		retry.scale(.5);
@@ -104,6 +118,15 @@ class GameOver extends GraphicsPane{
 		egg.scale(.5);
 		bacon.scale(.5);
 		cheese.scale(.5);
+		button.add(cuttingBoard);
+		button.add(retry);
+		button.add(quit);
+		label.add(cheeseC);
+		label.add(eggC);
+		label.add(totalScore);
+		label.add(baconC);
+		//images.add(blankPizza);
+		closeCurtains();
 	}
 	
 	public void drawPizza() {
@@ -176,7 +199,7 @@ class GameOver extends GraphicsPane{
 	
 	@Override
 	public void showContents() {
-		Mapp.add(backGround);
+		Mapp.add(background);
 		Mapp.add(cuttingBoard);
 		Mapp.add(quit);
 		Mapp.add(retry);
@@ -185,13 +208,16 @@ class GameOver extends GraphicsPane{
 		Mapp.add(eggC);
 		Mapp.add(totalScore);
 		drawPizza();
-		
+		Mapp.add(gif);
+		timer.start();
 	}
+	
+	
 
 	@Override
 	public void hideContents() {
 		// TODO Auto-generated method stub
-		Mapp.remove(backGround);
+		Mapp.remove(background);
 		Mapp.remove(cuttingBoard);
 		Mapp.remove(quit);
 		Mapp.remove(retry);
@@ -227,7 +253,52 @@ class GameOver extends GraphicsPane{
 		else if (flick == 2) {
 			timerModeGameOver.returnToMenu();
 		}
-	}	
+	}
+
+	
+	public void closeCurtains() {
+		for(GImage b : button) {
+			b.setLocation(b.getX() - 200,b.getY());
+			System.out.println(b.getLocation());
+		}
+		for(GLabel l : label) {
+			l.setLocation(l.getX() - 200,l.getY());
+		}
+		blankPizza.setLocation(blankPizza.getX() + 275, blankPizza.getY());
+		for(GImage i : images) {
+			i.setLocation(i.getX() + 300, i.getY());
+		}
+	}
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(gif != null) {
+			Mapp.remove(gif);
+		}
+		for( GImage b : button){
+			b.move(3,0);
+		}
+		
+		for(GLabel l : label) {
+			l.move(3,0);
+		}
+		if(images != null) {
+			if(offsetCounter < 300/4) {
+				for(GImage i : images) {
+					i.move(-4, 0);
+				}
+			}
+			offsetCounter++;
+		}
+		
+		blankPizza.move(-4, 0);
+		
+		if(cuttingBoard.getX() >= 50) {
+			timer.stop();
+		}
 		
 	}
+}
 

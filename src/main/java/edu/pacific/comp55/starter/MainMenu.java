@@ -22,7 +22,7 @@ public class MainMenu extends GraphicsPane implements ActionListener{
 	private static final double scaleSize = 0.5;
 	GRect exit = new GRect(55,42,45,45);
 	ArrayList<GImage> button;
-	private Timer timer = new Timer(0,this);
+	private Timer timer = new Timer(7,this);
     private int flank; 
 	
 	public MainMenu(MainApplication a) {
