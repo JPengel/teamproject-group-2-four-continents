@@ -49,6 +49,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	ArrayList<GImage> images = new ArrayList<GImage>();
 	private RandomGenerator rand = new RandomGenerator();
 	Font Noto;
+	Boolean closedCurtains = false;
 	
 	
 	public GameOver() {}
@@ -235,10 +236,12 @@ class GameOver extends GraphicsPane implements ActionListener{
 	}
 	
 	public void retry() {
+		timer.start();
 		Mapp.removeAll();
 		if (flick == 1) {
 			noWasteModeGameOver = new NoWasteMode(menu,Mapp);
 			Mapp.switchToScreen(noWasteModeGameOver);
+			
 		}
 		else if (flick == 2) {
 			timerModeGameOver = new TimerMode(menu,Mapp);
@@ -274,31 +277,58 @@ class GameOver extends GraphicsPane implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
 		if(gif != null) {
 			Mapp.remove(gif);
 		}
-		for( GImage b : button){
-			b.move(3,0);
-		}
 		
-		for(GLabel l : label) {
-			l.move(3,0);
-		}
-		if(images != null) {
-			if(offsetCounter < 300/4) {
-				for(GImage i : images) {
-					i.move(-4, 0);
-				}
+		if (!closedCurtains) {
+			for( GImage b : button){
+				b.move(3,0);
 			}
-			offsetCounter++;
+			
+			for(GLabel l : label) {
+				l.move(3,0);
+			}
+			if(images != null) {
+				if(offsetCounter < 300/4) {
+					for(GImage i : images) {
+						i.move(-4, 0);
+					}
+				}
+				offsetCounter++;
+			}
+			
+			blankPizza.move(-4, 0);
+			
+			if(cuttingBoard.getX() >= 50) {
+				closedCurtains = true;
+				timer.stop();
+				
+			}
+		} else {
+			for( GImage b : button){
+				b.move(-3,0);
+			}
+			
+			for(GLabel l : label) {
+				l.move(-3,0);
+			}
+			if(images != null) {
+				 
+					for(GImage i : images) {
+						i.move(4, 0);
+					
+				}
+							}
+			
+			blankPizza.move(+4, 0);
+			
+			if(cuttingBoard.getX() <= -200) {
+				timer.stop();
+				
+			}
 		}
-		
-		blankPizza.move(-4, 0);
-		
-		if(cuttingBoard.getX() >= 50) {
-			timer.stop();
-		}
-		
 	}
 }
 
