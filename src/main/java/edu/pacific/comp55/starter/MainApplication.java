@@ -3,7 +3,7 @@ public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 1920/2;
 	public static final int WINDOW_HEIGHT = 1080/2;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
+	private static final String SOUND_FILES = "background.mp3";
 
 	private SomePane somePane;
 	private MenuPane menu;
@@ -21,6 +21,7 @@ public class MainApplication extends GraphicsApplication {
 		MMenu = new MainMenu(this);
 		setupInteractions();
 		switchToMainMenu();
+		playRandomSound();
 	}
 
 	
@@ -45,7 +46,7 @@ public class MainApplication extends GraphicsApplication {
 
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES, true);
 	}
 	
 	public static void main(String[] args) {

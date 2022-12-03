@@ -128,6 +128,7 @@ public class Topping extends GraphicsPane{
 		return isCut;
 	}
 	public void cutTopping() {
+		AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 		isCut = true;
 		cutImage = new GImage(IMG_FILE_PATH + type.toString() + "_cut" + IMG_EXTENSION);
 		cutImage.setLocation(curX, curY);
