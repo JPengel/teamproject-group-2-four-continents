@@ -119,13 +119,17 @@ public class TimerMode extends Mode{
 		//System.out.println("TimerMode action performed");
 		super.actionPerformed(e);
 		gameClock();
-		tossToppings();
+		if(iterationCount == 5) {
+			tossToppings();
+			iterationCount=0;
+		}
 		runToppings();
+		iterationCount++;
 	}
 
 
 	public void gameClock() {
-		if(count > 1000/110){
+		if(count > 1000/20){
 			timer--;	
 			count = 0;
 		    timerDisplay.setLabel(String.valueOf(timer));

@@ -21,7 +21,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 			lineB = 0, coordinateWaiter = 0;
 	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 60,
 			splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0,
-			earlierCounter = 0, crossCounter = 0, wasteCount = 0, noWasteTossSpeed = 100;
+			earlierCounter = 0, crossCounter = 0, wasteCount = 0, noWasteTossSpeed = 100, iterationCount=0;
 
 	protected ArrayList<Topping> toppingArray = new ArrayList<Topping>();
 	protected GImage pauseButton, wall, pineappleLabel = new GImage("src/main/resources/Pineapple_Label.png"),
@@ -55,7 +55,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 		MMenu = m;
 		Mapp = x;
 		drawBoard();
-		Timer = new Timer(110, this);
+		Timer = new Timer(20, this);
 		Timer.setInitialDelay(1700);
 		paused = false;
 		System.out.println("Mode Constructor");
@@ -310,7 +310,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 
 	private void checkAllCountDowns() {
 		// TOMATO SPLASH
-		if (splashCounter > 5 * (1000 / 110)) {
+		if (splashCounter > 5 * (1000 / 20)) {
 			removeSplashes();
 			splashCounter = 0;
 		} else {
@@ -320,27 +320,29 @@ public class Mode extends GraphicsPane implements ActionListener {
 
 		// PINEAPPLE
 		if (isTimerMode) {
-			if (pineappleLabelCounter > 3 * (1000 / 110)) {
+			if (pineappleLabelCounter > 3 * (500 / 20)) {
 				Mapp.remove(pineappleLabel);
 				pineappleLabelCounter = 0;
 			}
 			pineappleLabelCounter++;
 		} else {
 			pineappleLabel.sendToFront();
+			sendSplashes2Front();
 		}
 
 		// CLOCK
-		if (clockCounter > 3 * (1000 / 110)) {
+		if (clockCounter > 3 * (500 / 20)) {
 			Mapp.remove(clockLabel);
 			clockCounter = 0;
 		} else {
 			clockLabel.sendToFront();
+			sendSplashes2Front();
 		}
 		clockCounter++;
 
 		// ROCK
 		if (onRock) {
-			if (sharpCounter > 1000 / 110) {
+			if (sharpCounter > 1000 / 20) {
 				if (sharpLabelCounter <= 1) {
 					Mapp.remove(sharpLabel);
 					sharpCounter = 0;
@@ -353,6 +355,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 					sharpLabel.setImage(path);
 					Mapp.add(sharpLabel);
 					sharpLabel.sendToFront();
+					sendSplashes2Front();
 					sharpCounter = 0;
 				}
 			}

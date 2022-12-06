@@ -18,7 +18,7 @@ public class Topping extends GraphicsPane{
 	private  int flick = 0;
 	private  GImage image, cutImage;
 	public  final String IMG_FILE_PATH = "src/main/resources/", IMG_EXTENSION = ".png";
-	private  double moveSpeed = 20; //Changes the pace of the game
+	private  double moveSpeed = 5; //Changes the pace of the game
 	
 	//CONSTRUCTORS
 	Topping(ToppingType type,MainApplication s){

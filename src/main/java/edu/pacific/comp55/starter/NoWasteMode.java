@@ -147,12 +147,16 @@ public class NoWasteMode extends Mode{
 
 	 public void actionPerformed(ActionEvent e) {
 			super.actionPerformed(e);
-			tossToppings();
+			if(iterationCount == 5) {
+				tossToppings();
+				iterationCount=0;
+			}
 			runToppings();
 			drawXCounter();
 			if(wasteCount == 3) {
 				stopTimer();
 				callGameOver();
 			}
+			iterationCount++;
 	 }
 }
