@@ -36,7 +36,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	GImage bacon = new GImage("src/main/resources/bacon.png",270/2,380/2);
 	GImage cheese = new GImage("src/main/resources/cheese.png",495/2,380/2);
 	GImage egg = new GImage("src/main/resources/egg.png",725/2,380/2);
-	GImage gif = new GImage("src/main/resources/Outro.gif");
+	GImage gif = new GImage("src/main/resources/outro.gif");
 	private int baconCount, cheeseCount, eggCount, scoreCount, flick, offsetCounter = 0;
 	GLabel baconC; 
 	GLabel cheeseC;  
@@ -106,7 +106,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	
 	public void drawGameOver() {
 		background.scale(.5);
-		gif.scale(2);
+		gif.scale(0.5);
 		cuttingBoard.scale(.5);
 		quit.scale(.5);
 		retry.scale(.5);
