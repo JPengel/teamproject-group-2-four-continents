@@ -46,7 +46,7 @@ public class TimerMode extends Mode{
 		timerDisplay.setColor(Color.decode("#ffdaa7"));
 		timerDisplay.setFont("Arial-Bold-65");
 		highScoreDisplay.setColor(Color.decode("#ffdaa7"));
-		highScoreDisplay.setFont("Arial-Bold-40");
+		highScoreDisplay.setFont(MainApplication.customFont);
 	}
 	
 
