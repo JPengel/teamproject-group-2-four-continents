@@ -21,7 +21,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 			lineB = 0, coordinateWaiter = 0;
 	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 60,
 			splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0,
-			earlierCounter = 0, crossCounter = 0, wasteCount = 0, noWasteTossSpeed = 100, iterationCount=0;
+			earlierCounter = 0, crossCounter = 0, wasteCount = 0, noWasteTossSpeed = 100, iterationCount = 0, comboLabelCounter;
 
 	protected ArrayList<Topping> toppingArray = new ArrayList<Topping>();
 	protected GImage pauseButton, wall, pineappleLabel = new GImage("src/main/resources/Pineapple_Label.png"),
@@ -29,7 +29,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 			sharpLabel = new GImage("src/main/resources/Sharp_Knife_5.png", 525 / 2, 75 / 2),
 			gif = new GImage("src/main/resources/gifMainMenu.gif");
 	protected GLabel bothScores, score = new GLabel(String.valueOf(scoreCounter), 100 / 2, 200 / 2),
-			comboLabel = new GLabel("Combo\n + 2");
+			comboLabel = new GLabel("Combo\n +" + String.valueOf(comboCounter + 1));
 	protected GImage splash1 = new GImage("src/main/resources/Blob 1.png", 120 / 2, 110 / 2),
 			splash2 = new GImage("src/main/resources/Blob 2.png", 980 / 2, 60 / 2),
 			splash3 = new GImage("src/main/resources/Blob 3.png", 200 / 2, 400 / 2),
@@ -91,6 +91,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 				comboCounter++;
 				comboLabel.setLocation(e.getX(), e.getY());
 				Mapp.add(comboLabel);
+				comboLabelCounter = 0;
 				System.out.println("COMBO: " + comboCounter); // 4TPs
 				if (onRock) {
 					scoreCounter += 2;
@@ -100,7 +101,6 @@ public class Mode extends GraphicsPane implements ActionListener {
 			} else {
 				lineSlope = 0;
 				lineB = 0;
-				Mapp.remove(comboLabel);
 				calculateLineFunction();
 				comboCounter = 1;
 			}
@@ -361,6 +361,15 @@ public class Mode extends GraphicsPane implements ActionListener {
 			}
 			sharpCounter++;
 		}
+		if (comboLabelCounter > 3 * (500/20)) {
+			Mapp.remove(comboLabel);
+			comboLabelCounter = 0;
+		}
+		else {
+			comboLabel.sendToFront();
+			sendSplashes2Front();
+		}
+		comboLabelCounter ++;
 	}
 
 	private void sendSplashes2Front() {
@@ -466,9 +475,10 @@ public class Mode extends GraphicsPane implements ActionListener {
 		pauseButton.scale(0.5);
 		sharpLabel.scale(0.5);
 		score.setColor(Color.decode("#ffdaa7"));
-		score.setFont("Arial-Bold-65");
+		score.setFont(MainApplication.customFont);
 		comboLabel.setColor(Color.decode("#ffdaa7"));
-		comboLabel.setFont("Arial-Bold-35");
+		comboLabel.setFont(MainApplication.customFont);
+		//;comboLabel.scale(.5);  not sure if this is the best way to solve font problem and I also prefer Combo being bigger than rest
 	}
 
 	private void scaleSplash() {
