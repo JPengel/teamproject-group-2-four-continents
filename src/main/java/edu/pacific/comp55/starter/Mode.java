@@ -173,6 +173,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 	// CUTIING
 	public void checkForEffects(Topping i) {
 		if (i.getType() == ToppingType.PINEAPPLE) {
+			AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 			if (isTimerMode) {
 				timer -= 10;
 				pineappleLabel.setLocation(i.getCurX(), i.getCurY());
@@ -186,30 +187,38 @@ public class Mode extends GraphicsPane implements ActionListener {
 			timer += 5;
 			clockLabel();
 		} else if (i.getType() == ToppingType.ROCK) {
+			AudioPlayer.getInstance().playSound("sounds", "KnifeSharpened.mp3");
 			onRock = true;
 			startRockTimer();
 		} else if (i.getType() == ToppingType.CAN) {
+			
 			addSplashImage();
 		}
 		if (onRock) {
 			if (i.getType() == ToppingType.BACON) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				baconSliced++;
 				scoreCounter += 2;
 			} else if (i.getType() == ToppingType.CHEESE) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				cheeseSliced++;
 				scoreCounter += 2;
 			} else if (i.getType() == ToppingType.EGG) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				eggSliced++;
 				scoreCounter += 2;
 			}
 		} else {
 			if (i.getType() == ToppingType.BACON) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				baconSliced++;
 				scoreCounter++;
 			} else if (i.getType() == ToppingType.CHEESE) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				cheeseSliced++;
 				scoreCounter++;
 			} else if (i.getType() == ToppingType.EGG) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				eggSliced++;
 				scoreCounter++;
 			}
