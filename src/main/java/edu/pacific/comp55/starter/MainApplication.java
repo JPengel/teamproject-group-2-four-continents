@@ -22,7 +22,7 @@ public class MainApplication extends GraphicsApplication {
 	
 	public static void registerCustomFont() {
 		try {
-			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/RuddyBlack.ttf")).deriveFont(12f);
+			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/RuddyBlack.ttf")).deriveFont(50f);
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(customFont);
 		} catch (IOException e) {

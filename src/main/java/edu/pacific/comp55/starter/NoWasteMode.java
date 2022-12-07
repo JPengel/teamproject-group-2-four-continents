@@ -43,7 +43,7 @@ public class NoWasteMode extends Mode{
 	public void drawXCounter() {
 		counterX.setImage(filePath + (lives - wasteCount) + fileName);
 		highScoreDisplay.setColor(Color.decode("#ffdaa7"));
-		highScoreDisplay.setFont("Arial-Bold-40");
+		highScoreDisplay.setFont(MainApplication.customFont);
 	}
 	
 	

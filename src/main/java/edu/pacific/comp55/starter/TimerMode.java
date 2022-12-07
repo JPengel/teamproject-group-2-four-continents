@@ -44,7 +44,7 @@ public class TimerMode extends Mode{
 	public void drawTimer() {
 		timerDisplay = new GLabel(String.valueOf(timer), 860, 100);
 		timerDisplay.setColor(Color.decode("#ffdaa7"));
-		timerDisplay.setFont("Arial-Bold-65");
+		timerDisplay.setFont(MainApplication.customFont);
 		highScoreDisplay.setColor(Color.decode("#ffdaa7"));
 		highScoreDisplay.setFont(MainApplication.customFont);
 	}
