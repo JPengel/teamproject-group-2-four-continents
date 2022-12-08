@@ -38,6 +38,7 @@ public class NoWasteMode extends Mode{
 		oldLine = "NoWaste: " + String.valueOf(highScore);
 		highScoreDisplay = new GLabel("High Score: " + String.valueOf(highScore), 100/2, 900/2);
 		System.out.println("NoWaste Constructor");
+		
 	}
 	
 	public void drawXCounter() {

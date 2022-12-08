@@ -19,6 +19,7 @@ import javafx.util.Pair;
 import acm.graphics.*;
 
 //comment
+
 class GameOver extends GraphicsPane implements ActionListener{
 	public static final int PROGRAM_WIDTH = 1920/2, PROGRAM_HEIGHT =1080/2, CRUST_SIZE = 80;
 	public static final Font FONT = MainApplication.customFont;

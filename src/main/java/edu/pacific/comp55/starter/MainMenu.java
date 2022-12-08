@@ -137,7 +137,7 @@ public class MainMenu extends GraphicsPane implements ActionListener{
 			}
 		Mapp.remove(pizzaWithTitle);
 		Mapp.remove(backGround);
-		Mapp.remove(gif);
+//		Mapp.remove(gif);
 	}
 
 	@Override
