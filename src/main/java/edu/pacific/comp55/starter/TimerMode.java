@@ -36,15 +36,16 @@ public class TimerMode extends Mode{
 			e.printStackTrace();
 		}
 		oldLine = "Timer: " + String.valueOf(highScore);
-		highScoreDisplay = new GLabel("High Score: " + String.valueOf(highScore), 100/2, 900/2);
+		highScoreDisplay = new GLabel("High Score: " + String.valueOf(highScore), 100/2, 970/2);
 		System.out.println("Timer Constructor");
 	}
 	
 	
 	public void drawTimer() {
-		timerDisplay = new GLabel(String.valueOf(timer), 860, 100);
+		timerDisplay = new GLabel(":" + String.valueOf(timer), 800, 100);
 		timerDisplay.setColor(Color.decode("#ffdaa7"));
 		timerDisplay.setFont(MainApplication.customFont);
+		timerDisplay.scale(1.5);
 		highScoreDisplay.setColor(Color.decode("#ffdaa7"));
 		highScoreDisplay.setFont(MainApplication.customFont);
 	}
@@ -132,7 +133,7 @@ public class TimerMode extends Mode{
 		if(count > 1000/20){
 			timer--;	
 			count = 0;
-		    timerDisplay.setLabel(String.valueOf(timer));
+		    timerDisplay.setLabel(":" + String.valueOf(timer));
 		}
 		count++;
 		if(timer <= 0) {

@@ -207,6 +207,9 @@ class GameOver extends GraphicsPane implements ActionListener{
 		Mapp.add(baconC);
 		Mapp.add(cheeseC);
 		Mapp.add(eggC);
+		if(scoreCount <= 9) {
+			totalScore.scale(1.2);
+		}
 		Mapp.add(totalScore);
 		drawPizza();
 		Mapp.add(gif);

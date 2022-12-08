@@ -476,6 +476,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 		sharpLabel.scale(0.5);
 		score.setColor(Color.decode("#ffdaa7"));
 		score.setFont(MainApplication.customFont);
+		score.scale(1.5);
 		comboLabel.setColor(Color.decode("#ffdaa7"));
 		comboLabel.setFont(MainApplication.customFont);
 		//;comboLabel.scale(.5);  not sure if this is the best way to solve font problem and I also prefer Combo being bigger than rest

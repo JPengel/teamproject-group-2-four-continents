@@ -51,13 +51,14 @@ class PauseMenu  extends GraphicsPane {
 	GObject obj = Mapp.getElementAt(e.getX(),e.getY());
 	if (obj == continuE) {
 		continueGame();
-	}
-	else if (obj == retry) {
+	} else if (obj == retry) {
 		retry();
-	}
-	else if (obj == exit) {
+	} else if (obj == exit) {
 		exit();
+	} else {
+		
 	}
+	
 	}
 	public void continueGame() {
 		if (flick == 1) {
