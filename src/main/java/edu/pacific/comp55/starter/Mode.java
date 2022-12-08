@@ -56,7 +56,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 		Mapp = x;
 		drawBoard();
 		Timer = new Timer(20, this);
-		Timer.setInitialDelay(1700);
+		Timer.setInitialDelay(1500);
 		paused = false;
 		System.out.println("Mode Constructor");
 	}
