@@ -71,7 +71,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 			flick = 2;
 		}
 		Mapp = a;
-		timer.setInitialDelay(2600);
+//		timer.setInitialDelay(2600);
 		this.menu = menu;
 		baconCount = bacon;
 		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
@@ -209,7 +209,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 		Mapp.add(eggC);
 		Mapp.add(totalScore);
 		drawPizza();
-		Mapp.add(gif);
+//		Mapp.add(gif);
 		timer.start();
 	}
 	
@@ -218,6 +218,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	@Override
 	public void hideContents() {
 		// TODO Auto-generated method stub
+		
 		Mapp.remove(background);
 		Mapp.remove(cuttingBoard);
 		Mapp.remove(quit);
@@ -233,20 +234,23 @@ class GameOver extends GraphicsPane implements ActionListener{
 		for(int i = 0; i < images.size(); i++) {
 			Mapp.remove(images.get(i));
 		}
+		
 	}
 	
 	public void retry() {
 		timer.start();
-		Mapp.removeAll();
+//		Mapp.removeAll();
+		
 		if (flick == 1) {
 			noWasteModeGameOver = new NoWasteMode(menu,Mapp);
-			Mapp.switchToScreen(noWasteModeGameOver);
+//			Mapp.switchToScreen(noWasteModeGameOver);
 			
 		}
 		else if (flick == 2) {
 			timerModeGameOver = new TimerMode(menu,Mapp);
-			Mapp.switchToScreen(timerModeGameOver);
+//			Mapp.switchToScreen(timerModeGameOver);
 		}
+		
 	}
 	
 	public void quit() {
@@ -324,9 +328,14 @@ class GameOver extends GraphicsPane implements ActionListener{
 			
 			blankPizza.move(+4, 0);
 			
-			if(cuttingBoard.getX() <= -200) {
+			if(cuttingBoard.getX() <= -350) {
 				timer.stop();
-				
+				if(flick == 1) {
+					Mapp.switchToScreen(noWasteModeGameOver);
+				}
+				else {
+					Mapp.switchToScreen(timerModeGameOver);
+				}
 			}
 		}
 	}
