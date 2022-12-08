@@ -13,6 +13,7 @@ import acm.graphics.*;
 public class Mode extends GraphicsPane implements ActionListener {
 
 	// VARIABLES
+	
 	public static final int WINDOWS_WIDTH = 1920 / 2, WINDOWS_HEIGHT = 1080 / 2;
 	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(),
 			hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator(),
@@ -123,31 +124,34 @@ public class Mode extends GraphicsPane implements ActionListener {
 	// MOUSE LISTENERS
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// CUTTING CODE SHOULD GO HERE MARK OBJECT AS CUT, UPDATE 4 POINTS ENTRY X Y &
-		// LATER X Y
-		comboPrevX = comboNewX;
-		comboPrevY = comboNewY;
-		if (coordinateWaiter == 5) {
-			comboNewX = e.getX();
-			comboNewY = e.getY();
-			coordinateWaiter = 0;
-		}
-		coordinateWaiter++;
-		if (toppingArray != null) {
-			for (Topping i : toppingArray) {
-				if (!i.isCut()) {
-					// CHECK X <- | -> // CHECK Y
-					if (e.getX() < (i.getCurX() + i.getImage().getWidth()) && e.getX() > i.getCurX()
-							&& e.getY() < (i.getCurY() + i.getImage().getHeight()) && e.getY() > i.getCurY()) {
-						i.cutTopping();
-						checkForEffects(i);
-						if (i.getType() == ToppingType.CHEESE || i.getType() == ToppingType.BACON
-								|| i.getType() == ToppingType.EGG) {
-							comboEntryX = e.getX();
-							comboEntryY = e.getY();
-							System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: "
-									+ comboEntryX + " EntryY: " + comboEntryY); // 4TPs
-							combo(e);
+		if (paused == true) {System.out.println("In Pause");}
+		else {
+			// CUTTING CODE SHOULD GO HERE MARK OBJECT AS CUT, UPDATE 4 POINTS ENTRY X Y &
+			// LATER X Y
+			comboPrevX = comboNewX;
+			comboPrevY = comboNewY;
+			if (coordinateWaiter == 5) {
+				comboNewX = e.getX();
+				comboNewY = e.getY();
+				coordinateWaiter = 0;
+			}
+			coordinateWaiter++;
+			if (toppingArray != null) {
+				for (Topping i : toppingArray) {
+					if (!i.isCut()) {
+						// CHECK X <- | -> // CHECK Y
+						if (e.getX() < (i.getCurX() + i.getImage().getWidth()) && e.getX() > i.getCurX()
+								&& e.getY() < (i.getCurY() + i.getImage().getHeight()) && e.getY() > i.getCurY()) {
+							i.cutTopping();
+							checkForEffects(i);
+							if (i.getType() == ToppingType.CHEESE || i.getType() == ToppingType.BACON
+									|| i.getType() == ToppingType.EGG) {
+								comboEntryX = e.getX();
+								comboEntryY = e.getY();
+								System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: "
+										+ comboEntryX + " EntryY: " + comboEntryY); // 4TPs
+								combo(e);
+							}
 						}
 					}
 				}
@@ -173,6 +177,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 	// CUTIING
 	public void checkForEffects(Topping i) {
 		if (i.getType() == ToppingType.PINEAPPLE) {
+			AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 			if (isTimerMode) {
 				timer -= 10;
 				pineappleLabel.setLocation(i.getCurX(), i.getCurY());
@@ -182,34 +187,43 @@ public class Mode extends GraphicsPane implements ActionListener {
 				callGameOver();
 			}
 		} else if (i.getType() == ToppingType.CLOCK) {
+			AudioPlayer.getInstance().playSound("sounds", "BreakClock.mp3");
 			clockLabel.setLocation(i.getCurX(), i.getCurY());
 			timer += 5;
 			clockLabel();
 		} else if (i.getType() == ToppingType.ROCK) {
+			AudioPlayer.getInstance().playSound("sounds", "KnifeSharpened.mp3");
 			onRock = true;
 			startRockTimer();
 		} else if (i.getType() == ToppingType.CAN) {
+			
 			addSplashImage();
 		}
 		if (onRock) {
 			if (i.getType() == ToppingType.BACON) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				baconSliced++;
 				scoreCounter += 2;
 			} else if (i.getType() == ToppingType.CHEESE) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				cheeseSliced++;
 				scoreCounter += 2;
 			} else if (i.getType() == ToppingType.EGG) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				eggSliced++;
 				scoreCounter += 2;
 			}
 		} else {
 			if (i.getType() == ToppingType.BACON) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				baconSliced++;
 				scoreCounter++;
 			} else if (i.getType() == ToppingType.CHEESE) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				cheeseSliced++;
 				scoreCounter++;
 			} else if (i.getType() == ToppingType.EGG) {
+				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
 				eggSliced++;
 				scoreCounter++;
 			}
@@ -476,6 +490,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 		sharpLabel.scale(0.5);
 		score.setColor(Color.decode("#ffdaa7"));
 		score.setFont(MainApplication.customFont);
+		score.scale(1.5);
 		comboLabel.setColor(Color.decode("#ffdaa7"));
 		comboLabel.setFont(MainApplication.customFont);
 		//;comboLabel.scale(.5);  not sure if this is the best way to solve font problem and I also prefer Combo being bigger than rest
