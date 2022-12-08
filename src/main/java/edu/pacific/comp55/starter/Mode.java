@@ -13,6 +13,7 @@ import acm.graphics.*;
 public class Mode extends GraphicsPane implements ActionListener {
 
 	// VARIABLES
+	
 	public static final int WINDOWS_WIDTH = 1920 / 2, WINDOWS_HEIGHT = 1080 / 2;
 	private static RandomGenerator probability = new RandomGenerator(), toppingChooser = new RandomGenerator(),
 			hazardChooser = new RandomGenerator(), upgradeChooser = new RandomGenerator(),
