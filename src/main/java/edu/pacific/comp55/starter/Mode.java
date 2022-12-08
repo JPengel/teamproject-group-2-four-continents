@@ -37,7 +37,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 			splash4 = new GImage("src/main/resources/Blob 4.png", 1000 / 2, 500 / 2);
 	protected PauseMenu PMenu;
 	protected GameOver gameOver;
-	protected Timer Timer;
+	protected Timer Timer, timerGif;
 	protected GLine comboLine;
 	protected MainMenu MMenu;
 	protected MainApplication Mapp;
@@ -57,7 +57,8 @@ public class Mode extends GraphicsPane implements ActionListener {
 		Mapp = x;
 		drawBoard();
 		Timer = new Timer(20, this);
-		Timer.setInitialDelay(1500);
+		timerGif = new Timer(1400,this);
+		Timer.setInitialDelay(500);
 		paused = false;
 		System.out.println("Mode Constructor");
 	}
@@ -420,6 +421,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 	public void startTimer() {
 		PMenu = null;
 		Timer.start();
+		timerGif.start();
 	}
 
 	public void setPauseToNull() {
@@ -522,10 +524,16 @@ public class Mode extends GraphicsPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (gif != null) {
+		Object source = e.getSource();
+//		if (gif != null) {
+//			Mapp.remove(gif);
+//			gif = null;
+//
+//		}
+		if(source == timerGif) {
 			Mapp.remove(gif);
-			gif = null;
-
+			timerGif.stop();
+			gif = null; 
 		}
 	}
 }
