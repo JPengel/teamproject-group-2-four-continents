@@ -71,7 +71,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 			flick = 2;
 		}
 		Mapp = a;
-		timer.setInitialDelay(2700);
+		timer.setInitialDelay(2600);
 		this.menu = menu;
 		baconCount = bacon;
 		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
