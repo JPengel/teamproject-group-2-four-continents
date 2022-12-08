@@ -123,31 +123,34 @@ public class Mode extends GraphicsPane implements ActionListener {
 	// MOUSE LISTENERS
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// CUTTING CODE SHOULD GO HERE MARK OBJECT AS CUT, UPDATE 4 POINTS ENTRY X Y &
-		// LATER X Y
-		comboPrevX = comboNewX;
-		comboPrevY = comboNewY;
-		if (coordinateWaiter == 5) {
-			comboNewX = e.getX();
-			comboNewY = e.getY();
-			coordinateWaiter = 0;
-		}
-		coordinateWaiter++;
-		if (toppingArray != null) {
-			for (Topping i : toppingArray) {
-				if (!i.isCut()) {
-					// CHECK X <- | -> // CHECK Y
-					if (e.getX() < (i.getCurX() + i.getImage().getWidth()) && e.getX() > i.getCurX()
-							&& e.getY() < (i.getCurY() + i.getImage().getHeight()) && e.getY() > i.getCurY()) {
-						i.cutTopping();
-						checkForEffects(i);
-						if (i.getType() == ToppingType.CHEESE || i.getType() == ToppingType.BACON
-								|| i.getType() == ToppingType.EGG) {
-							comboEntryX = e.getX();
-							comboEntryY = e.getY();
-							System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: "
-									+ comboEntryX + " EntryY: " + comboEntryY); // 4TPs
-							combo(e);
+		if (paused == true) {System.out.println("In Pause");}
+		else {
+			// CUTTING CODE SHOULD GO HERE MARK OBJECT AS CUT, UPDATE 4 POINTS ENTRY X Y &
+			// LATER X Y
+			comboPrevX = comboNewX;
+			comboPrevY = comboNewY;
+			if (coordinateWaiter == 5) {
+				comboNewX = e.getX();
+				comboNewY = e.getY();
+				coordinateWaiter = 0;
+			}
+			coordinateWaiter++;
+			if (toppingArray != null) {
+				for (Topping i : toppingArray) {
+					if (!i.isCut()) {
+						// CHECK X <- | -> // CHECK Y
+						if (e.getX() < (i.getCurX() + i.getImage().getWidth()) && e.getX() > i.getCurX()
+								&& e.getY() < (i.getCurY() + i.getImage().getHeight()) && e.getY() > i.getCurY()) {
+							i.cutTopping();
+							checkForEffects(i);
+							if (i.getType() == ToppingType.CHEESE || i.getType() == ToppingType.BACON
+									|| i.getType() == ToppingType.EGG) {
+								comboEntryX = e.getX();
+								comboEntryY = e.getY();
+								System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: "
+										+ comboEntryX + " EntryY: " + comboEntryY); // 4TPs
+								combo(e);
+							}
 						}
 					}
 				}
@@ -183,6 +186,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 				callGameOver();
 			}
 		} else if (i.getType() == ToppingType.CLOCK) {
+			AudioPlayer.getInstance().playSound("sounds", "BreakClock.mp3");
 			clockLabel.setLocation(i.getCurX(), i.getCurY());
 			timer += 5;
 			clockLabel();
