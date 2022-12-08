@@ -71,7 +71,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 			flick = 2;
 		}
 		Mapp = a;
-		timer.setInitialDelay(2700);
+		timer.setInitialDelay(2600);
 		this.menu = menu;
 		baconCount = bacon;
 		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
@@ -207,6 +207,9 @@ class GameOver extends GraphicsPane implements ActionListener{
 		Mapp.add(baconC);
 		Mapp.add(cheeseC);
 		Mapp.add(eggC);
+		if(scoreCount <= 9) {
+			totalScore.scale(1.2);
+		}
 		Mapp.add(totalScore);
 		drawPizza();
 		Mapp.add(gif);

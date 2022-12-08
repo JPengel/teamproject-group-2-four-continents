@@ -57,7 +57,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 		Mapp = x;
 		drawBoard();
 		Timer = new Timer(20, this);
-		Timer.setInitialDelay(1700);
+		Timer.setInitialDelay(1500);
 		paused = false;
 		System.out.println("Mode Constructor");
 	}
@@ -490,6 +490,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 		sharpLabel.scale(0.5);
 		score.setColor(Color.decode("#ffdaa7"));
 		score.setFont(MainApplication.customFont);
+		score.scale(1.5);
 		comboLabel.setColor(Color.decode("#ffdaa7"));
 		comboLabel.setFont(MainApplication.customFont);
 		//;comboLabel.scale(.5);  not sure if this is the best way to solve font problem and I also prefer Combo being bigger than rest
