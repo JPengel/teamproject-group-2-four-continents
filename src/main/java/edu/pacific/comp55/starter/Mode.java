@@ -197,7 +197,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 			onRock = true;
 			startRockTimer();
 		} else if (i.getType() == ToppingType.CAN) {
-			
+			AudioPlayer.getInstance().playSound("sounds", "CanSmash.mp3");
 			addSplashImage();
 		}
 		if (onRock) {
@@ -210,7 +210,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 				cheeseSliced++;
 				scoreCounter += 2;
 			} else if (i.getType() == ToppingType.EGG) {
-				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
+				AudioPlayer.getInstance().playSound("sounds", "EggCrack.mp3");
 				eggSliced++;
 				scoreCounter += 2;
 			}
@@ -224,7 +224,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 				cheeseSliced++;
 				scoreCounter++;
 			} else if (i.getType() == ToppingType.EGG) {
-				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
+				AudioPlayer.getInstance().playSound("sounds", "EggCrack.mp3");
 				eggSliced++;
 				scoreCounter++;
 			}
