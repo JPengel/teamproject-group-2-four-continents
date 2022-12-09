@@ -175,6 +175,6 @@ public class TimerMode extends Mode{
 		System.out.println("Hide!");
 		super.hideContents();
 		Mapp.remove(timerDisplay);
-		Mapp.removeAll();
+//		Mapp.removeAll();
 	}
 }

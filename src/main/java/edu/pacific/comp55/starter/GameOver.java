@@ -247,7 +247,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	
 	public void retry() {
 		
-//		Mapp.removeAll();
+		
 		
 		if (flick == 1) {
 			noWasteModeGameOver = new NoWasteMode(menu,Mapp);
