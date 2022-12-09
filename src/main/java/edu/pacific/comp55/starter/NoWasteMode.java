@@ -2,6 +2,7 @@ package edu.pacific.comp55.starter;
 import acm.program.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,7 +13,9 @@ import acm.graphics.*;
 import java.io.*;
 import java.util.Scanner;
 
-public class NoWasteMode extends Mode{
+import javax.swing.Timer;
+
+public class NoWasteMode extends Mode implements ActionListener{
 	GPoint counter = new GPoint(830,50);
 	GImage counterX = new GImage("lives3.png",750,20);
 	GLabel highScoreDisplay;
@@ -22,6 +25,7 @@ public class NoWasteMode extends Mode{
 	static int count = 0;
 	String oldLine;
 	static int lives = 3;
+	protected Timer gifTimer;
 	
 	
 	public NoWasteMode(MainMenu m, MainApplication ma) {
@@ -34,7 +38,7 @@ public class NoWasteMode extends Mode{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		gifTimer = new Timer(1400,this);
 		oldLine = "NoWaste: " + String.valueOf(highScore);
 		highScoreDisplay = new GLabel("High Score: " + String.valueOf(highScore), 100/2, 970/2);
 		System.out.println("NoWaste Constructor");
@@ -120,19 +124,34 @@ public class NoWasteMode extends Mode{
 			highScoreDisplay.setLabel("High Score: " + String.valueOf(highScore));
 		}
 	}
-	
 	@Override
 	public void showContents() {
+		super.showTopContents();
+		gifTimer.start();
+
+	}
+	
+	public void mainShowContent() {
 		drawXCounter();
 		super.showContents();
 		Mapp.add(counterX);
 		Mapp.add(highScoreDisplay);
-		super.showTopContents();
+//		super.showTopContents();
 		startTimer();
-//		super.showTopContents();	
-		PMenu = null;
-//		startTimer();
 	}
+	
+//	@Override
+//	public void showContents() {
+//		drawXCounter();
+//		super.showContents();
+//		Mapp.add(counterX);
+//		Mapp.add(highScoreDisplay);
+//		super.showTopContents();
+//		startTimer();
+////		super.showTopContents();	
+//		PMenu = null;
+//		startTimer();
+//	}
 
 	@Override
 	public void hideContents() {
@@ -147,6 +166,7 @@ public class NoWasteMode extends Mode{
 	}
 
 	 public void actionPerformed(ActionEvent e) {
+		 	Object source = e.getSource();
 			super.actionPerformed(e);
 			if(iterationCount == 5) {
 				tossToppings();
@@ -159,5 +179,9 @@ public class NoWasteMode extends Mode{
 				callGameOver();
 			}
 			iterationCount++;
+			if (source == gifTimer) {
+				mainShowContent();
+				gifTimer.stop();
+			}
 	 }
 }

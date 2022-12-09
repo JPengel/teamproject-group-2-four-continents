@@ -58,7 +58,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 		drawBoard();
 		Timer = new Timer(20, this);
 		timerGif = new Timer(1400,this);
-		Timer.setInitialDelay(500);
+		Timer.setInitialDelay(600);
 		paused = false;
 		System.out.println("Mode Constructor");
 	}
@@ -421,7 +421,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 	public void startTimer() {
 		PMenu = null;
 		Timer.start();
-		timerGif.start();
+//		timerGif.start();
 	}
 
 	public void setPauseToNull() {
@@ -458,7 +458,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 
 
 	public void showTopContents() {
-
+        timerGif.start();
 // 		Mapp.add(pauseButton);
 // 		Mapp.add(score);
 		Mapp.add(gif);
@@ -466,7 +466,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 
 	@Override
 	public void hideContents() {
-		Mapp.remove(wall);
+//		Mapp.remove(wall);
 		Mapp.remove(pauseButton);
 		Mapp.remove(score);
 		if (comboLine != null) {
@@ -532,8 +532,12 @@ public class Mode extends GraphicsPane implements ActionListener {
 //		}
 		if(source == timerGif) {
 			Mapp.remove(gif);
+			Mapp.remove(MMenu.getBackGround());
 			timerGif.stop();
 			gif = null; 
 		}
+	}
+	public GImage getGif() {
+		return gif;
 	}
 }

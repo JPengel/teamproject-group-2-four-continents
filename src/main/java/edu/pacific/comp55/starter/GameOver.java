@@ -23,7 +23,7 @@ import acm.graphics.*;
 class GameOver extends GraphicsPane implements ActionListener{
 	public static final int PROGRAM_WIDTH = 1920/2, PROGRAM_HEIGHT =1080/2, CRUST_SIZE = 80;
 	public static final Font FONT = MainApplication.customFont;
-	private Timer timer = new Timer(5,this); 
+	private Timer timer = new Timer(5,this), closeTimer = new Timer(5,this); 
 	ArrayList<GImage> button,pizza;
 	ArrayList<GLabel> label;
 	GImage background = new GImage("src/main/resources/backgroundMainMenu.png");
@@ -72,7 +72,8 @@ class GameOver extends GraphicsPane implements ActionListener{
 			flick = 2;
 		}
 		Mapp = a;
-//		timer.setInitialDelay(2600);
+		timer.setInitialDelay(2500);
+//		gifTimer.setInitialDelay(1500);
 		this.menu = menu;
 		baconCount = bacon;
 		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
@@ -93,13 +94,16 @@ class GameOver extends GraphicsPane implements ActionListener{
 			totalScore.setLocation(150/2, 580/2);
 		}
 		drawGameOver();
+		Mapp.add(background);
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		GObject obj = Mapp.getElementAt(e.getX(),e.getY()); // why do we need the gapp before? 
 		if (obj == retry) {
+			closeTimer.start();
 			retry();
+			
 		} else if (obj == quit) {
 			quit();		
 		}
@@ -201,7 +205,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	
 	@Override
 	public void showContents() {
-		Mapp.add(background);
+//		Mapp.add(background);
 		Mapp.add(cuttingBoard);
 		Mapp.add(quit);
 		Mapp.add(retry);
@@ -213,7 +217,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 		}
 		Mapp.add(totalScore);
 		drawPizza();
-//		Mapp.add(gif);
+		Mapp.add(gif);
 		timer.start();
 	}
 	
@@ -223,7 +227,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	public void hideContents() {
 		// TODO Auto-generated method stub
 		
-		Mapp.remove(background);
+//		Mapp.remove(background);
 		Mapp.remove(cuttingBoard);
 		Mapp.remove(quit);
 		Mapp.remove(retry);
@@ -242,7 +246,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	}
 	
 	public void retry() {
-		timer.start();
+		
 //		Mapp.removeAll();
 		
 		if (flick == 1) {
@@ -285,12 +289,14 @@ class GameOver extends GraphicsPane implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		Object o = e.getSource();
 		if(gif != null) {
 			Mapp.remove(gif);
+//			gifTimer.stop();
 		}
 		
-		if (!closedCurtains) {
+		if (o == timer) {
+			
 			for( GImage b : button){
 				b.move(3,0);
 			}
@@ -314,7 +320,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 				timer.stop();
 				
 			}
-		} else {
+		} else if(o == closeTimer){
 			for( GImage b : button){
 				b.move(-3,0);
 			}
@@ -333,13 +339,14 @@ class GameOver extends GraphicsPane implements ActionListener{
 			blankPizza.move(+4, 0);
 			
 			if(cuttingBoard.getX() <= -350) {
-				timer.stop();
+				closeTimer.stop();
 				if(flick == 1) {
 					Mapp.switchToScreen(noWasteModeGameOver);
 				}
 				else {
 					Mapp.switchToScreen(timerModeGameOver);
 				}
+				Mapp.remove(background);
 			}
 		}
 	}
