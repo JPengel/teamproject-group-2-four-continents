@@ -10,3 +10,5 @@ Make sure that you understand the two files provided here
 ## UML Sequence Diagram for files provided
 ![](media/55GroupProjectSequenceDiagram.png)
 // testing readme
+
+## part 3
