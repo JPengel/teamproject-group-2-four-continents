@@ -3,7 +3,7 @@ import java.lang.String;
 public enum ToppingType {
 	BACON, CHEESE, EGG, //TOMATO, // add toppings on this line
 	CAN, PINEAPPLE, CLOCK, ROCK; //add hazards/updates on this line
-	// test
+	// testtedst
 	 public String toString() {
 		switch(this) {
 		//toppings
