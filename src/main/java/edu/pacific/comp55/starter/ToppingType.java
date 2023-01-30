@@ -1,10 +1,9 @@
 package edu.pacific.comp55.starter;
 import java.lang.String;
-//testteteefieifkdnfkdnfkknvkfkvnijdjfij
 public enum ToppingType {
 	BACON, CHEESE, EGG, //TOMATO, // add toppings on this line
 	CAN, PINEAPPLE, CLOCK, ROCK; //add hazards/updates on this line
-	
+	// test
 	 public String toString() {
 		switch(this) {
 		//toppings
