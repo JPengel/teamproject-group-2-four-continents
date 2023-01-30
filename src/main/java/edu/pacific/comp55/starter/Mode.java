@@ -145,14 +145,22 @@ public class Mode extends GraphicsPane implements ActionListener {
 								&& e.getY() < (i.getCurY() + i.getImage().getHeight()) && e.getY() > i.getCurY()) {
 							i.cutTopping();
 							checkForEffects(i);
-							if (i.getType() == ToppingType.CHEESE || i.getType() == ToppingType.BACON
-									|| i.getType() == ToppingType.EGG) {
+							if (i.getType().ordinal() <= ToppingType.sliceCount.length - 1) {
 								comboEntryX = e.getX();
 								comboEntryY = e.getY();
 								System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: "
 										+ comboEntryX + " EntryY: " + comboEntryY); // 4TPs
 								combo(e);
 							}
+
+//							if (i.getType() == ToppingType.CHEESE || i.getType() == ToppingType.BACON
+//									|| i.getType() == ToppingType.EGG) {
+//								comboEntryX = e.getX();
+//								comboEntryY = e.getY();
+//								System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: "
+//										+ comboEntryX + " EntryY: " + comboEntryY); // 4TPs
+//								combo(e);
+//							}
 						}
 					}
 				}
@@ -200,35 +208,45 @@ public class Mode extends GraphicsPane implements ActionListener {
 			AudioPlayer.getInstance().playSound("sounds", "CanSmash.mp3");
 			addSplashImage();
 		}
-		if (onRock) {
-			if (i.getType() == ToppingType.BACON) {
-				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
-				baconSliced++;
-				scoreCounter += 2;
-			} else if (i.getType() == ToppingType.CHEESE) {
-				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
-				cheeseSliced++;
-				scoreCounter += 2;
-			} else if (i.getType() == ToppingType.EGG) {
-				AudioPlayer.getInstance().playSound("sounds", "EggCrack.mp3");
-				eggSliced++;
-				scoreCounter += 2;
-			}
-		} else {
-			if (i.getType() == ToppingType.BACON) {
-				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
-				baconSliced++;
-				scoreCounter++;
-			} else if (i.getType() == ToppingType.CHEESE) {
-				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
-				cheeseSliced++;
-				scoreCounter++;
-			} else if (i.getType() == ToppingType.EGG) {
-				AudioPlayer.getInstance().playSound("sounds", "EggCrack.mp3");
-				eggSliced++;
-				scoreCounter++;
-			}
+		
+		else {
+			AudioPlayer.getInstance().playSound("sounds", ToppingType.soundFileName[i.getType().ordinal()]);
+			ToppingType.sliceCount[i.getType().ordinal()] ++;
+			scoreCounter ++;
+			if(onRock) {
+				scoreCounter ++;
+				}
 		}
+		
+//		if (onRock) {
+//			if (i.getType() == ToppingType.BACON) {
+//				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
+//				baconSliced++;
+//				scoreCounter += 2;
+//			} else if (i.getType() == ToppingType.CHEESE) {
+//				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
+//				cheeseSliced++;
+//				scoreCounter += 2;
+//			} else if (i.getType() == ToppingType.EGG) {
+//				AudioPlayer.getInstance().playSound("sounds", "EggCrack.mp3");
+//				eggSliced++;
+//				scoreCounter += 2;
+//			}
+//		} else {
+//			if (i.getType() == ToppingType.BACON) {
+//				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
+//				baconSliced++;
+//				scoreCounter++;
+//			} else if (i.getType() == ToppingType.CHEESE) {
+//				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
+//				cheeseSliced++;
+//				scoreCounter++;
+//			} else if (i.getType() == ToppingType.EGG) {
+//				AudioPlayer.getInstance().playSound("sounds", "EggCrack.mp3");
+//				eggSliced++;
+//				scoreCounter++;
+//			}
+//		}
 		score.setLabel(String.valueOf(scoreCounter));
 	}
 
@@ -270,13 +288,13 @@ public class Mode extends GraphicsPane implements ActionListener {
 		// System.out.println("---TOPPING ADDED---");;
 		int chance = probability.nextInt(1, 100);
 		if (chance < 71) { // Toppings 70% chance
-			toppingArray.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0, 2)], Mapp));
+			toppingArray.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0, ToppingType.sliceCount.length - 1)], Mapp));
 		} else if (chance > 70 && chance < 86) { // Hazards 15% chance
-			toppingArray.add(new Topping(ToppingType.values()[hazardChooser.nextInt(3, 4)], Mapp));
+			toppingArray.add(new Topping(ToppingType.values()[hazardChooser.nextInt(ToppingType.CAN.ordinal(),ToppingType.PINEAPPLE.ordinal())], Mapp));
 		} else { // Upgrades 15% chance
 			if (isTimerMode) {
 				if (!onRock) {
-					toppingArray.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(5, 6)], Mapp));
+					toppingArray.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(ToppingType.CLOCK.ordinal(),ToppingType.ROCK.ordinal())], Mapp));
 				} else if (chance % 2 == 0) {
 					toppingArray.add(new Topping(ToppingType.CLOCK, Mapp));
 				}
