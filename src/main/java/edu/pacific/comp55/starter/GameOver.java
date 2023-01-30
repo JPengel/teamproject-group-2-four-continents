@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.Timer;
 
@@ -51,6 +52,7 @@ class GameOver extends GraphicsPane implements ActionListener{
 	private RandomGenerator rand = new RandomGenerator();
 	Font Noto;
 	Boolean closedCurtains = false;
+	Vector<Pair> typeCountVec = new Vector<Pair>(ToppingType.sliceCount.length);
 	
 	
 	public GameOver() {}
@@ -139,7 +141,19 @@ class GameOver extends GraphicsPane implements ActionListener{
 		Mapp.add(blankPizza);
 		addToppings();
 	}
-
+	
+	/* This method generates a vector of pairs. The key of the pair is the topping type
+		and the value is the topping type slice count */
+	
+	private void typeCountVectorGenerator() {
+		//for topping type count array size -1 times
+		for(int i = 0; i < ToppingType.sliceCount.length -1; i++) {
+			//create a new par with the key being topping type and the value being how many times this toppin type was sliced
+			Pair<Integer, Integer> typeCount = new Pair <>(i, ToppingType.sliceCount[i]);
+			//add pair to the vector of pairs
+			typeCountVec.add(typeCount);
+		}
+	}
 	
 	private void addToppings() {
 		int sum = baconCount + cheeseCount + eggCount;
