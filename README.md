@@ -31,15 +31,13 @@ ToppyingType.java
             add topping to the topping array
 
           if number is > 70 and < 86
-            randomly selects either 3 or 4 
-            generate a hazard based on the chosen number and its enum position
+            randomly selects either can or pineapple
             add hazard to the topping array
 
           if number is > 85
             if current game mode = timer Mode
               if no rock was cut
-                randomly selects either 5 or 6
-                generate an upgrade based on the chosen number and its enum position
+                randomly selects either clock or rock
                 add the upgrade to the topping array
               if rock was cut and chosen number is even
                 generate a clock 
