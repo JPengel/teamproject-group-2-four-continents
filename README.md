@@ -39,6 +39,8 @@ ToppyingType.java
 /* This method based on a preset probability, first selects if a topping, hazard or upgrade is going to be generated and tossed into the screen. After, another random generator selects what exact type of topping/hazard/upgrade is going to be generated and displayed on the screen. */
 
         public void generateObject()
+          if timer is not running returnnothing
+          
           randomly picks a number between 1-100
           if number is < 71
             randomly choose between 0-topping type count array
