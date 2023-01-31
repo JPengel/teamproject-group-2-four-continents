@@ -35,14 +35,14 @@ class GameOver extends GraphicsPane implements ActionListener{
 	GImage pizza_bacon = new GImage("src/main/resources/bacon_pizza.png");
 	GImage pizza_cheese = new GImage ("src/main/resources/cheese_pizza.png");
 	GImage pizza_egg = new GImage("src/main/resources/egg_pizza.png");
-	GImage bacon = new GImage("src/main/resources/bacon.png",270/2,380/2);
-	GImage cheese = new GImage("src/main/resources/cheese.png",495/2,380/2);
-	GImage egg = new GImage("src/main/resources/egg.png",725/2,380/2);
+//	GImage bacon = new GImage("src/main/resources/bacon.png",270/2,380/2);
+//	GImage cheese = new GImage("src/main/resources/cheese.png",495/2,380/2);
+//	GImage egg = new GImage("src/main/resources/egg.png",725/2,380/2);
 	GImage gif = new GImage("src/main/resources/outro.gif");
-	private int baconCount, cheeseCount, eggCount, scoreCount, flick, offsetCounter = 0;
-	GLabel baconC; 
-	GLabel cheeseC;  
-	GLabel eggC;
+	private int scoreCount, flick, offsetCounter = 0;
+//	GLabel baconC; 
+//	GLabel cheeseC;  
+//	GLabel eggC;
 	GLabel totalScore;
 	private MainApplication Mapp;
 	MainMenu menu; 
@@ -53,19 +53,13 @@ class GameOver extends GraphicsPane implements ActionListener{
 	Font Noto;
 	Boolean closedCurtains = false;
 	Vector<Pair> typeCountVec = new Vector<Pair>(ToppingType.sliceCount.length);
+	public  final String IMG_FILE_PATH = "src/main/resources/", IMG_EXTENSION = ".png";
 	
+	int score = 10;
 	
 	public GameOver() {}
 	
 	public GameOver(Mode mode, MainApplication a, MainMenu menu, int bacon, int cheese, int eggs) {
-//		try {
-//		Noto = Font.createFont(Font.TRUETYPE_FONT, new File("NotoColorEmoji-Regular.ttf")).deriveFont(30f);
-//		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//		ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("NotoColorEmoji-Regular.ttf")));
-//		}
-//		catch(IOException | FontFormatException e) {
-//			
-//		}
 		if (mode instanceof NoWasteMode) {
 			noWasteModeGameOver = (NoWasteMode) mode;
 			flick = 1;
@@ -75,25 +69,25 @@ class GameOver extends GraphicsPane implements ActionListener{
 		}
 		Mapp = a;
 		timer.setInitialDelay(2500);
-//		gifTimer.setInitialDelay(1500);
 		this.menu = menu;
-		baconCount = bacon;
-		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
-		eggCount = eggs;
-		eggC = new GLabel(String.valueOf(eggCount),600/2, 430/2);
-		cheeseCount = cheese;
-		cheeseC = new GLabel(String.valueOf(cheeseCount), 600/2, 610/2);
+//		baconCount = bacon;
+//		baconC = new GLabel(String.valueOf(baconCount),600/2, 260/2);
+//		eggCount = eggs;
+//		eggC = new GLabel(String.valueOf(eggCount),600/2, 430/2);
+//		cheeseCount = cheese;
+//		cheeseC = new GLabel(String.valueOf(cheeseCount), 600/2, 610/2);
+		
 		totalScore = new GLabel(String.valueOf(mode.scoreCounter));
 		button = new ArrayList<GImage>();
 		pizza = new ArrayList<GImage>();
 		label = new ArrayList<GLabel>();
 		if(mode.scoreCounter <10) {
-			totalScore.setLocation(250/2, 580/2);
+			totalScore.setLocation(435/2, 525/2);
 		} else if (mode.scoreCounter <99 && mode.scoreCounter >= 10) {
-			totalScore.setLocation(200/2, 580/2);
+			totalScore.setLocation(400/2, 525/2);
 		}
 		else {
-			totalScore.setLocation(150/2, 580/2);
+			totalScore.setLocation(365/2, 525/2);
 		}
 		drawGameOver();
 		Mapp.add(background);
@@ -118,21 +112,21 @@ class GameOver extends GraphicsPane implements ActionListener{
 		quit.scale(.5);
 		retry.scale(.5);
 		blankPizza.scale(.5);
-		baconC.setFont(FONT);
-		cheeseC.setFont(FONT);
-		eggC.setFont(FONT);
+//		baconC.setFont(FONT);
+//		cheeseC.setFont(FONT);
+//		eggC.setFont(FONT);
 		totalScore.setFont(FONT);
 		totalScore.setColor(Color.red);
-		egg.scale(.5);
-		bacon.scale(.5);
-		cheese.scale(.5);
+//		egg.scale(.5);
+//		bacon.scale(.5);
+//		cheese.scale(.5);
 		button.add(cuttingBoard);
 		button.add(retry);
 		button.add(quit);
-		label.add(cheeseC);
-		label.add(eggC);
+//		label.add(cheeseC);
+//		label.add(eggC);
 		label.add(totalScore);
-		label.add(baconC);
+//		label.add(baconC);
 		//images.add(blankPizza);
 		closeCurtains();
 	}
@@ -146,44 +140,57 @@ class GameOver extends GraphicsPane implements ActionListener{
 		and the value is the topping type slice count */
 	
 	private void typeCountVectorGenerator() {
-		//for topping type count array size -1 times
-		for(int i = 0; i < ToppingType.sliceCount.length -1; i++) {
+		for(int i = 0; i < ToppingType.sliceCount.length; i++) {
 			//create a new par with the key being topping type and the value being how many times this toppin type was sliced
-			Pair<Integer, Integer> typeCount = new Pair <>(i, ToppingType.sliceCount[i]);
-			//add pair to the vector of pairs
-			typeCountVec.add(typeCount);
+			Pair<ToppingType, Integer> typeCount = new Pair <>(ToppingType.TypeName(i), ToppingType.sliceCount[i]);
+			// if the value is different from zero
+			if(typeCount.getValue() != 0) {
+				//add pair to the vector of pairs
+				typeCountVec.add(typeCount);
+			}
 		}
 	}
 	
+	/* This method is responsible for receiving information of how many of each topping was
+	   cut and randomly placing images of the cut topping inside the game over pizza that is
+	   later displayed to the user showing all the ingredients that were sliced during the round */
+	
 	private void addToppings() {
-		int sum = baconCount + cheeseCount + eggCount;
-		int i = 0;
-		while(sum > 0) {
-			int x = rand.nextInt(1, sum);	
-			Pair<Double, Double> coords = generatePlace();
-			if(x <= baconCount) {
-				baconCount--;
-				GImage bacon = new GImage("src/main/resources/bacon_pizza.png");
-				bacon.setLocation(coords.getKey(), coords.getValue());
-				Mapp.add(bacon);
-				images.add(bacon);
-			} else if (x > baconCount && x <= cheeseCount + baconCount) {
-				cheeseCount--;
-				GImage cheese = new GImage("src/main/resources/cheese_pizza.png");
-				cheese.setLocation(coords.getKey(), coords.getValue());
-				Mapp.add(cheese);
-				images.add(cheese);
-			} else {
-				eggCount--;
-				GImage egg = new GImage("src/main/resources/egg_pizza.png");
-				egg.setLocation(coords.getKey(), coords.getValue());
-				Mapp.add(egg);
-				images.add(egg);
+		//create a vector of pairs that store ingredient type and how many times it was sliced
+		typeCountVectorGenerator();
+	   // while the vector of pair size is not zero
+		while(typeCountVec.size() > 0) {
+			//randomly generate a number from 0-size of topping type count array
+			int choice = rand.nextInt(0,typeCountVec.size()-1);
+			//randomly generate coordinated to place the images inside the pizza
+            //add image to the pizza using the random generated number and coordinates
+			addToppingIMG(choice, generatePlace());
+			//decrease the topping counter by one
+			typeCountVec.set(choice, new Pair<>(typeCountVec.get(choice).getKey(), (int)typeCountVec.get(choice).getValue() -1)); 
+			//if topping counter = 0
+			if ((int)typeCountVec.get(choice).getValue() == 0) {
+				//delete vector index
+				typeCountVec.remove(choice);
 			}
-			sum = baconCount + cheeseCount + eggCount;
-			i++;
-			//System.out.println("SUM " + i + ": " + sum);
 		}
+		//set numbers from the Topping Type sliced array to zero once again
+		ToppingType.initArray();
+	}
+	
+	
+	/* This methos is resposible for adding/displaying the slied toppings image on the game over pizza.
+	   It receives a integer and a pair of coordinates as input and with these information it sets the 
+	   location of the sliced ingredient image in the game over screen*/
+	
+	public void addToppingIMG(int i, Pair<Double, Double> coords) {
+		//create a new image that follow a path based on the Topping Type name and position in the vector of pairs
+		GImage slicedImage = new GImage(IMG_FILE_PATH + typeCountVec.get(i).getKey().toString() + "_pizza" + IMG_EXTENSION);
+		//set image location using the coords passed by reference
+		slicedImage.setLocation(coords.getKey(), coords.getValue());
+		//add images to the screen
+		Mapp.add(slicedImage);
+		//add image to the array that keeps all sliced Toppings images that are on the screen
+		images.add(slicedImage);
 	}
 	
 	private Pair<Double, Double> generatePlace() {
@@ -223,12 +230,10 @@ class GameOver extends GraphicsPane implements ActionListener{
 		Mapp.add(cuttingBoard);
 		Mapp.add(quit);
 		Mapp.add(retry);
-		Mapp.add(baconC);
-		Mapp.add(cheeseC);
-		Mapp.add(eggC);
-		if(scoreCount <= 9) {
-			totalScore.scale(1.2);
-		}
+//		Mapp.add(baconC);
+//		Mapp.add(cheeseC);
+//		Mapp.add(eggC);
+		totalScore.scale(1.5);
 		Mapp.add(totalScore);
 		drawPizza();
 		Mapp.add(gif);
@@ -246,13 +251,13 @@ class GameOver extends GraphicsPane implements ActionListener{
 		Mapp.remove(quit);
 		Mapp.remove(retry);
 		Mapp.remove(blankPizza);
-		Mapp.remove(baconC);
-		Mapp.remove(cheeseC);
-		Mapp.remove(eggC);
+//		Mapp.remove(baconC);
+//		Mapp.remove(cheeseC);
+//		Mapp.remove(eggC);
 		Mapp.remove(totalScore);
-		Mapp.remove(bacon);
-		Mapp.remove(cheese);
-		Mapp.remove(egg);
+//		Mapp.remove(bacon);
+//		Mapp.remove(cheese);
+//		Mapp.remove(egg);
 		for(int i = 0; i < images.size(); i++) {
 			Mapp.remove(images.get(i));
 		}
