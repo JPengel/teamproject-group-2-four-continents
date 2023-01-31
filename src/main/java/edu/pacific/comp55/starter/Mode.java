@@ -20,7 +20,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 			toppingToss = new RandomGenerator();
 	private static double comboEntryX, comboEntryY, comboPrevX, comboPrevY, comboNewX = 0, comboNewY = 0, lineSlope = 0,
 			lineB = 0, coordinateWaiter = 0;
-	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 60,
+	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 10,
 			splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0,
 			earlierCounter = 0, crossCounter = 0, wasteCount = 0, noWasteTossSpeed = 100, iterationCount = 0, comboLabelCounter;
 
@@ -46,6 +46,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 	// CONSTRUCTORS
 	public Mode() {
 		drawBoard();
+		ToppingType.initArray();
 		paused = false;
 		System.out.println("Mode Constructor");
 	}
@@ -59,6 +60,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 		Timer = new Timer(20, this);
 		timerGif = new Timer(1400,this);
 		Timer.setInitialDelay(600);
+		ToppingType.initArray();
 		paused = false;
 		System.out.println("Mode Constructor");
 	}
@@ -125,42 +127,44 @@ public class Mode extends GraphicsPane implements ActionListener {
 	// MOUSE LISTENERS
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		//if the game is paused return
 		if (paused == true) {System.out.println("In Pause");}
+		//if not paused
+        	//set previous combo x and y coordinates to new combo x and y coordinates
 		else {
-			// CUTTING CODE SHOULD GO HERE MARK OBJECT AS CUT, UPDATE 4 POINTS ENTRY X Y &
-			// LATER X Y
 			comboPrevX = comboNewX;
 			comboPrevY = comboNewY;
+			//if coordinates counter = 5,  set new combo x and y coordinates to current x and y coordinates of the cursor
 			if (coordinateWaiter == 5) {
 				comboNewX = e.getX();
 				comboNewY = e.getY();
+				//set coordinates counter to 0
 				coordinateWaiter = 0;
 			}
+			//increment coordinates counter 
 			coordinateWaiter++;
+			//if the topping array is not empty iterate through the array
 			if (toppingArray != null) {
 				for (Topping i : toppingArray) {
 					if (!i.isCut()) {
+						//check if the cursor's coordinates match with any ingredients that were not cut dimensions/coordinates
+		            	//if the coordinates match, cut the topping and perform their effects
 						// CHECK X <- | -> // CHECK Y
 						if (e.getX() < (i.getCurX() + i.getImage().getWidth()) && e.getX() > i.getCurX()
 								&& e.getY() < (i.getCurY() + i.getImage().getHeight()) && e.getY() > i.getCurY()) {
 							i.cutTopping();
 							checkForEffects(i);
+							//if topping type enum position <= topping type count array size
 							if (i.getType().ordinal() <= ToppingType.sliceCount.length - 1) {
+								//set combo entry x and y to current x and y coordinates of the cursor
+					 
 								comboEntryX = e.getX();
 								comboEntryY = e.getY();
 								System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: "
 										+ comboEntryX + " EntryY: " + comboEntryY); // 4TPs
+								//check for combo
 								combo(e);
 							}
-
-//							if (i.getType() == ToppingType.CHEESE || i.getType() == ToppingType.BACON
-//									|| i.getType() == ToppingType.EGG) {
-//								comboEntryX = e.getX();
-//								comboEntryY = e.getY();
-//								System.out.println("PrevX: " + comboPrevX + ", PrevY: " + comboPrevY + "  |  EntryX: "
-//										+ comboEntryX + " EntryY: " + comboEntryY); // 4TPs
-//								combo(e);
-//							}
 						}
 					}
 				}
@@ -185,68 +189,61 @@ public class Mode extends GraphicsPane implements ActionListener {
 
 	// CUTIING
 	public void checkForEffects(Topping i) {
+		//if the ingredient cut was pineapple play pineapple sound
 		if (i.getType() == ToppingType.PINEAPPLE) {
 			AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
+			
+			//if the current game mode is Timer Mode
 			if (isTimerMode) {
+				//decrease 10 seconds from the game timer
 				timer -= 10;
+				//set the pineapple label location and add it to the screen
 				pineappleLabel.setLocation(i.getCurX(), i.getCurY());
 				Mapp.add(pineappleLabel);
+				
+			//if not Timer Mode, stop the timer and declare game over
 			} else {
 				stopTimer();
 				callGameOver();
 			}
+			
+		//if the ingredient cut was a clock play clock sound
 		} else if (i.getType() == ToppingType.CLOCK) {
 			AudioPlayer.getInstance().playSound("sounds", "BreakClock.mp3");
 			clockLabel.setLocation(i.getCurX(), i.getCurY());
+			//add 5 seconds to the timer and set clock label and add it to the screen
 			timer += 5;
 			clockLabel();
+			
+		//if the ingredient cut was a rock
 		} else if (i.getType() == ToppingType.ROCK) {
+			//play rock sound
 			AudioPlayer.getInstance().playSound("sounds", "KnifeSharpened.mp3");
+			//start rock timer and set rock label and add it to the screen
 			onRock = true;
 			startRockTimer();
+		
+		//if the ingredient cut was a can
 		} else if (i.getType() == ToppingType.CAN) {
+			// play can sound
 			AudioPlayer.getInstance().playSound("sounds", "CanSmash.mp3");
+			//add splash images to the screen
 			addSplashImage();
 		}
 		
 		else {
+			//play audio of topping from topping type audio array
 			AudioPlayer.getInstance().playSound("sounds", ToppingType.soundFileName[i.getType().ordinal()]);
+			//increment by one the integer counter of ingredients cut on topping type count array
 			ToppingType.sliceCount[i.getType().ordinal()] ++;
+			//increment the game score counter by 1
 			scoreCounter ++;
+			//if rock was cut, increment the game score counter by 1
 			if(onRock) {
 				scoreCounter ++;
 				}
 		}
-		
-//		if (onRock) {
-//			if (i.getType() == ToppingType.BACON) {
-//				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
-//				baconSliced++;
-//				scoreCounter += 2;
-//			} else if (i.getType() == ToppingType.CHEESE) {
-//				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
-//				cheeseSliced++;
-//				scoreCounter += 2;
-//			} else if (i.getType() == ToppingType.EGG) {
-//				AudioPlayer.getInstance().playSound("sounds", "EggCrack.mp3");
-//				eggSliced++;
-//				scoreCounter += 2;
-//			}
-//		} else {
-//			if (i.getType() == ToppingType.BACON) {
-//				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
-//				baconSliced++;
-//				scoreCounter++;
-//			} else if (i.getType() == ToppingType.CHEESE) {
-//				AudioPlayer.getInstance().playSound("sounds", "slice.mp3");
-//				cheeseSliced++;
-//				scoreCounter++;
-//			} else if (i.getType() == ToppingType.EGG) {
-//				AudioPlayer.getInstance().playSound("sounds", "EggCrack.mp3");
-//				eggSliced++;
-//				scoreCounter++;
-//			}
-//		}
+		//update game score counter label
 		score.setLabel(String.valueOf(scoreCounter));
 	}
 
@@ -282,24 +279,38 @@ public class Mode extends GraphicsPane implements ActionListener {
 
 	// OBJECT GENERATOR
 	public void generateObject() {
+		//if timer is not running return nothing
 		if (!Timer.isRunning()) {
 			return;
 		}
 		// System.out.println("---TOPPING ADDED---");;
+		//randomly picks a number between 1-100
 		int chance = probability.nextInt(1, 100);
+		//if number is < 71
 		if (chance < 71) { // Toppings 70% chance
+			//randomly choose between 0-topping type count array and generate an ingredient based on the chosen number and its enum position
+			//add topping to the topping array
 			toppingArray.add(new Topping(ToppingType.values()[toppingChooser.nextInt(0, ToppingType.sliceCount.length - 1)], Mapp));
+		//if number is > 70 and < 86
+	    //randomly selects either can or pineapple and add hazard to the topping array
 		} else if (chance > 70 && chance < 86) { // Hazards 15% chance
 			toppingArray.add(new Topping(ToppingType.values()[hazardChooser.nextInt(ToppingType.CAN.ordinal(),ToppingType.PINEAPPLE.ordinal())], Mapp));
+		//if number is > 85
 		} else { // Upgrades 15% chance
+			// if current game mode = timer Mode
+	          	//if no rock was cut
 			if (isTimerMode) {
 				if (!onRock) {
+					//randomly selects either clock or rock and add the upgrade to the topping array
 					toppingArray.add(new Topping(ToppingType.values()[upgradeChooser.nextInt(ToppingType.CLOCK.ordinal(),ToppingType.ROCK.ordinal())], Mapp));
+				//if rock was cut and chosen number is even, generate a clock and add clock to the topping array
 				} else if (chance % 2 == 0) {
 					toppingArray.add(new Topping(ToppingType.CLOCK, Mapp));
 				}
+			//if not in Timer mode and if the chosen number is even and no rock was cut	
 			} else {
 				if (chance % 2 == 0 && !onRock) {
+					// generate a rock and add rock to the topping array
 					toppingArray.add(new Topping(ToppingType.ROCK, Mapp));
 				}
 			}
