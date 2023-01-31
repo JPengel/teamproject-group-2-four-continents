@@ -160,4 +160,26 @@ GameOver.java
           
 
 
-## part 3
+## Feature Demonstration
+After implementing the proposed feature, new developers and even people who never coded before can easily add new toppings to the game. Before this feature
+ was applied, to add new ingredients to the game, every single file would need to be modified and a lot of repetitive code would need to be written. However, adding one or two words in a single is all it takes to add new elements to the game after the new feature was implemented.
+
+As seen in the first screen shot, there are only four spots that need to be changes when adding a new topping to the game and all these changes occur inside ToppingType.java. Circled in red are all the changes I needed to perform in order to add tomatos to the game besides adding the images and sounds to their respective folders (shown on second screen shot).
+
+<img width="1470" alt="Screen Shot 2023-01-30 at 6 38 52 PM" src="https://user-images.githubusercontent.com/114448502/215652556-d7e87948-ff2b-41c5-9208-e5d7f5d44c4d.png">
+
+<img width="369" alt="Screen Shot 2023-01-30 at 6 28 13 PM" src="https://user-images.githubusercontent.com/114448502/215653394-b40edb63-cc6c-41b7-8368-dcc07065243f.png">
+
+The following screenshots, shows that tomatos were added to the game and that each of their images (tomato, cut tomato and sliced tomato) appear during different stages of the game. 
+
+
+<img width="957" alt="Screen Shot 2023-01-30 at 6 40 19 PM" src="https://user-images.githubusercontent.com/114448502/215653586-e410e2fb-612d-494b-b15e-7c4f7e3d0ee5.png">
+
+
+<img width="833" alt="Screen Shot 2023-01-30 at 6 41 59 PM" src="https://user-images.githubusercontent.com/114448502/215653618-49c1d676-5adf-48e0-aec1-f4c7ec448d89.png">
+
+
+<img width="961" alt="Screen Shot 2023-01-30 at 6 32 17 PM" src="https://user-images.githubusercontent.com/114448502/215653650-54b59347-96ee-40d0-94d2-4a8230fc9d9a.png">
+
+
+<img width="958" alt="Screen Shot 2023-01-30 at 6 41 46 PM" src="https://user-images.githubusercontent.com/114448502/215653683-947bf6a8-8f12-47d0-9861-19507f9302ab.png">
