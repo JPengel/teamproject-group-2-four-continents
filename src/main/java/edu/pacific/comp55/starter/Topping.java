@@ -7,7 +7,7 @@ import java.util.random.RandomGenerator;
 public class Topping extends GraphicsPane{
 	//VARIABLES
 	private  double startX, vertexX, vertexY;
-	//					    ↘ CHANGE SCALE ↙ not the screen dimensions
+	//↘ CHANGE SCALE ↙ not the screen dimensions
 	private  final double SCALE = 0.5, startY = 0, WIDTH = 1920 * SCALE, HEIGHT = 1080 * SCALE;
 	private  double curX, curY, hParab, aParab, kParab;
 	private  MainApplication Mapp;

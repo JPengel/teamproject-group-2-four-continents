@@ -20,7 +20,7 @@ public class Mode extends GraphicsPane implements ActionListener {
 			toppingToss = new RandomGenerator();
 	private static double comboEntryX, comboEntryY, comboPrevX, comboPrevY, comboNewX = 0, comboNewY = 0, lineSlope = 0,
 			lineB = 0, coordinateWaiter = 0;
-	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 10,
+	protected int baconSliced = 0, cheeseSliced = 0, eggSliced = 0, scoreCounter = 0, comboCounter = 1, timer = 60,
 			splashCounter, pineappleLabelCounter, clockCounter, sharpCounter, sharpLabelCounter = 5, tossCounter = 0,
 			earlierCounter = 0, crossCounter = 0, wasteCount = 0, noWasteTossSpeed = 100, iterationCount = 0, comboLabelCounter;
 
