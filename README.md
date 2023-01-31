@@ -114,10 +114,9 @@ ToppyingType.java
 
           play audio of topping from topping type audio array 
           increment by one the integer counter of ingredients cut on topping type count array
+          increment the game score counter by 1
           if rock was cut
-            increment the game score counter by 2
-          if rock wasn't cut
-            increment the game score by 1
+            increment the game score counter by 1
 
           update game score counter label
   
