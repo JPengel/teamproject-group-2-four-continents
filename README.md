@@ -17,6 +17,21 @@ ToppyingType.java
 
         create a static list that maintains an ordered collection of sound files names, matching the enum class order
         create a static list of size equal to the number of ingredients, that maintains an ordered collection of integers/counters, matching the enum class order 
+        
+        
+ /* This method receives a integer as input and matches the input with the ingredients names based on their enum position */
+ 
+        public static ToppingType TypeName(int i)
+          "n" case matches with ingredient on "n" enum position and returns it
+          if case is not matched, by default return rock
+        
+  
+/* This method simply initializes the array thats keeps track of how many times each ingredient type was sliced based on the ingredients enum position */
+
+        public static void initArray()
+          create new array that has same size as the sound file array
+          initialize each element of the array to zero
+  
   
   
  Mode.java
