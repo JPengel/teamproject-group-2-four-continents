@@ -15,8 +15,8 @@ At the moment, if some developer wants to add new ingredients to the game, they 
 
 ToppyingType.java
 
-        create a static list that maintains an ordered collection of sound files names, matching the enum class order
-        create a static list of size equal to the number of ingredients, that maintains an ordered collection of integers/counters, matching the enum class order 
+        create a static array that maintains an ordered collection of sound files names, matching the enum class order
+        create a static array of size equal to the number of ingredients, that maintains an ordered collection of integers/counters, matching the enum class order 
         
         
  /* This method receives a integer as input and matches the input with the ingredients names based on their enum position */
@@ -39,6 +39,8 @@ ToppyingType.java
 /* This method based on a preset probability, first selects if a topping, hazard or upgrade is going to be generated and tossed into the screen. After, another random generator selects what exact type of topping/hazard/upgrade is going to be generated and displayed on the screen. */
 
         public void generateObject()
+          if timer is not running returnnothing
+          
           randomly picks a number between 1-100
           if number is < 71
             randomly choose between 0-topping type count array
@@ -127,15 +129,16 @@ GameOver.java
 
         private void addToppings()
           create a vector of pairs that store ingredient type and how many times it was sliced
-          randomly generate coordinated to place the images inside the pizza
 
           while the vector of pair size is not zero
             randomly generate a number from 0-size of topping type count array
-            use generated number to choose the index on the pair's vector
-             add an image to the pizza
-             decrease the topping counter by one
-             if topping counter = 0
-               delete vector index
+            randomly generate coordinated to place the images inside the pizza
+            add an image to the pizza using the random generated number and coordinates
+            decrease the topping counter by one
+            if topping counter = 0
+              delete vector index
+            
+         Set numbers from the Topping Type sliced array to zero once again
   
   
 /* This method generates a vector of pairs. The key of the pair is the topping type and the value is the topping type slice count */
@@ -144,8 +147,18 @@ GameOver.java
 
           for topping type count array size -1 times
             create a new par with the key being topping type and the value being how many times this toppin type was sliced
-            add pair to the vector of pairs
-        
+            if the value is different from zero
+                add pair to the vector of pairs
+                
+
+/* This methos is resposible for adding/displaying the slied toppings image on the game over pizza. It receives a integer and a pair of coordinates as input and with these information it sets the location of the sliced ingredient image in the game over screen*/
+
+        public void addToppingIMG(int i, Pair<Double, Double> coords)
+          create a new image that follow a path based on the Topping Type name and position in the vector of pairs
+          set image location using the coords passed by reference
+          add images to the screen
+          add image to the array that keeps all sliced Toppings images that are on the screen
+          
 
 
 ## part 3
